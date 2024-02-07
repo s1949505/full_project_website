@@ -1,0 +1,8 @@
+from django.contrib import admin
+from django.urls import path, include
+from insights.urls import urlpatterns as insights_urls
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include(insights_urls)),  # Include the URLs from the 'insights' app
+]

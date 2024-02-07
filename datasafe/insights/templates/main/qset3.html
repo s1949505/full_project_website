@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Author" content="Calvin Condie">
+        <link rel="stylesheet" href="../insights/static/style.css">
+        <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
+        <script src="../insights/static/script.js" defer></script>
+    </head>
+<body>
+    <div class="sidenav">    
+        <li style="text-align:center; padding-top: 20px; padding-bottom: 10px; font-size:30px;">
+            DataSafe
+        </li>
+        <li>
+            <a href="home.html">Home</a>
+        </li>
+        <li>
+            <a class="active"  href="intro.html">Creating a data card</a>
+        </li>
+        <li>
+            <a href="account.html">Account</a>
+        </li>
+        <li>
+            <a href="browse.html">Browse</a>
+        </li>
+        <li>
+            <a href="saved.html">Saved Cards</a>
+        </li>
+        <li>
+            <a href="account.html">Logout</a>
+        </li>
+    </div>
+
+    <div style="margin-left:20%; padding:10px 10px">
+        <h2 style="font-size: 30px; font-family:'Inria Sans'">
+            Creating a data card
+        </h2>
+    </div>
+
+    <div class="topnav">
+        <a style="color: black;" href="qset3.html">Further</a>
+        <a style="color: black;" href="qset2.html">Technical</a>
+        <a style="color: black;" href="qset1.html">Primary/General</a>
+    </div>
+
+    <div class="setTitle">
+        <h3 style="display: inline;">
+            Question set 3: <p style="display: inline; font-size: medium; font-weight: lighter;">Additional Information</p>
+        </h3>
+    </div>
+    <div style="display: block; text-align: left; padding: 10px 10px; margin-left: 24%;">
+        <form id="formSet3">
+            <p>Is the dataset still being maintained?</p>
+            <div>  
+                <input type="radio" id="yes" name="maintained" value="Yes" onclick="showExtenstion('show', 'maintainedInfo', '&lt When was the last maintenance (dd/mm/yyyy) and who is maintaining it &gt')">
+                <label for="yes">Yes</label><br>
+                <input type="radio" id="no" name="maintained" value="No" onclick="showExtenstion('hide',  'maintainedInfo', 'iwoenc')">
+                <label for="no">No</label>
+                <div class="popUp" id="maintainedInfo">
+                    <br>
+                    <label for="maintainedInfo">Please provide more information:</label>
+                    <br>
+                    <textarea class="popupTextArea" name="maintainedInfo" id="maintainedInfo" rows="4" placeholder="default"></textarea>
+                </div>
+            </div>
+            <br>
+            <label for="Uses">Possible uses for the dataset:</label>
+            <br>
+            <textarea rows="4" type="text" id="Uses" name="Uses" placeholder="&lt Discuss potential tasks this dataset could be used for beyond the intended use of the project. &gt"></textarea>
+            <br>
+            <label for="unsafe">Known (possibly) unsafe applications of the dataset:</label>
+            <br>
+            <textarea rows="8" type="text" id="unsafe" name="unsafe" placeholder="&lt Discuss uses of the dataset or tasks that will not work or will produce unfair/bias/misrepresentative results. &#10Try to avoid mentioning obvious cases where use of the daaset will not work such as if the dataset is a set of images, you don't need to mention that using it to do speech recognition won't work.&gt"></textarea>
+            <br>
+            <label for="bias">Known underlying bias or problems</label>
+            <br>
+            <textarea rows="6" type="text" id="bias" name="bias" placeholder="&lt Are there any know problems with the dataset? &#10What are they and why have they not been fixed? &#10 &#10Are there any biases in the dataset? &#10Why are they present? &gt"></textarea>
+            <br>
+            <label for="social">Possible social impact of dataset:</label>
+            <br>
+            <textarea rows="4" type="text" id="social" name="social" placeholder="&lt Discuss considerations a user of the dataset should take and measures taken during th e creation and use of the dataset. &gt"></textarea>
+            <br>
+            <label for="cite">Dataset Citation</label>
+            <br>
+            <textarea rows="3" type="text" id="cite" name="cite" placeholder="&lt If the dataset is used how should it be cited on work. Give and explanation, example or link to usage guidelines of the dataset. &gt"></textarea>
+            <br>
+            <label for="further">Additional Information:</label>
+            <br>
+            <textarea rows="10" type="text" id="further" name="further" placeholder="&lt This space is for you to include any information that you feel is important that has not already been covered by the guide. You can discuss anything you feel is relevant and leave the answer as long or short a you like. &gt"></textarea>
+            <br>
+
+        </form>
+    </div>
+    
+    <div style="height: 880px;" class="overviews">
+        <top><b style="color: rgb(61, 61, 61);">Section 3 overview</b></top>
+        <maintext>
+            This section covers some additional information that should be included to provide a more complete understanding of the dataset and its uses. 
+            <br>
+            <br>
+            This section concerns ethical issues, information for assisting the consideration and extra points of the knowledge that creators and end users may find useful to consider and think about.
+            <br>
+            <br>
+            There us an additional space as the last question for the creator to add anything to the data card they see appropriate.
+            <br>
+            <br>
+            This is the last section in the data card creation guide. From here you may mark the card as completed using the button at the bottom of the page or save and exit to continue or complete at a later date.
+        </maintext>
+        <button onclick="saveText3('complete.html')" type="button"  style="margin-top: 30px;"  class="saveandexit">Save and Exit</button>
+    </div>
+
+    <div class="navContainer">
+        <div class="lastpage">
+            <button onclick="saveText3('qset2.html')" style="cursor: pointer; padding: 10px 30px;"> Previous </button>
+        </div>
+    </div>
+
+</body>

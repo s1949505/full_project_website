@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Author" content="Calvin Condie">
+    <link rel="stylesheet" href="../insights/static/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="../insights/static/script.js" defer></script>
+
+</head>
+
+<body>
+    <div class="sidenav">
+    <li style="text-align:center; padding-top: 20px; padding-bottom: 10px; font-size:30px;">
+        DataSafe
+    </li>
+    <li>
+        <a href="home.html">Home</a>
+    </li>
+    <li>
+        <a href="intro.html">Creating a data card</a>
+    </li>
+    <li>
+        <a href="account.html">Account</a>
+    </li>
+    <li>
+        <a href="browse.html">Browse</a>
+    </li>
+    <li>
+        <a href="saved.html">Saved Cards</a>
+    </li>
+    <li>
+        <a href="account.html">Logout</a>
+    </li>
+    </div>
+    <div id="pdf" style="margin-left: 25%; margin-top: 10%;">
+        <div>
+            <h2>Data Card for <span id="nameText"></span></h2>
+            <div style="background-color: lightgray; height: auto; width: 70%;">
+            <p>Dataset overview</p>: <span id="descriptionText"></span></p>
+            </div>  
+        </div>
+        <div>                 
+            <h2>Basic Information <span><div style="width: 90%;  position: relative; border: 2px black solid"></div></span></h2>
+            <div class="text-block">  
+                <p style="color: blue;">Dataset Authors: <span style="color: black;" id="authorsText"></span></p>
+                <p style="color: blue;">Collaborators/contributors: <span style="color: black;"id="contributorsText"></span></p>
+                <p style="color: blue;">Combination: <span style="color: black;" id="combinationText"></span></p>
+                <p style="color: blue;">Funding: <span style="color: black;" id="fundingText"></span></p>
+                <p style="color: blue;">Date of dataset ceration: <span style="color: black;" id="dateText"></span></p>
+                <p style="color: blue;">Dataset version: <span style="color: black;" id="versionText"></span></p>
+            </div>
+            <div class="text-block">
+                <p style="color: blue;">Motivation for creation of the dataset: <span style="color: black;" id="motivationText"></span></p>
+                <p style="color: blue;">Motivation for research: <span style="color: black;" id="researchText"></span></p>
+                <p style="color: blue;">Accessibility of the dataset: <span style="color: black;" id="accessibilityText"></span></p>
+            </div>
+        </div>
+        <h2>Technical Details <span><div style="width: 90%;  position: relative; border: 2px black solid"></div>            </span></h2>
+        <div>
+            <div class="text-block">
+
+                <p style="color: blue;">Main application(s): <span style="color: black;" id="applicationsText"></span></p>
+                <p style="color: blue;">Primary datatypes: <span style="color: black;" id="datatypesText"></span></p>
+                <p style="color: blue;">Primary data: <span style="color: black;" id="qorqText"></span></p>
+                <p style="color: blue;">Annotation method: <span style="color: black;" id="annotationText"></span></p>
+                <p style="color: blue;">Data collection method: <span style="color: black;" id="collectionText"></span></p>
+                <p style="color: blue;">Dataset size: <span style="color: black;" id="sizeText"></span></p>
+                <p style="color: blue;">Data splits: <span style="color: black;" id="splitsText"></span></p>
+            </div>
+            <div class="text-block">
+
+                <p style="color: blue;">Data format: <span style="color: black;" id="formatText"></span></p>
+                <p style="color: blue;">Languages used: <span style="color: black;" id="languagesText"></span></p>
+                <p style="color: blue;">Dataset license ID: <span style="color: black;" id="licenceText"></span></p>
+                <p style="color: blue;">Last update to dataset: <span style="color: black;" id="updateText"></span></p>
+                <p style="color: blue;">Known underrepresented categories/fields: <span style="color: black;" id="flawsText"></span></p>
+                <p style="color: blue;">Sensitive data: <span style="color: black;" id="personalText"></span></p>
+                <p style="color: blue;">DOI citation number: <span style="color: black;" id="doiText"></span></p>
+            </div>
+        </div>
+            <h2>Additional Information</h2><span><div style="width: 90%;  position: relative; border: 2px black solid"></div>            </span></h2>
+
+        <div>
+            <div class="text-block">
+                <p style="color: blue;">Is the dataset still being maintained: <span style="color: black;" id="maintainedText"></span></p>
+                <p style="color: blue;">Possible related social impact: <span style="color: black;" id="socialText"></span></p>
+                <p style="color: blue;">Kown possible underlying bias/problems: <span style="color: black;" id="biasText"></span></p>
+                <p style="color: blue;">How to cite the dataset: <span style="color: black;"id="citeText"></span></p>
+            </div>
+            <div class="text-block">
+                <p style="color: blue;">Other possible applications of the dataset: <span style="color: black;" id="UsesText"></span></p>
+                <p style="color: blue;">Known unsafe applications: <span style="color: black;" id="unsafeText"></span></p>
+                <p style="color: blue;">Additional information: <span style="color: black;" id="furtherText"></span></p>
+            </div>
+        
+        </div>
+    </div>
+
+    <div class="greenButtons" style="width: 120px; height: 30px; position: absolute; top: 70px; right: 0px; margin-right: 5%;">
+        <button style="padding: 10px;" id="exportBtn">Export to PDF</button>
+    </div>
+
+    <div class="greenButtons" style="width: 120px; height: 30px; position: absolute; top: 130px; right: 0px; margin-right: 5%;">
+        <button style="padding: 10px;" id="saveBtn" onclick="saveToAccount()">Save To account</button>
+    </div>
+
+    <h2>Complete Information for <span id="identifierText"></span></h2>
+
+    <script src="../insights/static/script.js" defer></script>
+    <script>
+        window.onload = function () {
+            // Retrieve identifier from URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var identifier = urlParams.get('identifier');
+
+            // Use the identifier to load and display data on the page
+            loadDataForIdentifier(identifier);
+        };
+
+        function loadDataForIdentifier(identifier) {
+        // Retrieve data from local storage using the identifier
+        var storageKey = 'data_' + identifier;
+        var storedData = {};
+
+        // Populate storedData with information from local storage
+        for (var i = 0; i < keysArray.length; i++) {
+            var item = keysArray[i];
+            var key = storageKey + '_' + item.key;
+            var storedValue = localStorage.getItem(key);
+
+            // Add the key-value pair to the storedData object
+            storedData[item.key] = storedValue || 'N/A';
+        }
+
+        // Update HTML elements with the retrieved data
+        document.getElementById('nameText').innerText = storedData['DatasetName'];
+        document.getElementById('descriptionText').innerText = storedData['description'];
+        document.getElementById('authorsText').innerText = storedData['authors'];
+        document.getElementById('contributorsText').innerText = storedData['contributors'];
+        document.getElementById('motivationText').innerText = storedData['motivation'];
+        document.getElementById('researchText').innerText = storedData['research'];
+        document.getElementById('accessibilityText').innerText = storedData['accessibility'];
+        document.getElementById('combinationText').innerText = storedData['combination'];
+        document.getElementById('fundingText').innerText = storedData['funding'];
+        document.getElementById('dateText').innerText = storedData['date'];
+        document.getElementById('versionText').innerText = storedData['version'];
+
+        document.getElementById('applicationsText').innerText = storedData['applications'];
+        document.getElementById('datatypesText').innerText = storedData['datatypes'];
+        document.getElementById('qorqText').innerText = storedData['qorq'];
+        document.getElementById('annotationText').innerText = storedData['annotation'];
+        document.getElementById('collectionText').innerText = storedData['collection'];
+        document.getElementById('sizeText').innerText = storedData['size'];
+        document.getElementById('splitsText').innerText = storedData['splits'];
+        document.getElementById('formatText').innerText = storedData['format'];
+        document.getElementById('personalText').innerText = storedData['personal'];
+        document.getElementById('flawsText').innerText = storedData['flaws'];
+        document.getElementById('languagesText').innerText = storedData['languages'];
+        document.getElementById('licenceText').innerText = storedData['licence'];
+        document.getElementById('doiText').innerText = storedData['doi'];
+        document.getElementById('updateText').innerText = storedData['update'];
+
+        document.getElementById('maintainedText').innerText = storedData['maintained'];
+        document.getElementById('UsesText').innerText = storedData['Uses'];
+        document.getElementById('unsafeText').innerText = storedData['unsafe'];
+        document.getElementById('socialText').innerText = storedData['social'];
+        document.getElementById('biasText').innerText = storedData['bias'];
+        document.getElementById('citeText').innerText = storedData['cite'];
+        document.getElementById('furtherText').innerText = storedData['further'];
+
+        // Optionally, you can add additional logic or formatting here
+
+        // For demonstration purposes, you can log the retrieved data to the console
+        console.log('Retrieved Data:', storedData);
+    }
+        
+
+        var keysArray = [
+            //Question set 1
+            { key: 'DatasetName', targetElementId: 'nameText' },
+            { key: 'description', targetElementId: 'descriptionText' },
+            { key: 'authors', targetElementId: 'authorsText' },
+            { key: 'contributors', targetElementId: 'contributorsText' },
+            { key: 'motivation', targetElementId: 'motivationText' },
+            { key: 'research', targetElementId: 'researchText' },
+            { key: 'accessibility', targetElementId: 'accessibilityText' },
+            { key: 'combination', targetElementId: 'combinationText' },
+            { key: 'funding', targetElementId: 'fundingText' },
+            { key: 'date', targetElementId: 'dateText' },
+            { key: 'version', targetElementId: 'versionText' },
+           
+            
+            //Question set 2
+            { key: 'applications', targetElementId: 'applicationsText' },
+            { key: 'datatypes', targetElementId: 'datatypesText' },
+            { key: 'qorq', targetElementId: 'qorqText' },
+            { key: 'annotation', targetElementId: 'annotationText' },
+            { key: 'collection', targetElementId: 'collectionText' },
+            { key: 'size', targetElementId: 'sizeText' },
+            { key: 'splits', targetElementId: 'splitsText' },
+            { key: 'format', targetElementId: 'formatText' },
+            { key: 'personal', targetElementId: 'personalText' },
+            { key: 'flaws', targetElementId: 'flawsText' },
+            { key: 'languages', targetElementId: 'languagesText' },
+            { key: 'licence', targetElementId: 'licenceText' },
+            { key: 'doi', targetElementId: 'doiText' },
+            { key: 'update', targetElementId: 'updateText' },
+
+            //Question set 3
+            { key: 'maintained', targetElementId: 'maintainedText' },
+            { key: 'Uses', targetElementId: 'UsesText' },
+            { key: 'unsafe', targetElementId: 'unsafeText' },
+            { key: 'social', targetElementId: 'socialText' },
+            { key: 'bias', targetElementId: 'biasText' },
+            { key: 'cite', targetElementId: 'citeText' },
+            { key: 'further', targetElementId: 'furtherText' },
+
+        ];
+
+        const titlesArray = [
+            'Data Card for ',
+            'Dataset overview: ',
+            'Dataset Authors: ',
+            'Collaborators/contributors: ',
+            'Motivation for creation of the dataset: ',
+            'Motivation for research: ',
+            'Accessibility of the dataset: ',
+            'Combination: ',
+            'Funding: ',
+            'Date of dataset ceration: ',
+            'Dataset version: ',
+            'Main application(s): ',
+            'Primary datatypes: ',
+            'Primary data: ',
+            'Annotation method: ',
+            'Data collection method: ',
+            'Dataset size: ',
+            'Data splits: ',
+            'Data format: ',
+            'Sensitive data: ',
+            'Known underrepresented categories/fields: ',
+            'Languages used: ',
+            'Dataset license ID: ',
+            'DOI citation number: ',
+            'Last update to dataset: ',
+            'Is the dataset still being maintained: ',
+            'Other possible applications of the dataset: ',
+            'Known unsafe applications: ',
+            'Possible related social impact: ',
+            'Kown possible underlying bias/problems: ',
+            'How to cite the dataset: ',
+            'Additional information: ',
+
+        ];
+        // Call displayMultipleKeys to display information for multiple keys
+        displayMultipleKeys(keysArray);
+
+        window.jsPDF = window.jspdf.jsPDF;
+
+        
+        document.getElementById('exportBtn').addEventListener('click', function () {
+            // Create new jsPDF instance
+            var pdf = new jsPDF();
+
+            var startY = 10; // Initial Y coordinate
+            var pageIndex = 1; // Initial page index
+
+            // Loop through keysArray and titlesArray simultaneously
+            for (var index = 0; index < keysArray.length; index++) {
+                var item = keysArray[index];
+                var element = document.getElementById(item.targetElementId);
+                var text = element ? element.innerText : 'null';
+
+                // Title
+                pdf.setTextColor(0, 0, 255); // Set color to blue for titles
+                pdf.text(10, startY, titlesArray[index]);
+
+                // Information
+                pdf.setTextColor(0, 0, 0); // Set color to black for information
+               
+                var splitText = pdf.splitTextToSize(text, pdf.internal.pageSize.width - 30);
+                for (var i = 0; i < splitText.length; i++) {
+                    pdf.text(10, startY + 5 + (i * 10), splitText[i]);
+                }
+
+                startY += (splitText.length * 10) + 10 ;
+
+                // Check if the content exceeds the page height
+                if (startY > 280) {
+                    // Add a new page
+                    pdf.addPage();
+                    pageIndex++;
+                    // Reset Y coordinate for the new page
+                    startY = 10;
+    
+                }
+            }
+            
+
+            // Save the PDF file
+            pdf.save('exported_content.pdf');
+            alert("export successful")
+        });
+
+
+    
+    </script>
+
+</body>
+
+</html>

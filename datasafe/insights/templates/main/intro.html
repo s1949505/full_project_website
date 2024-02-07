@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Author" content="Calvin Condie">
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+        <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
+        <script src="{% static 'script.js' %}"></script>
+        <script>
+            function openUploadOverlay() {
+            document.getElementById("overlay").style.display = "flex";
+            }
+
+            function closeUploadOverlay() {
+                document.getElementById("overlay").style.display = "none";
+            }
+        </script>
+    </head>
+<body>
+
+    <div class="sidenav">
+        <li style="text-align:center; padding-top: 20px; padding-bottom: 10px; font-size:30px;">
+            DataSafe
+        </li>
+        <li>
+            <a href="home.html">Home</a>
+        </li>
+        <li>
+            <a class="active" href="intro.html">Creating a data card</a>
+        </li>
+        <li>
+            <a href="{% url 'account' %}">Account</a>
+        </li>
+        <li>
+            <a href="browse.html">Browse</a>
+        </li>
+        <li>
+            <a href="saved.html">Saved Cards</a>
+        </li>
+        <li>
+            <a href="account.html">Logout</a>
+        </li>
+    </div>
+
+    <div class="topscreen">
+        <div style="margin-left:18%; padding:10px 4%">
+            <h2 style="font-size: 30px; font-family:'Inria Sans'">
+                Creating a data card
+            </h2>
+        </div>
+
+        <div class="topnav">
+            <a style="color: black;" href="qset3.html">Further</a>
+            <a style="color: black;" href="qset2.html">Technical</a>
+            <a style="color: black;" href="qset1.html">Primary/General</a>
+        </div>
+    </div>
+
+    <div id="infodiv">
+        <div class="infoSections" style="margin-top: -20px;">
+            <h2 style="margin: 10px; font-family:'Inria Sans'">Rationale:</h2>
+            <p style="margin: 15px;">
+                Data cards are a recent innovation that desires to ensure fair use of data by providing additional knowledge of dataset features to potential users. Data cards outline the main technical features of the dataset, the intended use of the dataset or reasons behind why the dataset was created and other further potential uses that have been identified, the creation process and creators of the dataset and ethical implications and considerations to be aware of when using the data.
+            </p>
+            <h2 style="margin: 10px; font-family: 'Inria Sans';">Process:</h2>
+            <p style="margin: 15px;">
+                A complete data card will be made on completion of the next 3 sets of questions. The questions are broken down into 3 main sections across the next 3 pages where every question should be provided with a complete answer. <br>
+                <br>
+                If a question is not applicable to your dataset or you are unsure how to answer it simply give n/a as an answer. However, all questions should be considered and thought should be given in each answer.<br>
+                <br>
+                The sections are designed to be completed alongside the process of dataset creation. As such, they should loosely follow the timeline of building a dataset. However, questions do not have to be answered in order. Different sections can be navigated to where different questions can be answered at any time in the process. You can navigate between the sections using the links at the bottom of the page or the navigation bar at the top of the page. This allows you to go between sections as you please.
+            </p>
+        </div>
+
+        <div class="infoSections">
+            <h2 style="margin: 10px; font-family:'Inria Sans'">Steps:</h2>
+            <p style="margin: 15px;">
+                
+                1. Answer questions in the grey boxes. There may be some text that suggests what information to include to give full answer. <br>
+                <br>
+                2. Fill out each question to the best of your ability. If you are unable to complete a question you can save progress and return at a later time. Progression of data card completion is shown in your account.<br>
+                <br>
+                3. Some questions are yes/no answers, depending on how these questions are answered additional questions may become available <br>
+                <br>
+                4. Attempt to answer all questions, if you feel you cannot answer a question, please give n/a as an answer and brief reasoning if you can<br> 
+                <br>
+                5. Once every question has been answered a data card will be created and produced. This card will be available for download.<br>
+                <br>
+                Either click <a style="color: rgb(60, 0, 255);" href="qset1.html">here</a> to begin the questionnaire or the next page link at the bottom of the page <br>
+                <br>
+                You can save your progress and continue at a later date at any point in the process. Simply find the “save and exit” button at the bottom of the page. This will save your data card to your account under “Your Cards” where progress can be viewed and continued.
+            </p>
+        </div>
+    </div>
+
+    <div style="display: inline;">
+    <div style="align-items: center;">
+        <form action="qset1.html">
+            <button style="position: relative; font-family: 'Inria Sans'; align-items: center; font-weight: bold; left: 50%; cursor: pointer; border-radius: 10px; background-color: rgb(98, 240, 124); width: 40%; height: 80px; font-size: 22px;">
+                Begin data card creation guide
+            </button>
+        </form>
+    </div>
+
+    <div style="align-items: center;">
+        <button onclick="openUploadOverlay()" style="position: relative; top:-80px; font-family: 'Inria Sans'; align-items: center; font-weight: bold; left: 22%; cursor: pointer; border-radius: 10px; background-color: rgba(98, 216, 240, 0.404); width: 25%; height: 80px; font-size: 22px;">
+            Upload dataset for automated insights
+        </button>
+    </div>
+    </div>
+
+     <!-- Hidden file input to trigger file upload -->
+     <input type="file" id="fileInput" style="display: none;" />
+
+     <!-- Upload overlay -->
+     <div id="overlay" class="overlay">
+         <div class="modal">
+             <h1>Upload a File</h1>
+             <form id="uploadForm" method="POST" enctype="multipart/form-data" action="{% url 'upload' %}">
+                {% csrf_token %}
+                <label for="file">Select a file:</label>
+                 <input type="file" name="file" required><br>
+                 <label for="max_rows">Enter the last row with data to read to:</label>
+                 <input type="number" name="max_rows" required><br>
+                 <label for="max_cols">Enter the last column with data to read to:</label>
+                 <input type="text" name="max_cols" required><br>
+                 <label for="title_row">Is there a title row Y/n:</label>
+                 <input type="text" name="title_row" required><br>
+                 <button type="button" onclick="submitForm()">Submit</button>
+                 <button type="button" onclick="closeUploadOverlay()">Cancel</button>
+             </form>
+         </div>
+     </div>
+    <div class="footer" style="font-family: 'Inria Sans'; position: relative;">
+        <a><u>Contact us:</u> <br> DataSafe@gmail.com <br> DataSafe.twitter </a>
+        <a><u>Having Probelems?</u> <br> Find our FAQs here: <br> DataSafeFAQs.com</a>
+        <a><u>Other useful links:</u> <br> linktoethicspaper.com <br> otherlink.com</a>
+    </div>
+    <script>
+        function submitForm() {
+            var form = document.getElementById("uploadForm");
+            var formData = new FormData(form);
+        
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", form.action, true);
+        
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Handle the response
+                    var response = JSON.parse(xhr.responseText);
+                    displayInfo(response.result);
+                } else {
+                    // Log the entire response for debugging
+                    console.error("Error:", xhr.status, xhr.statusText, xhr.responseText);
+                }
+            };
+        
+            xhr.onerror = function () {
+                // Handle network errors
+                console.error("Network error");
+            };
+        
+            xhr.send(formData);
+            closeUploadOverlay();  // Close the overlay after submission
+        
+            // Prevent the default form submission
+            event.preventDefault();
+        }
+    
+        function displayInfo(result) {
+            var displayInfoDiv = document.getElementById("displayInfo");
+            displayInfoDiv.innerHTML = "";  // Clear existing content
+        
+            for (var i = 0; i < result.length; i++) {
+                var paragraph = document.createElement("p");
+                paragraph.innerHTML = result[i];
+                displayInfoDiv.appendChild(paragraph);
+            }
+        
+            openUploadOverlay();  // Assuming you want to keep the overlay open after submission
+        }
+    </script>
+
+</body>
+
+</html>
+

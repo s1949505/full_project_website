@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Author" content="Calvin Condie">
+        <link rel="stylesheet" href="../insights/static/style.css">
+        <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
+        <script src="../insights/static/script.js" defer></script>
+    </head>
+<body>
+
+    <h1>All Saved Data</h1>
+    <ul id="allSavedDataList"></ul>
+
+    <script src="../insights/static/script.js" defer></script>
+    <script>
+        // Load and display all saved data from the library
+        window.onload = function () {
+            var library = JSON.parse(localStorage.getItem('library')) || [];
+            var allSavedDataList = document.getElementById('allSavedDataList');
+
+            for (var i = 0; i < library.length; i++) {
+                var item = library[i];
+                var listItem = document.createElement('li');
+                var link = document.createElement('a');
+                link.href = 'complete.html?identifier=' + encodeURIComponent(item.identifier);
+                link.textContent = item.user + "'s " + item.datasetName;
+
+                listItem.appendChild(link);
+                allSavedDataList.appendChild(listItem);
+            }
+        };
+    </script>
+</body>

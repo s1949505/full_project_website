@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Author" content="Calvin Condie">
+        <link rel="stylesheet" href="../insights/static/style.css">
+        <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
+        <script src="../insights/static/script.js" defer></script>
+       
+    </head>
+<body>
+
+    <div class="sidenav">
+        <li style="text-align:center; padding-top: 20px; padding-bottom: 10px; font-size:30px;">
+            DataSafe
+        </li>
+        <li>
+            <a class="active" href="home.html">Home</a>
+        </li>
+        <li>
+            <a href="intro.html">Creating a data card</a>
+        </li>
+        <li>
+            <a href="account.html">Account</a>
+        </li>
+        <li>
+            <a href="browse.html">Browse</a>
+        </li>
+        <li>
+            <a href="saved.html">Saved Cards</a>
+        </li>
+        <li>
+            <a href="account.html">Logout</a>
+        </li>
+    </div>
+    <div class="align">
+        <button class="createcard" style="cursor: pointer;" onclick="navButton('intro.html')">
+            <h2 style="font-size: 20px; font-family: 'Inria Sans'">
+                Create new data card 
+                <div style="width: 32px; height: 30px; left: 200px; top: 11px; position: absolute">
+                    <div style="width: 25px; height: 0px; left: 12.5px; top: 32px; position: absolute; transform: rotate(-90deg); transform-origin: 0 0; border: 2px black solid"></div>
+                    <div style="width: 25px; height: 0px; left: 0px; top: 16px; position: absolute; border: 2px black solid"></div>
+                </div>
+            </h2>
+        </button>
+
+
+        <div class="search">
+            <h2 style="font-size: 20px; font-family: 'Inria Sans'; color: grey;">
+                Search DataSafe 
+                <div style="left: 170px; top:18px; position: absolute;">
+                    <img src="images/search.png" width="25px" left="30px">
+                </div>
+            </h2>
+        </div>
+    </div>
+
+    <div id="loginContainer">
+        <a style="padding: 10px; color: black;"  href="login_page_real.html">Login</a>
+        <a style="color: black; padding: 8px; background-color: white; border-color: black; border-radius: 8px; border-style: solid;" href="register.html">Create an account</a>
+    </div>
+
+    <div class="infoSections" style="border: #ffffff outset 2px; background-color: #ffffff; border: none;">
+        <h2>The Purpose of DataSafe</h2>
+        <p>DataSafe is a tool for creating, sharing and browsing data cards for datasets used for AI or in AI systems. It aims to provide dataset creators with a method of reflection as they build datasets through a tool which should be used alongside dataset creation. As well as this, data cards are to be employed by those using such datasets in order to make ethical decisions on what datasets to use for projects. Data cards can be used to explain decisions on which dataset is best suited for a given application and can be provided as a means of transparency in data driven projects.</p>
+        <div>
+            <img src="images/workflow.png" alt="Image of the usual workflow for creating AI models that shows how creating a data card runs parallel to the data collection and dataset creation stages" style="width: 110%;">
+        </div>
+        <h2>Background</h2>
+        <p>Data cards were an innovation in promoting ethical AI inspired by model cards, a similar tool but for use with AI models. This idea of model cards was promoted by Margaret Mitchell and co in 2018 to make fairer and more ethical use of AI systems easier than it had been previously. Data cards use this idea and deploy it at an earlier stage in the development of such AI systems. By doing this, transparency and explainability of AI systems are provided in the foundations of building any AI model</p>
+        <h2>Creating a data card</h2>
+        <p>The process of creating a data card should be easy and interactive. The creation guide was designed to be incorporated into the process of creating a dataset. Because of this, the questions aim to follow the timeline of creating a dataset so both can be worked on in parallel. This also provides a method of reflection for any dataset creators during this process.</p>
+
+    </div>
+
+    <div class="footer" style="font-family: 'Inria Sans';">
+        <a><u>Contact us:</u> <br> DataSafe@gmail.com <br> DataSafe.twitter </a>
+        <a><u>Having Probelems?</u> <br> Find our FAQs here: <br> DataSafeFAQs.com</a>
+        <a><u>Other useful links:</u> <br> linktoethicspaper.com <br> otherlink.com</a>
+    </div>
+</body>

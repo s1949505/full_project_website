@@ -1,0 +1,89 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Author" content="Calvin Condie">
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+        <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
+        <script src="../insights/static/script.js" defer></script>
+        <script>
+
+            window.onload = function () {
+                // Load stored values from local storage
+                var storedBio = localStorage.getItem('bio');
+                var storedLinks = localStorage.getItem('links');
+                var storedUser = localStorage.getItem('user');
+
+                // Populate the elements with the stored values
+                document.getElementById('bio').textContent = storedBio || 'User Bio';
+                document.getElementById('links').textContent = storedLinks || 'Add some contact points';
+                document.getElementById('name').textContent = storedUser || 'User';
+            };
+            
+        </script>
+    </head>
+<body>
+
+    <div class="sidenav">
+        <li style="text-align:center; padding-top: 20px; padding-bottom: 10px; font-size:30px;">
+            DataSafe
+        </li>
+        <li>
+            <a href="home.html">Home</a>
+        </li>
+        <li>
+            <a href="intro.html">Creating a data card</a>
+        </li>
+        <li>
+            <a class="active" href="account.html">Account</a>
+        </li>
+        <li>
+            <a href="browse.html">Browse</a>
+        </li>
+        <li>
+            <a href="saved.html">Saved Cards</a>
+        </li>
+        <li>
+            <a href="account.html">Logout</a>
+        </li>
+    </div>
+    <div class="userInfo">
+        <h3 style="position: relative; top: 0px; left: 0px;">Welcome, <span id="name" style="position: relative; top: 5px;"  class="editable">User</span></h3>
+
+        <h3 style="position: relative; left: 40%; top: -40px;">Where to find me: </h3>
+        <span style="position: relative; left: 40%; top: -40px;" id="links" class="editable" contenteditable="true" placeholder="Add some contact points">Add some contact points</span>
+
+        <h3 style="position: relative;">Bio</h3>
+        <span style="position: relative; top: -10px" id="bio" contenteditable="true" class="editable" aria-placeholder="User bio">User Bio</span>
+
+        <div id="buttonsContainer" style="position: relative; top: -50px; margin-left: 45%;">
+            <button id="editButton" onclick="toggleEditMode()">Edit Information</button>
+            <button id="saveButton" style="display: none;" onclick="saveInfo()">Save Information</button>
+        </div>
+    </div>
+    <div class="userCards" id="userCardsArea">
+        <h3><u>Your Saved Data</u></h3>
+        <div id="userCards">
+            <!-- Display the first 3 items in the library as links -->
+            <ul id="savedDataList"></ul>
+            <p><a href="saved.html">Explore All Saved Data</a></p>
+        </div>
+    </div>
+
+    <div class="savedCards">
+        <h3><u>Saved Cards</u></h3>
+
+    </div>
+
+    <div class="footer" style="font-family: 'Inria Sans'; position: relative;">
+        <a><u>Contact us:</u> <br> DataSafe@gmail.com <br> DataSafe.twitter </a>
+        <a><u>Having Probelems?</u> <br> Find our FAQs here: <br> DataSafeFAQs.com</a>
+        <a><u>Other useful links:</u> <br> linktoethicspaper.com <br> otherlink.com</a>
+    </div>
+
+    <script src="../insights/static/script.js" defer></script>
+</body>
+</html>

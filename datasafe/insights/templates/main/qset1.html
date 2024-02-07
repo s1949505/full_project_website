@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Author" content="Calvin Condie">
+        <link rel="stylesheet" href="../insights/static/style.css">
+        <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
+        <script src="../insights/static/script.js" defer></script>
+    </head>
+<body>
+    <div class="sidenav">    
+        <li style="text-align:center; padding-top: 20px; padding-bottom: 10px; font-size:30px;">
+            DataSafe
+        </li>
+        <li>
+            <a href="home.html">Home</a>
+        </li>
+        <li>
+            <a class="active"  href="intro.html">Creating a data card</a>
+        </li>
+        <li>
+            <a href="account.html">Account</a>
+        </li>
+        <li>
+            <a href="browse.html">Browse</a>
+        </li>
+        <li>
+            <a href="saved.html">Saved Cards</a>
+        </li>
+        <li>
+            <a href="account.html">Logout</a>
+        </li>
+    </div>
+
+    <div style="margin-left:20%; padding:10px 10px">
+        <h2 style="font-size: 30px; font-family:'Inria Sans'">
+            Creating a data card
+        </h2>
+    </div>
+
+    <div class="topnav">
+        <a style="color: black;" href="qset3.html">Further</a>
+        <a style="color: black;" href="qset2.html">Technical</a>
+        <a style="color: black;" href="qset1.html">Primary/General</a>
+    </div>
+
+    <div class="setTitle">
+        <h3 style="display: inline;">
+            Question set 1: <p style="display: inline; font-size: medium; font-weight: lighter;">General and primary information</p>
+        </h3>
+    </div>
+
+    
+    <div style="display: block; text-align: left; padding: 10px 10px; margin-left: 25%;">
+        <form id="formSet1">
+            <label for="DatasetName">Name of Dataset</label>
+            <br>
+            <textarea type="text" id="DatasetName" name="DatasetName" placeholder="&lt dataset name &gt"></textarea>
+            <br>
+            <label for="description">Short Description of The Dataset</label>
+            <br>
+            <textarea rows="4" type="text" id="description" name="description" placeholder="&lt Enter a small paragraph on what the data is,why it was collected, who for, design goals, question to be answered &gt"></textarea>
+            <br>
+            <label for="motivation">Motivation for creation of the dataset</label>
+            <br>
+            <textarea rows="6" type="text" id="motivation" name="motivation" placeholder="&lt Provide a summary of the purpose of building this dataset and other reasons for motivation to do so. &#10Example points may include: &#10   Why the dataset been created. &#10   Justification for choosing such data &gt"></textarea>
+            <br>
+            <p>Dataset Accessibility</p>
+            <div>
+                <input style="cursor: pointer;" type="radio" id="publicly" name="accessibility" value="Publicly available" onclick="showExtenstion('show', 'accessibilityInfo','&lt Include a link, contact or sourcing information &gt')">
+                <label for="internal">Internally funded</label><br>
+                <input style="cursor: pointer;" type="radio" id="on_demand" name="accessibility" value="Available on demand" onclick="showExtenstion('show', 'accessibilityInfo','&lt Describe the process (who to contact etc.) and an expected waiting time for access to the dataset &gt')">
+                <label for="external">Externally funded</label><br>
+                <input style="cursor: pointer;" type="radio" id="Private" name="accessibility" value="Private dataset" onclick="showExtenstion('show', 'accessibilityInfo','&lt Why is the dataset private and will it ever be made public? Do your best to explain &gt')">
+                <label for="combination">Combination</label><br>
+                <div class="popUp" id="accessibilityInfo">
+                    <br>
+                    <label for="accessibilityInfo">Please provide more information:</label>
+                    <br>
+                    <textarea class="popupTextArea" name="accessibilityInfo" id="accessibilityInfo" rows="4" placeholder="default"></textarea>
+                </div>
+            </div>
+            <br>
+            <label for="research">Motivation for Research</label>
+            <br>
+            <textarea rows="4" type="text" id="research" name="research" placeholder="&lt What was the question you were attempting to answer? Why is this important? &gt"></textarea>
+            <br>
+            <label for="authors">Author(s) and background</label>
+            <br>
+            <textarea rows="8" type="text" id="authors" name="authors" placeholder="&lt Please format as such: &#10 Example name. &#10 Relevant information such as job position, interest in work with dataset, email or other contact (linkdin etc) &#10 Example name 2 &#10 and so forth ...&gt"></textarea>
+            <br>
+            <label for="contributors">Names of further contributors/collaborators</label>
+            <br>
+            <textarea rows="3" type="text" id="contributors" name="contributors" placeholder="&lt List any other individuals that assisted in building the dataset. &gt"></textarea>
+            <br>
+            <p>How was funding for this work obtained?</p>
+            <div>
+                <input style="cursor: pointer;" type="radio" id="internal" name="funding" value="Internally funded" onclick="showExtenstion('show', 'fundingInfo','&lt Was in house funding available? If not why was funding not sourced? &gt')">
+                <label for="internal">Internally funded</label><br>
+                <input style="cursor: pointer;" type="radio" id="external" name="funding" value="Externally funded" onclick="showExtenstion('show', 'fundingInfo', '&lt Why was funding needed and who funded the creation of the dataset and what connection to the project do they have.  &gt')">
+                <label for="external">Externally funded</label><br>
+                <input style="cursor: pointer;" type="radio" id="combination" name="funding" value="Combination" onclick="showExtenstion('show', 'fundingInfo', '&lt  Why was funding needed and who funded the creation of the dataset and what connection to the project do they have. &gt')">
+                <label for="combination">Combination</label><br>
+                <div class="popUp" id="fundingInfo">
+                    <br>
+                    <label for="fundingInfo">Please provide more information:</label>
+                    <br>
+                    <textarea class="popupTextArea" name="fundingInfo" id="fundingInfo" rows="4" placeholder="default"></textarea>
+                </div>
+            </div>
+            <p>Is the dataset a combination of existing datasets</p>
+            <div>  
+                <input style="cursor: pointer;" type="radio" id="yes" name="combination" value="yes" onclick="showExtenstion('show', 'combinationInfo', '&lt How many datasets were combined and why was this necessary. Were there any complications during this process and how have they been worked around. &gt')">
+                <label for="yes">Yes</label><br>
+                <input style="cursor: pointer;" type="radio" id="no" name="combination" value="no" onclick="showExtenstion('hide', 'combinationInfo', ' ')">
+                <label for="no">No</label><br>
+                <div class="popUp" id="combinationInfo">
+                    <br>
+                    <label for="combinationInfo">Please provide more information:</label>
+                    <br>
+                    <textarea class="popupTextArea" name="combinationInfo" id="combinationInfo" rows="4" placeholder="default"></textarea>
+                </div>
+            </div>
+            <br>
+            <label for="date">Date the dataset was created (leave blank if not finished)</label>
+            <br>
+            <textarea rows="1" type="text" id="date" name="date" placeholder="&lt dd/mm/yyyy &gt"></textarea>
+            <br>
+            <label for="version">Dataset version number</label>
+            <br>
+            <textarea rows="1" type="text" id="version" name="version" placeholder="&lt eg. 1.0.1 &gt"></textarea>
+        </form>
+    </div>
+
+    <div class="overviews">
+        <top><b style="color: rgb(61, 61, 61);">Section 1 overview</b></top>
+        <maintext>This section covers the general information required to give a short and basic overview of the dataset. 
+            <br>
+            <br>
+            Questions in this section should be able to be answered early in the process of creating a dataset or in a data driven projects timeline. 
+            <br>
+            <br>
+            If you are unsure of any questions, you can save progress and continue at a later date.
+        </maintext>
+        <button onclick="saveText1('qset2.html')" type="button" class="saveandexit">Save and Exit</button>
+    </div>
+
+    <div class="navContainer">
+
+        <div class="nextpage" >
+            <button onclick="saveText1('qset2.html')" type="button" style="cursor: pointer; padding: 10px;">Next Page ></button>
+        </div>
+
+        <div class="lastpage">
+            <button onclick="saveText1('intro.html')" style="cursor: pointer; padding: 10px 30px;"> Exit </button>
+        </div>
+    </div>
+</body>
