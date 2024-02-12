@@ -14,7 +14,8 @@ from .main.views import (
     review_view,
     saved_view,
     upload,
-    dataset_review
+    dataset_review,
+    complete_view
 )
 urlpatterns = [
     path('intro/', intro, name='intro'),
@@ -31,6 +32,6 @@ urlpatterns = [
     path('qset3/', qset3_view, name='qset3'),
     path('register/', register_view, name='register'),
     path('review/', review_view, name='review'),
-    path('saved/', saved_view, name='saved'),
+    path('saved/', saved_view, name='saved')
     # Add more paths as needed
 ]

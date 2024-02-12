@@ -18,26 +18,26 @@
             DataSafe
         </li>
         <li>
-            <a class="active" href="home.html">Home</a>
+            <a class="active" href="{% url 'home' %}">Home</a>
         </li>
         <li>
-            <a href="intro.html">Creating a data card</a>
+            <a href="{% url 'intro' %}">Creating a data card</a>
         </li>
         <li>
-            <a href="account.html">Account</a>
+            <a href="{% url 'account' %}">Account</a>
         </li>
         <li>
-            <a href="browse.html">Browse</a>
+            <a href="{% url 'browse' %}">Browse</a>
         </li>
         <li>
-            <a href="saved.html">Saved Cards</a>
+            <a href="{% url 'saved' %}">Saved Cards</a>
         </li>
         <li>
-            <a href="account.html">Logout</a>
+            <a href="{% url 'home' %}">Logout</a>
         </li>
     </div>
     <div class="align">
-        <button class="createcard" style="cursor: pointer;" onclick="navButton('intro.html')">
+        <button class="createcard" style="cursor: pointer;" onclick="navButton('{% url 'intro' %}')">
             <h2 style="font-size: 20px; font-family: 'Inria Sans'">
                 Create new data card 
                 <div style="width: 32px; height: 30px; left: 200px; top: 11px; position: absolute">
@@ -59,8 +59,8 @@
     </div>
 
     <div id="loginContainer">
-        <a style="padding: 10px; color: black;"  href="login_page_real.html">Login</a>
-        <a style="color: black; padding: 8px; background-color: white; border-color: black; border-radius: 8px; border-style: solid;" href="register.html">Create an account</a>
+        <a style="padding: 10px; color: black;"  href="{% url 'login_page_real' %}">Login</a>
+        <a style="color: black; padding: 8px; background-color: white; border-color: black; border-radius: 8px; border-style: solid;" href="{% url 'register' %}">Create an account</a>
     </div>
 
     <div class="infoSections" style="border: #ffffff outset 2px; background-color: #ffffff; border: none;">
@@ -82,3 +82,4 @@
         <a><u>Other useful links:</u> <br> linktoethicspaper.com <br> otherlink.com</a>
     </div>
 </body>
+</html>

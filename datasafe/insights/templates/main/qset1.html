@@ -16,22 +16,22 @@
             DataSafe
         </li>
         <li>
-            <a href="home.html">Home</a>
+            <a href="{% url 'home' %}">Home</a>
         </li>
         <li>
-            <a class="active"  href="intro.html">Creating a data card</a>
+            <a class="active"  href="{% url 'intro' %}">Creating a data card</a>
         </li>
         <li>
-            <a href="account.html">Account</a>
+            <a href="{% url 'account' %}">Account</a>
         </li>
         <li>
-            <a href="browse.html">Browse</a>
+            <a href="{% url 'browse' %}">Browse</a>
         </li>
         <li>
-            <a href="saved.html">Saved Cards</a>
+            <a href="{% url 'saved' %}">Saved Cards</a>
         </li>
         <li>
-            <a href="account.html">Logout</a>
+            <a href="{% url 'home' %}">Logout</a>
         </li>
     </div>
 
@@ -42,9 +42,9 @@
     </div>
 
     <div class="topnav">
-        <a style="color: black;" href="qset3.html">Further</a>
-        <a style="color: black;" href="qset2.html">Technical</a>
-        <a style="color: black;" href="qset1.html">Primary/General</a>
+        <a style="color: black;" href="{% url 'qset3' %}">Further</a>
+        <a style="color: black;" href="{% url 'qset2' %}">Technical</a>
+        <a style="color: black;" href="{% url 'qset1' %}">Primary/General</a>
     </div>
 
     <div class="setTitle">
@@ -145,17 +145,18 @@
             <br>
             If you are unsure of any questions, you can save progress and continue at a later date.
         </maintext>
-        <button onclick="saveText1('qset2.html')" type="button" class="saveandexit">Save and Exit</button>
+        <button onclick="saveText1('{% url 'account' %}')" type="button" class="saveandexit">Save and Exit</button>
     </div>
 
     <div class="navContainer">
 
         <div class="nextpage" >
-            <button onclick="saveText1('qset2.html')" type="button" style="cursor: pointer; padding: 10px;">Next Page ></button>
+            <button onclick="saveText1('{% url 'qset2' %}')" type="button" style="cursor: pointer; padding: 10px;">Next Page ></button>
         </div>
 
         <div class="lastpage">
-            <button onclick="saveText1('intro.html')" style="cursor: pointer; padding: 10px 30px;"> Exit </button>
+            <button onclick="saveText1('{% url 'intro' %}')" style="cursor: pointer; padding: 10px 30px;"> Exit </button>
         </div>
     </div>
 </body>
+</html>

@@ -19,22 +19,22 @@
         DataSafe
     </li>
     <li>
-        <a href="home.html">Home</a>
+        <a href="{% url 'home' %}">Home</a>
     </li>
     <li>
-        <a href="intro.html">Creating a data card</a>
+        <a href="{% url 'intro' %}">Creating a data card</a>
     </li>
     <li>
-        <a href="account.html">Account</a>
+        <a href="{% url 'account' %}">Account</a>
     </li>
     <li>
-        <a class="active" href="browse.html">Browse</a>
+        <a class="active" href="{% url 'browse' %}">Browse</a>
     </li>
     <li>
-        <a href="saved.html">Saved Cards</a>
+        <a href="{% url 'saved' %}">Saved Cards</a>
     </li>
     <li>
-        <a href="account.html">Logout</a>
+        <a href="{% url 'home' %}">Logout</a>
     </li>
 </div>
 
@@ -56,3 +56,6 @@
         </div>
     </h2>
 </div>
+
+</body>
+</html>

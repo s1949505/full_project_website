@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
    
         alert(`Login successful!\nEmail: ${email}\nPassword: ${password}\nCredentials Saved: ${credentialsSaved ? 'Yes' : 'No'}`);
 
-        window.location.href = 'home.html';
+        window.location.href = "{% url 'home' %}";
 
     }
 
@@ -205,7 +205,7 @@ function navButton(page){
 
 function continueAsGuest() {
     // Set the window location to home.html
-    window.location.href = 'home.html';
+    window.location.href = "{% url 'home' %}";
     var name = 'Guest'
     localStorage.setItem("user", name)
 
@@ -213,7 +213,7 @@ function continueAsGuest() {
 
 function register() {
     // Set the window location to home.html
-    window.location.href = 'register.html';
+    window.location.href = "{% url 'register' %}";
 }
 
 function showExtenstion(display, popupID, placeholder) {
@@ -251,7 +251,7 @@ function validatePassword(){
     if (password === confirmPassword && hasNumber && validLength && noBlanks) {
         alert('Account successfuly created');
         loggedIn = true
-        window.location.href ='home.html'
+        window.location.href ="{% url 'home' %}"
         localStorage.setItem("user", JSON.stringify(name))
     } else if(!noBlanks){
             alert('All fields must be completed to create an account.')
@@ -328,40 +328,55 @@ function saveInfo() {
 }
 
 function saveToAccount() {
+
     // Retrieve values from local storage
     var datasetName = localStorage.getItem('DatasetName') || '';
     var user = localStorage.getItem('user') || '';
 
-    // Generate a unique identifier
-    var identifier = user + '_' + datasetName.replace(/\s/g, '_');
+    if(!user){
+        alert('You must be signed in to saved items to your account. You can sign in on the homepage or download the data card instead')
+        var url = "/account/";
+        window.location.href = url;
+    }
+    if(!datasetName || datasetName == 'N/A'){
+        alert('You must assign a name to your data card. Please return to question set one and do so')
+        var url = "/qset1/";
+        window.location.href = url;
 
-    // Save the identifier in local storage
-    localStorage.setItem('currentIdentifier', identifier);
+    }
+    else{
+        
 
-    // Create a new key in local storage using the generated identifier
-    var storageKey = 'data_' + identifier;
+        // Generate a unique identifier
+        const identifier = user + '_' + datasetName.replace(/\s/g, '_');
 
-    // Store information from keysArray under the new key
-    var storedData = {};
-    for (var i = 0; i < keysArray.length; i++) {
-        var item = keysArray[i];
-        var element = document.getElementById(item.targetElementId);
-        var text = element ? element.innerText : 'null';
+        // Save the identifier in local storage
+        localStorage.setItem('currentIdentifier', identifier);
 
-        // Store information in local storage
-        localStorage.setItem(storageKey + '_' + item.key, text);
+        // Create a new key in local storage using the generated identifier
+        var storageKey = 'data_' + identifier;
 
-        // Store information in the storedData object
-        storedData[item.key] = text;
+        // Store information from keysArray under the new key
+        var storedData = {};
+        for (var i = 0; i < keysArray.length; i++) {
+            var item = keysArray[i];
+            var element = document.getElementById(item.targetElementId);
+            var text = element ? element.innerText : 'null';
+
+            // Store information in local storage
+            localStorage.setItem(storageKey + '_' + item.key, text);
+
+            // Store information in the storedData object
+            storedData[item.key] = text;
+        }
+        // Save the identifier in a library (you can use an array for simplicity)
+        var library = JSON.parse(localStorage.getItem('library')) || [];
+        library.push({ identifier: identifier, datasetName: datasetName, user: user });
+
+        // Save the updated library in local storage
+        localStorage.setItem('library', JSON.stringify(library));
+        var url = "/account/";
+        window.location.href = url;
     }
 
-    // Save the identifier in a library (you can use an array for simplicity)
-    var library = JSON.parse(localStorage.getItem('library')) || [];
-    library.push({ identifier: identifier, datasetName: datasetName, user: user });
-
-    // Save the updated library in local storage
-    localStorage.setItem('library', JSON.stringify(library));
-
-    // Redirect to the complete.html page
-    window.location.href = 'complete.html?identifier=' + encodeURIComponent(identifier);
 }

@@ -16,22 +16,22 @@
             DataSafe
         </li>
         <li>
-            <a href="home.html">Home</a>
+            <a href="{% url 'home' %}">Home</a>
         </li>
         <li>
-            <a class="active"  href="intro.html">Creating a data card</a>
+            <a class="active"  href="{% url 'intro' %}">Creating a data card</a>
         </li>
         <li>
-            <a href="account.html">Account</a>
+            <a href="{% url 'account' %}">Account</a>
         </li>
         <li>
-            <a href="browse.html">Browse</a>
+            <a href="{% url 'browse' %}">Browse</a>
         </li>
         <li>
-            <a href="saved.html">Saved Cards</a>
+            <a href="{% url 'saved' %}">Saved Cards</a>
         </li>
         <li>
-            <a href="account.html">Logout</a>
+            <a href="{% url 'home' %}">Logout</a>
         </li>
     </div>
 
@@ -42,9 +42,9 @@
     </div>
 
     <div class="topnav">
-        <a style="color: black;" href="qset3.html">Further</a>
-        <a style="color: black;" href="qset2.html">Technical</a>
-        <a style="color: black;" href="qset1.html">Primary/General</a>
+        <a style="color: black;" href="{% url 'qset3' %}">Further</a>
+        <a style="color: black;" href="{% url 'qset2' %}">Technical</a>
+        <a style="color: black;" href="{% url 'qset1' %}">Primary/General</a>
     </div>
 
     <div class="setTitle">
@@ -110,13 +110,14 @@
             <br>
             This is the last section in the data card creation guide. From here you may mark the card as completed using the button at the bottom of the page or save and exit to continue or complete at a later date.
         </maintext>
-        <button onclick="saveText3('complete.html')" type="button"  style="margin-top: 30px;"  class="saveandexit">Save and Exit</button>
+        <button onclick="saveText3('{% url 'complete' %}')" type="button"  style="margin-top: 30px;"  class="saveandexit">Save and Exit</button>
     </div>
 
     <div class="navContainer">
         <div class="lastpage">
-            <button onclick="saveText3('qset2.html')" style="cursor: pointer; padding: 10px 30px;"> Previous </button>
+            <button onclick="saveText3('{% url 'qset2' %}')" style="cursor: pointer; padding: 10px 30px;"> Previous </button>
         </div>
     </div>
 
 </body>
+</html>

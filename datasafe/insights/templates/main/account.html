@@ -32,22 +32,22 @@
             DataSafe
         </li>
         <li>
-            <a href="home.html">Home</a>
+            <a href="{% url 'home' %}">Home</a>
         </li>
         <li>
-            <a href="intro.html">Creating a data card</a>
+            <a href="{% url 'intro' %}">Creating a data card</a>
         </li>
         <li>
-            <a class="active" href="account.html">Account</a>
+            <a class="active" href="{% url 'account' %}">Account</a>
         </li>
         <li>
-            <a href="browse.html">Browse</a>
+            <a href="{% url 'browse' %}">Browse</a>
         </li>
         <li>
-            <a href="saved.html">Saved Cards</a>
+            <a href="{% url 'saved' %}">Saved Cards</a>
         </li>
         <li>
-            <a href="account.html">Logout</a>
+            <a href="{% url 'home' %}">Logout</a>
         </li>
     </div>
     <div class="userInfo">
@@ -69,7 +69,7 @@
         <div id="userCards">
             <!-- Display the first 3 items in the library as links -->
             <ul id="savedDataList"></ul>
-            <p><a href="saved.html">Explore All Saved Data</a></p>
+            <p><a href="{% url 'saved' %}">Explore All Saved Data</a></p>
         </div>
     </div>
 
