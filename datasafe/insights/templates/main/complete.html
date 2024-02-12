@@ -1,16 +1,18 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="Author" content="Calvin Condie">
-    <link rel="stylesheet" href="../insights/static/style.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script src="../insights/static/script.js" defer></script>
+    <script src="{% static 'script.js' %}"></script>
 
 </head>
 
@@ -112,7 +114,7 @@
 
     <h2>Complete Information for <span id="identifierText"></span></h2>
 
-    <script src="../insights/static/script.js" defer></script>
+    <script src="{% static 'script.js' %}"></script>
     <script>
         window.onload = function () {
             // Retrieve identifier from URL

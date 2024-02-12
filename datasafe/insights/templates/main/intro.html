@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,22 +26,22 @@
             DataSafe
         </li>
         <li>
-            <a href="home.html">Home</a>
+            <a href="{% url 'home' %}">Home</a>
         </li>
         <li>
-            <a class="active" href="intro.html">Creating a data card</a>
+            <a class="active" href="{% url 'intro' %}">Creating a data card</a>
         </li>
         <li>
             <a href="{% url 'account' %}">Account</a>
         </li>
         <li>
-            <a href="browse.html">Browse</a>
+            <a href="{% url 'browse' %}">Browse</a>
         </li>
         <li>
-            <a href="saved.html">Saved Cards</a>
+            <a href="{% url 'saved' %}">Saved Cards</a>
         </li>
         <li>
-            <a href="account.html">Logout</a>
+            <a href="{% url 'account' %}">Logout</a>
         </li>
     </div>
 
