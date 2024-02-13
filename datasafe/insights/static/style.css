@@ -199,7 +199,7 @@ input:checked + .slider:before {
     }
 
     .setTitle {
-        margin-left: 23%; 
+        margin-left: 20%; 
         padding: 10px 10px; 
         position: relative; 
         margin-top: 50px
@@ -221,7 +221,7 @@ input:checked + .slider:before {
     }
 
     .setTitle {
-        margin-left: 23%; 
+        margin-left: 20%; 
         padding: 10px 10px; 
         position: relative; 
         margin-top: 0px;
@@ -392,7 +392,7 @@ textarea[type=text]{
     min-width: 100px;
     max-width: 250px;
     background-color: #b9b9b9;
-    height: 800px;
+    height: clamp(800px, 900px, 1200px);
     top: 100px;
     right: 10px;
     position: absolute;
@@ -481,7 +481,7 @@ textarea[type=text]{
 }
 
 .setTitle {
-    margin-left: 23%; 
+    margin-left: 20%; 
     padding: 10px 10px; 
     position: relative; 
 }

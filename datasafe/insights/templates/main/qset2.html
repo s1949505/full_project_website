@@ -53,7 +53,7 @@
         </h3>
     </div>
 
-    <div style="display: block; text-align: left; padding: 10px 10px 10px 10px; margin-left: 25%;">
+    <div style="display: block; text-align: left; padding: 10px 10px 10px 10px; margin-left: 22%; margin-right: 8%;">
         <form id="formSet2">
             <label for="applications">Main Applications:</label>
             <br>
@@ -152,16 +152,16 @@
             <br>
             Remember, if you are unsure of any questions, you can save progress and continue at a later date or move on to the next section and return to anything left blank.
         </maintext>
-        <button onclick="saveText2('{% url 'qset3' %}')" type="button" style=" margin-top: 150px;" class="saveandexit">Save and Exit</button>
+        <button onclick="saveText2(this.getAttribute('data-next-page'))" data-next-page="{% url 'account' %}" type="button" style=" margin-top: 150px;" class="saveandexit">Save and Exit</button>
     </div>
 
     <div class="navContainer">
         <div class="nextpage" >
-            <button onclick="saveText2('{% url 'qset3' %}')" type="button" style="cursor: pointer; padding: 10px;">Next Page ></button>
+            <button onclick="saveText2(this.getAttribute('data-next-page'))" data-next-page="{% url 'qset3' %}" type="button" style="cursor: pointer; padding: 10px;">Next Page ></button>
         </div>
 
         <div class="lastpage">
-            <button onclick="saveText2('{% url 'qset1' %}')" style="cursor: pointer; padding: 10px 30px;"> Previous </button>
+            <button onclick="saveText2(this.getAttribute('data-next-page'))" data-next-page="{% url 'qset1' %}" style="cursor: pointer; padding: 10px 30px;"> Previous </button>
         </div>
     </div>
 

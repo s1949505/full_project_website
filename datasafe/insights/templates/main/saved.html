@@ -15,24 +15,37 @@
     <h1>All Saved Data</h1>
     <ul id="allSavedDataList"></ul>
 
-    <script src="../insights/static/script.js" defer></script>
+    <script src="{% static 'script.js' %}"></script>
     <script>
-        // Load and display all saved data from the library
-        window.onload = function () {
-            var library = JSON.parse(localStorage.getItem('library')) || [];
-            var allSavedDataList = document.getElementById('allSavedDataList');
+    // Load and display all saved data from the library
+    window.onload = function () {
+    // Parse library from local storage
+    var userSavedCards = JSON.parse(localStorage.getItem('userSavedCards')) || [];
+    console.log('userSavedCards:', userSavedCards);
 
-            for (var i = 0; i < library.length; i++) {
-                var item = library[i];
-                var listItem = document.createElement('li');
-                var link = document.createElement('a');
-                link.href = 'complete.html?identifier=' + encodeURIComponent(item.identifier);
-                link.textContent = item.user + "'s " + item.datasetName;
+    
+    // Get the allSavedDataList element
+    var allSavedDataList = document.getElementById('allSavedDataList');
 
-                listItem.appendChild(link);
-                allSavedDataList.appendChild(listItem);
-            }
-        };
+    // Loop through library items and create links
+    for (var i = 0; i < userSavedCards.length; i++) {
+        var identifier = userSavedCards[i];
+        var storageKey = 'data_' + identifier;
+        var datasetName = localStorage.getItem(storageKey + '_DatasetName');
+        var user = localStorage.getItem(storageKey + '_user');
+        console.log(user)
+
+        // Create list item and link
+        var listItem = document.createElement('li');
+        var link = document.createElement('a');
+        link.href = 'complete.html?identifier=' + encodeURIComponent(identifier);
+        link.textContent = userSavedCards;
+
+        // Append link to list item and list item to the allSavedDataList
+        listItem.appendChild(link);
+        allSavedDataList.appendChild(listItem);
+    }
+};
     </script>
 </body>
 </html>

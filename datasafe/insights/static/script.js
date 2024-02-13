@@ -24,7 +24,6 @@ function saveText1(nextPage) {
 
     const contributors = document.getElementById("contributors").value;
     localStorage.setItem("contributors", contributors);
-//DO RADIO QUESTIONS
 
     const fundingOption = document.querySelector('input[name="funding"]:checked');
     const funding = fundingOption ? fundingOption.value : null;
@@ -94,7 +93,6 @@ function saveText2(nextPage) {
 
     window.location.href = nextPage;
 
-
 }
 
 function saveText3(nextPage) {
@@ -122,6 +120,7 @@ function saveText3(nextPage) {
     localStorage.setItem("further", further);
 
     window.location.href = nextPage;
+
 
 }
 
@@ -346,8 +345,8 @@ function saveToAccount() {
     }
     else{
         
-
-        // Generate a unique identifier
+        
+       // Generate a unique identifier
         const identifier = user + '_' + datasetName.replace(/\s/g, '_');
 
         // Save the identifier in local storage
@@ -369,27 +368,16 @@ function saveToAccount() {
             // Store information in the storedData object
             storedData[item.key] = text;
         }
+         // Save the card in the user's saved cards list
+         var savedCards = JSON.parse(localStorage.getItem('userSavedCards')) || [];
+         savedCards.unshift(identifier); // Add the identifier to the beginning of the list
+         localStorage.setItem('userSavedCards', JSON.stringify(savedCards));
+ 
          // Send the saved data to the Django backend using AJAX or a form submission
-        // Example AJAX call using jQuery:
-        $.ajax({
-            url: '/save_data/',  // Replace with your Django view endpoint
-            type: 'POST',
-            data: {
-                identifier: identifier,
-                datasetName: datasetName,
-                user: user,
-                // Add other data fields as needed
-            },
-            success: function (response) {
-                // Handle success, e.g., show a success message or redirect
-                var url = "/account/";
-                window.location.href = url;
-            },
-            error: function (error) {
-                // Handle error, e.g., show an error message
-                console.error('Error saving data:', error);
-            }
-        });
+         // (your existing AJAX code)
+ 
+         // Redirect to the account page
+         var url = "/account/";
+         window.location.href = url;
     }
-
 }

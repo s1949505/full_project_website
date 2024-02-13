@@ -36,7 +36,9 @@ urlpatterns = [
     path('review/', review_view, name='review'),
     path('saved/', saved_view, name='saved'),
     path('save_data/', save_data, name='save_data'), 
-    path('login_page_real/',login_page_real_view, name='login_page_real') 
+    path('login_page_real/',login_page_real_view, name='login_page_real'),
+    path('saved/complete.html', complete_view, name='complete'),
+
 
     # Add more paths as needed
 ]

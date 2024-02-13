@@ -14,6 +14,8 @@ def browse_view(request):
     return render(request, 'main/browse.html')
 def complete_view(request):
     return render(request, 'main/complete.html')
+def complete(request, identifier):
+    return render(request, 'complete.html', {'identifier': identifier})
 def home_view(request):
     return render(request, 'main/home.html')
 def intro(request):

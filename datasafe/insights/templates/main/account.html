@@ -8,6 +8,8 @@
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
         <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
         <script src="{% static 'script.js' %}"></script>
         <script>
 
@@ -68,7 +70,12 @@
         <h3><u>Your Saved Data</u></h3>
         <div id="userCards">
             <!-- Display the first 3 items in the library as links -->
-            <ul id="savedDataList"></ul>
+            <ul id="savedDataList">
+                <!-- Loop through saved cards and display them as links -->
+                {% for savedCard in userSavedCards %}
+                    <li><a href="{% url 'complete' identifier=savedCard %}">{{ savedCard }}</a></li>
+                {% endfor %}
+            </ul>
             <p><a href="{% url 'saved' %}">Explore All Saved Data</a></p>
         </div>
     </div>
@@ -84,6 +91,6 @@
         <a><u>Other useful links:</u> <br> linktoethicspaper.com <br> otherlink.com</a>
     </div>
 
-    <script src="../insights/static/script.js" defer></script>
+    <script src="{% static 'script.js' %}"></script>
 </body>
 </html>
