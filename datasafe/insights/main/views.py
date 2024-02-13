@@ -101,31 +101,33 @@ def process_file(filename, max_rows, max_cols, title_row):
 
 @csrf_exempt
 def upload(request):
-    print("check 1")
+    print(request.FILES)
     if request.method == 'POST' and 'file' in request.FILES:
         print("check 2")
-        file = request.FILES['file']
-        if file:
-            print("check 3")
+        if file := request.FILES['file']:
+            print(file)
             fs = FileSystemStorage()
             filename = fs.save(file.name, file)
             file_path = fs.url(filename)
+
+            print(file_path)
 
             max_rows = int(request.POST['max_rows'])
             max_cols = request.POST['max_cols'].upper()
             title_row = request.POST['title_row']
 
             try:
-                result = process_file(file_path, max_rows, max_cols, title_row)
+                result = process_file(filename, max_rows, max_cols, title_row)
             except Exception as e:
+                print("erororroror")
                 fs.delete(filename)  # Remove the uploaded file after processing
                 return JsonResponse({'error': f'File processing error: {str(e)}'}, status=400)
 
             fs.delete(filename)  # Remove the uploaded file after processing
 
-            return JsonResponse({'result': result})
+    print("processing complete")
+    return JsonResponse({'result': result})
 
-    return JsonResponse({'error': 'File not found'}, status=400)
 def dataset_review(request):
     # Retrieve and pass data for dataset review
     return render(request, 'review.html')

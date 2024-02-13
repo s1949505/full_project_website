@@ -129,7 +129,7 @@
                  <input type="text" name="max_cols" required><br>
                  <label for="title_row">Is there a title row Y/n:</label>
                  <input type="text" name="title_row" required><br>
-                 <button type="button" onclick="submitForm()">Submit</button>
+                 <button type="button" onclick="submitForm(event)">Submit</button>
                  <button type="button" onclick="closeUploadOverlay()">Cancel</button>
              </form>
          </div>
@@ -165,23 +165,42 @@
         
             xhr.send(formData);
             closeUploadOverlay();  // Close the overlay after submission
-        
+
             // Prevent the default form submission
             event.preventDefault();
         }
-    
+    /**
         function displayInfo(result) {
-            var displayInfoDiv = document.getElementById("displayInfo");
-            displayInfoDiv.innerHTML = "";  // Clear existing content
-        
-            for (var i = 0; i < result.length; i++) {
-                var paragraph = document.createElement("p");
-                paragraph.innerHTML = result[i];
-                displayInfoDiv.appendChild(paragraph);
-            }
-        
-            openUploadOverlay();  // Assuming you want to keep the overlay open after submission
+        // Create a modal to display the information
+        var modal = document.createElement("div");
+        modal.className = "modal";
+        modal.style.display = "block";
+
+        // Add a close button
+        var closeButton = document.createElement("span");
+        closeButton.innerHTML = "&times;";
+        closeButton.className = "close";
+        closeButton.onclick = function () {
+            modal.style.display = "none";
+        };
+        modal.appendChild(closeButton);
+
+        // Add the content to the modal
+        for (var i = 0; i < result.length; i++) {
+            var paragraph = document.createElement("p");
+            paragraph.innerHTML = result[i];
+            modal.appendChild(paragraph);
         }
+
+        // Append the modal to the body
+        document.body.appendChild(modal);
+    }
+    **/
+    function displayInfo(result) {
+        // Use alert to display the results (you can customize this)
+        alert(result.join('\n'));
+    }
+    
     </script>
 
 </body>
