@@ -369,14 +369,27 @@ function saveToAccount() {
             // Store information in the storedData object
             storedData[item.key] = text;
         }
-        // Save the identifier in a library (you can use an array for simplicity)
-        var library = JSON.parse(localStorage.getItem('library')) || [];
-        library.push({ identifier: identifier, datasetName: datasetName, user: user });
-
-        // Save the updated library in local storage
-        localStorage.setItem('library', JSON.stringify(library));
-        var url = "/account/";
-        window.location.href = url;
+         // Send the saved data to the Django backend using AJAX or a form submission
+        // Example AJAX call using jQuery:
+        $.ajax({
+            url: '/save_data/',  // Replace with your Django view endpoint
+            type: 'POST',
+            data: {
+                identifier: identifier,
+                datasetName: datasetName,
+                user: user,
+                // Add other data fields as needed
+            },
+            success: function (response) {
+                // Handle success, e.g., show a success message or redirect
+                var url = "/account/";
+                window.location.href = url;
+            },
+            error: function (error) {
+                // Handle error, e.g., show an error message
+                console.error('Error saving data:', error);
+            }
+        });
     }
 
 }

@@ -20,6 +20,9 @@ def intro(request):
     return render(request, 'main/intro.html')
 def login_view(request):
     return render(request, 'main/login_page_real.html')
+def login_page_real_view(request):
+    return render(request, 'main/login_page_real.html')
+
 def qset1_view(request):
     return render(request, 'main/qset1.html')
 def qset2_view(request):
@@ -124,3 +127,18 @@ def upload(request):
 def dataset_review(request):
     # Retrieve and pass data for dataset review
     return render(request, 'review.html')
+
+
+@csrf_exempt  # Use this decorator for simplicity in this example; consider using a proper csrf protection method in production
+def save_data(request):
+    if request.method == 'POST':
+        identifier = request.POST.get('identifier')
+        dataset_name = request.POST.get('datasetName')
+        user = request.POST.get('user')
+        # Extract other data fields as needed
+
+        # Save the data to your database or any storage mechanism
+
+        return JsonResponse({'status': 'success'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'})

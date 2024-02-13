@@ -4,5 +4,6 @@ from insights.urls import urlpatterns as insights_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(insights_urls)),  # Include the URLs from the 'insights' app
+    path('', include(insights_urls)),
+    path('', include('insights.urls')),
 ]
