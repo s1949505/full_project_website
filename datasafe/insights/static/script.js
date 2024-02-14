@@ -16,6 +16,9 @@ function saveText1(nextPage) {
     const accessibility = accessibilityOption ? accessibilityOption.value : null;
     localStorage.setItem("accessibility", accessibility);
 
+    const accessibilityInfo = document.getElementById("accessibilityInfoArea").value;
+    localStorage.setItem("accessibilityInfo", accessibilityInfo);
+
     const research = document.getElementById("research").value;
     localStorage.setItem("research", research);
 
@@ -29,9 +32,15 @@ function saveText1(nextPage) {
     const funding = fundingOption ? fundingOption.value : null;
     localStorage.setItem("funding", funding);
 
+    const fundingInfo = document.getElementById('fundingInfoArea').value;
+    localStorage.setItem("fundingInfo", fundingInfo)
+
     const combinationOption = document.querySelector('input[name="combination"]:checked');
     const combination = combinationOption ? combinationOption.value : null;
     localStorage.setItem("combination", combination);
+
+    const combinationInfo = document.getElementById('combinationInfoArea').value;
+    localStorage.setItem("combinationInfo", combinationInfo)
 
     const date = document.getElementById("date").value;
     localStorage.setItem("date", date);
@@ -63,6 +72,9 @@ function saveText2(nextPage) {
     const personal = personalOption ? personalOption.value : null;
     localStorage.setItem("personal", personal);
 
+    const personalInfo = document.getElementById("personalInfoArea").value;
+    localStorage.setItem("personalInfo", personalInfo);
+
     const flaws = document.getElementById("flaws").value;
     localStorage.setItem("flaws", flaws);
 
@@ -72,6 +84,9 @@ function saveText2(nextPage) {
     const annotationOption = document.querySelector('input[name="annotation"]:checked');
     const annotation = annotationOption ? annotationOption.value : null;
     localStorage.setItem("annotation", annotation);
+
+    const annotationInfo = document.getElementById("annotationInfoArea").value;
+    localStorage.setItem("annotationInfo", annotationInfo);
 
     const collection = document.getElementById("collection").value;
     localStorage.setItem("collection", collection);
@@ -100,6 +115,9 @@ function saveText3(nextPage) {
     const maintainedOption = document.querySelector('input[name="maintained"]:checked');
     const maintained = maintainedOption ? maintainedOption.value : null;
     localStorage.setItem("maintained", maintained);
+
+    const maintainedInfo = document.getElementById("maintainedInfoArea").value;
+    localStorage.setItem("maintainedInfo", maintainedInfo);
 
     const Uses = document.getElementById("Uses").value;
     localStorage.setItem("Uses", Uses);
@@ -334,13 +352,11 @@ function saveToAccount() {
 
     if(!user){
         alert('You must be signed in to saved items to your account. You can sign in on the homepage or download the data card instead')
-        var url = "/account/";
-        window.location.href = url;
+        
     }
     if(!datasetName || datasetName == 'N/A'){
         alert('You must assign a name to your data card. Please return to question set one and do so')
-        var url = "/qset1/";
-        window.location.href = url;
+        
 
     }
     else{

@@ -109,20 +109,23 @@
      <!-- Upload overlay -->
      <div id="overlay" class="overlay">
          <div id="modal" class="modal">
-             <h1>Upload a File</h1>
-             <form id="uploadForm" method="POST" enctype="multipart/form-data" action="{% url 'upload' %}">
+            <div style="display: block;">
+                <h1 style="font-family: Inria sans;">Upload a File</h1>
+                <form id="uploadForm" method="POST" enctype="multipart/form-data" action="{% url 'upload' %}">
                 {% csrf_token %}
                 <label for="file">Select a file:</label>
                 <input type="file" id="file" name="file" required><br>
                 <label for="max_rows">Enter the last row with data to read to:</label>
-                <input type="number" id="max_rows" name="max_rows" required><br>
+                <input type="number" id="max_rows" name="max_rows"><br>
                 <label for="max_cols">Enter the last column with data to read to:</label>
-                <input type="text" id="max_cols" name="max_cols" required><br>
+                <input type="text" id="max_cols" name="max_cols" ><br>
                 <label for="title_row">Is there a title row Y/n:</label>
-                <input type="text" id="title_row" name="title_row" required><br>
+                <input type="text" id="title_row" name="title_row" ><br>
+                <br>
                 <button type="button" onclick="submitForm(event)">Submit</button>
                 <button type="button" onclick="closeUploadOverlay()">Cancel</button>
-             </form>
+                </form>
+            </div>
          </div>
      </div>
     <div class="footer" style="font-family: 'Inria Sans'; position: relative;">

@@ -71,16 +71,16 @@
             <p>Dataset Accessibility</p>
             <div>
                 <input style="cursor: pointer;" type="radio" id="publicly" name="accessibility" value="Publicly available" onclick="showExtenstion('show', 'accessibilityInfo','&lt Include a link, contact or sourcing information &gt')">
-                <label for="internal">Internally funded</label><br>
+                <label for="internal">Publicly Available</label><br>
                 <input style="cursor: pointer;" type="radio" id="on_demand" name="accessibility" value="Available on demand" onclick="showExtenstion('show', 'accessibilityInfo','&lt Describe the process (who to contact etc.) and an expected waiting time for access to the dataset &gt')">
-                <label for="external">Externally funded</label><br>
+                <label for="external">Available on demand</label><br>
                 <input style="cursor: pointer;" type="radio" id="Private" name="accessibility" value="Private dataset" onclick="showExtenstion('show', 'accessibilityInfo','&lt Why is the dataset private and will it ever be made public? Do your best to explain &gt')">
-                <label for="combination">Combination</label><br>
+                <label for="combination">Private</label><br>
                 <div class="popUp" id="accessibilityInfo">
                     <br>
                     <label for="accessibilityInfo">Please provide more information:</label>
                     <br>
-                    <textarea class="popupTextArea" name="accessibilityInfo" id="accessibilityInfo" rows="4" placeholder="default"></textarea>
+                    <textarea class="popupTextArea" name="accessibilityInfoArea" id="accessibilityInfoArea" rows="4" placeholder="default"></textarea>
                 </div>
             </div>
             <br>
@@ -108,7 +108,7 @@
                     <br>
                     <label for="fundingInfo">Please provide more information:</label>
                     <br>
-                    <textarea class="popupTextArea" name="fundingInfo" id="fundingInfo" rows="4" placeholder="default"></textarea>
+                    <textarea class="popupTextArea" name="fundingInfoArea" id="fundingInfoArea" rows="4" placeholder="default"></textarea>
                 </div>
             </div>
             <p>Is the dataset a combination of existing datasets</p>
@@ -121,7 +121,7 @@
                     <br>
                     <label for="combinationInfo">Please provide more information:</label>
                     <br>
-                    <textarea class="popupTextArea" name="combinationInfo" id="combinationInfo" rows="4" placeholder="default"></textarea>
+                    <textarea class="popupTextArea" name="combinationInfoArea" id="combinationInfoArea" rows="4" placeholder="default"></textarea>
                 </div>
             </div>
             <br>

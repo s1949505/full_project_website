@@ -52,14 +52,18 @@
                 <p style="color: blue;">Dataset Authors: <span style="color: black;" id="authorsText"></span></p>
                 <p style="color: blue;">Collaborators/contributors: <span style="color: black;"id="contributorsText"></span></p>
                 <p style="color: blue;">Combination: <span style="color: black;" id="combinationText"></span></p>
+                <p style="color: blue;">Combination Information: <span style="color: black;" id="combinationInfoText"></span></p>
                 <p style="color: blue;">Funding: <span style="color: black;" id="fundingText"></span></p>
+                <p style="color: blue;">Funding Information: <span style="color: black;" id="fundingInfoText"></span></p>
                 <p style="color: blue;">Date of dataset ceration: <span style="color: black;" id="dateText"></span></p>
                 <p style="color: blue;">Dataset version: <span style="color: black;" id="versionText"></span></p>
             </div>
             <div class="text-block">
                 <p style="color: blue;">Motivation for creation of the dataset: <span style="color: black;" id="motivationText"></span></p>
                 <p style="color: blue;">Motivation for research: <span style="color: black;" id="researchText"></span></p>
-                <p style="color: blue;">Accessibility of the dataset: <span style="color: black;" id="accessibilityText"></span></p>
+                <p style="color: blue;">Accessibility of the dataset: <span style="color: black;" id="accessibilityText"></span>
+                <br>
+                <span style="color: black;" id="accessibilityInfoText"></span></p>
             </div>
         </div>
         <h2>Technical Details <span><div style="width: 90%;  position: relative; border: 2px black solid"></div>            </span></h2>
@@ -69,7 +73,9 @@
                 <p style="color: blue;">Main application(s): <span style="color: black;" id="applicationsText"></span></p>
                 <p style="color: blue;">Primary datatypes: <span style="color: black;" id="datatypesText"></span></p>
                 <p style="color: blue;">Primary data: <span style="color: black;" id="qorqText"></span></p>
-                <p style="color: blue;">Annotation method: <span style="color: black;" id="annotationText"></span></p>
+                <p style="color: blue;">Annotation method: <span style="color: black;" id="annotationText"></span>
+                <br>
+                <span style="color: black;" id="annotationInfoText"></span></p>
                 <p style="color: blue;">Data collection method: <span style="color: black;" id="collectionText"></span></p>
                 <p style="color: blue;">Dataset size: <span style="color: black;" id="sizeText"></span></p>
                 <p style="color: blue;">Data splits: <span style="color: black;" id="splitsText"></span></p>
@@ -81,7 +87,9 @@
                 <p style="color: blue;">Dataset license ID: <span style="color: black;" id="licenceText"></span></p>
                 <p style="color: blue;">Last update to dataset: <span style="color: black;" id="updateText"></span></p>
                 <p style="color: blue;">Known underrepresented categories/fields: <span style="color: black;" id="flawsText"></span></p>
-                <p style="color: blue;">Sensitive data: <span style="color: black;" id="personalText"></span></p>
+                <p style="color: blue;">Sensitive data: <span style="color: black;" id="personalText"></span>
+                <br>
+                <span style="color: black;" id="personalInfoText"></span></p>
                 <p style="color: blue;">DOI citation number: <span style="color: black;" id="doiText"></span></p>
             </div>
         </div>
@@ -89,7 +97,9 @@
 
         <div>
             <div class="text-block">
-                <p style="color: blue;">Is the dataset still being maintained: <span style="color: black;" id="maintainedText"></span></p>
+                <p style="color: blue;">Is the dataset still being maintained: <span style="color: black;" id="maintainedText"></span>
+                <br>
+                <span style="color: black;" id="maintainedInfoText"></span></p>
                 <p style="color: blue;">Possible related social impact: <span style="color: black;" id="socialText"></span></p>
                 <p style="color: blue;">Kown possible underlying bias/problems: <span style="color: black;" id="biasText"></span></p>
                 <p style="color: blue;">How to cite the dataset: <span style="color: black;"id="citeText"></span></p>
@@ -118,7 +128,6 @@
             // Retrieve identifier from URL
             var urlParams = new URLSearchParams(window.location.search);
             var identifier = urlParams.get('identifier');
-
 
             // Use the identifier to load and display data on the page
             loadDataForIdentifier(identifier);
@@ -152,8 +161,11 @@
         document.getElementById('motivationText').innerText = storedData['motivation'];
         document.getElementById('researchText').innerText = storedData['research'];
         document.getElementById('accessibilityText').innerText = storedData['accessibility'];
+        document.getElementById('accessibilityInfoText').innerText = storedData['accessibilityInfo'];
         document.getElementById('combinationText').innerText = storedData['combination'];
+        document.getElementById('combinationInfoText').innerText = storedData['combinationInfo'];
         document.getElementById('fundingText').innerText = storedData['funding'];
+        document.getElementById('fundingInfoText').innerText = storedData['fundingInfo'];
         document.getElementById('dateText').innerText = storedData['date'];
         document.getElementById('versionText').innerText = storedData['version'];
 
@@ -161,11 +173,13 @@
         document.getElementById('datatypesText').innerText = storedData['datatypes'];
         document.getElementById('qorqText').innerText = storedData['qorq'];
         document.getElementById('annotationText').innerText = storedData['annotation'];
+        document.getElementById('annotationInfoText').innerText = storedData['annotationInfo'];
         document.getElementById('collectionText').innerText = storedData['collection'];
         document.getElementById('sizeText').innerText = storedData['size'];
         document.getElementById('splitsText').innerText = storedData['splits'];
         document.getElementById('formatText').innerText = storedData['format'];
         document.getElementById('personalText').innerText = storedData['personal'];
+        document.getElementById('personalInfoText').innerText = storedData['personalInfo'];
         document.getElementById('flawsText').innerText = storedData['flaws'];
         document.getElementById('languagesText').innerText = storedData['languages'];
         document.getElementById('licenceText').innerText = storedData['licence'];
@@ -173,6 +187,7 @@
         document.getElementById('updateText').innerText = storedData['update'];
 
         document.getElementById('maintainedText').innerText = storedData['maintained'];
+        document.getElementById('maintainedInfoText').innerText = storedData['maintainedInfo'];
         document.getElementById('UsesText').innerText = storedData['Uses'];
         document.getElementById('unsafeText').innerText = storedData['unsafe'];
         document.getElementById('socialText').innerText = storedData['social'];
@@ -196,8 +211,11 @@
             { key: 'motivation', targetElementId: 'motivationText' },
             { key: 'research', targetElementId: 'researchText' },
             { key: 'accessibility', targetElementId: 'accessibilityText' },
+            { key: 'accessibilityInfo', targetElementId: 'accessibilityInfoText' },
             { key: 'combination', targetElementId: 'combinationText' },
+            { key: 'combinationInfo', targetElementId: 'combinationInfoText' },
             { key: 'funding', targetElementId: 'fundingText' },
+            { key: 'fundingInfo', targetElementId: 'fundingInfoText' },
             { key: 'date', targetElementId: 'dateText' },
             { key: 'version', targetElementId: 'versionText' },
            
@@ -207,11 +225,13 @@
             { key: 'datatypes', targetElementId: 'datatypesText' },
             { key: 'qorq', targetElementId: 'qorqText' },
             { key: 'annotation', targetElementId: 'annotationText' },
+            { key: 'annotationInfo', targetElementId: 'annotationInfoText' },
             { key: 'collection', targetElementId: 'collectionText' },
             { key: 'size', targetElementId: 'sizeText' },
             { key: 'splits', targetElementId: 'splitsText' },
             { key: 'format', targetElementId: 'formatText' },
             { key: 'personal', targetElementId: 'personalText' },
+            { key: 'personalInfo', targetElementId: 'personalInfoText' },
             { key: 'flaws', targetElementId: 'flawsText' },
             { key: 'languages', targetElementId: 'languagesText' },
             { key: 'licence', targetElementId: 'licenceText' },
@@ -220,6 +240,7 @@
 
             //Question set 3
             { key: 'maintained', targetElementId: 'maintainedText' },
+            { key: 'maintainedInfo', targetElementId: 'maintainedInfoText' },
             { key: 'Uses', targetElementId: 'UsesText' },
             { key: 'unsafe', targetElementId: 'unsafeText' },
             { key: 'social', targetElementId: 'socialText' },
@@ -237,25 +258,31 @@
             'Motivation for creation of the dataset: ',
             'Motivation for research: ',
             'Accessibility of the dataset: ',
+            'Accessibility Information: ',
             'Combination: ',
+            'Combination Information: ',
             'Funding: ',
+            'Funding Information: ',
             'Date of dataset ceration: ',
             'Dataset version: ',
             'Main application(s): ',
             'Primary datatypes: ',
             'Primary data: ',
             'Annotation method: ',
+            'Annotation Information: ',
             'Data collection method: ',
             'Dataset size: ',
             'Data splits: ',
             'Data format: ',
             'Sensitive data: ',
+            'Sensitive data information: ',
             'Known underrepresented categories/fields: ',
             'Languages used: ',
             'Dataset license ID: ',
             'DOI citation number: ',
             'Last update to dataset: ',
             'Is the dataset still being maintained: ',
+            'Maintainence Information: ',
             'Other possible applications of the dataset: ',
             'Known unsafe applications: ',
             'Possible related social impact: ',

@@ -18,6 +18,7 @@ def complete(request, identifier):
     return render(request, 'complete.html', {'identifier': identifier})
 def home_view(request):
     return render(request, 'main/home.html')
+
 def intro(request):
     return render(request, 'main/intro.html')
 def login_view(request):
@@ -87,8 +88,8 @@ def process_file(filename, max_rows, max_cols, title_row):
         for field in matching_fields:
             unique_values = data[field].dropna().unique()
             result.append(f"\nField: {field}")
-            result.append(f"Unique Values: {unique_values}")
-            result.append(f"Value Counts:\n{data[field].value_counts()}")
+            #result.append(f"Unique Values: {unique_values}")
+            #result.append(f"Value Counts:\n{data[field].value_counts()}")
     # Check if the max value is 10% greater than the next highest
             value_counts = data[field].value_counts()
             max_value_field = value_counts.idxmax()
@@ -113,10 +114,14 @@ def upload(request):
             filename = fs.save(file.name, file)
             file_path = fs.url(filename)
 
-            print(file_path)
+            max_rows = "zz"
+            max_cols = int
 
-            max_rows = int(request.POST['max_rows'])
-            max_cols = request.POST['max_cols'].upper()
+            print(filename[-3:])
+            if (filename[-3:] != "csv"):
+                max_rows = int(request.POST['max_rows'])
+                max_cols = request.POST['max_cols'].upper()
+                
             title_row = request.POST['title_row']
 
             try:
