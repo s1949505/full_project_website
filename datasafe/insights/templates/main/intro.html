@@ -9,15 +9,6 @@
         <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
         <script src="{% static 'script.js' %}"></script>
-        <script>
-            function openUploadOverlay() {
-            document.getElementById("overlay").style.display = "flex";
-            }
-
-            function closeUploadOverlay() {
-                document.getElementById("overlay").style.display = "none";
-            }
-        </script>
     </head>
 <body>
 
@@ -117,20 +108,20 @@
 
      <!-- Upload overlay -->
      <div id="overlay" class="overlay">
-         <div class="modal">
+         <div id="modal" class="modal">
              <h1>Upload a File</h1>
              <form id="uploadForm" method="POST" enctype="multipart/form-data" action="{% url 'upload' %}">
                 {% csrf_token %}
                 <label for="file">Select a file:</label>
-                 <input type="file" name="file" required><br>
-                 <label for="max_rows">Enter the last row with data to read to:</label>
-                 <input type="number" name="max_rows" required><br>
-                 <label for="max_cols">Enter the last column with data to read to:</label>
-                 <input type="text" name="max_cols" required><br>
-                 <label for="title_row">Is there a title row Y/n:</label>
-                 <input type="text" name="title_row" required><br>
-                 <button type="button" onclick="submitForm(event)">Submit</button>
-                 <button type="button" onclick="closeUploadOverlay()">Cancel</button>
+                <input type="file" id="file" name="file" required><br>
+                <label for="max_rows">Enter the last row with data to read to:</label>
+                <input type="number" id="max_rows" name="max_rows" required><br>
+                <label for="max_cols">Enter the last column with data to read to:</label>
+                <input type="text" id="max_cols" name="max_cols" required><br>
+                <label for="title_row">Is there a title row Y/n:</label>
+                <input type="text" id="title_row" name="title_row" required><br>
+                <button type="button" onclick="submitForm(event)">Submit</button>
+                <button type="button" onclick="closeUploadOverlay()">Cancel</button>
              </form>
          </div>
      </div>
@@ -140,6 +131,15 @@
         <a><u>Other useful links:</u> <br> linktoethicspaper.com <br> otherlink.com</a>
     </div>
     <script>
+        function openUploadOverlay() {
+            document.getElementById("overlay").style.display = "flex";
+            document.getElementById("modal").style.display = "flex";
+
+        }
+
+        function closeUploadOverlay() {
+            document.getElementById("overlay").style.display = "none";
+        }
         function submitForm() {
             var form = document.getElementById("uploadForm");
             var formData = new FormData(form);
@@ -169,7 +169,7 @@
             // Prevent the default form submission
             event.preventDefault();
         }
-    /**
+    
         function displayInfo(result) {
         // Create a modal to display the information
         var modal = document.createElement("div");
@@ -195,12 +195,13 @@
         // Append the modal to the body
         document.body.appendChild(modal);
     }
-    **/
+
+    /**
     function displayInfo(result) {
         // Use alert to display the results (you can customize this)
         alert(result.join('\n'));
     }
-    
+    **/
     </script>
 
 </body>

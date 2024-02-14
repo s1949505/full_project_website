@@ -46,22 +46,25 @@ def process_file(filename, max_rows, max_cols, title_row):
     columns_to_read = f'A:{max_cols}'
 
     filetype = filename[-3:].lower()
+    print(filetype)
     if filetype == "xls":
         if title_row == "Y":
+            print("title row ")
             data = pd.read_excel(filename, nrows=max_rows, usecols=columns_to_read, skiprows=1)
+
         elif title_row == "n":
+            print("no title row")
             data = pd.read_excel(filename, nrows=max_rows, usecols=columns_to_read)
 
     elif filetype == "csv":
         data = pd.read_csv(filename)
         print("csv detected")
 
-        
     else:
         print("Unrecognised input")
         
     clean_data = data.dropna(axis=0, how='all').dropna(axis=1, how='all')
-
+    print("file type passed")
 
     fields_to_search = ["age", "height", "ethnicity", "religion", "race", "ethical background", "sex", "Gender"]
 
