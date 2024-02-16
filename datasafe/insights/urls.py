@@ -1,12 +1,14 @@
 # insights/urls.py
 from django.urls import path
+from django.contrib.auth.views import LoginView, LogoutView
+#from .main.views import CustomRegistrationView
+
 from .main.views import (
     account_view,
     browse_view,
     complete_view,
     home_view,
     intro,
-    login_view,
     qset1_view,
     qset2_view,
     qset3_view,
@@ -17,7 +19,9 @@ from .main.views import (
     dataset_review,
     complete_view, 
     save_data, 
-    login_page_real_view
+    login_view,
+    register_user, 
+    login_user
 )
 urlpatterns = [
     path('intro/', intro, name='intro'),
@@ -28,15 +32,17 @@ urlpatterns = [
     path('browse/', browse_view, name='browse'),
     path('complete/', complete_view, name='complete'),
     path('home/', home_view, name='home'),
-    path('login/', login_view, name='login'),
+    path('login/', login_view , name='login'),
+    path('login_user/', login_user , name='login_user'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('qset1/', qset1_view, name='qset1'),
     path('qset2/', qset2_view, name='qset2'),
     path('qset3/', qset3_view, name='qset3'),
     path('register/', register_view, name='register'),
+    path('register_user/', register_user, name='register_user'),
     path('review/', review_view, name='review'),
     path('saved/', saved_view, name='saved'),
     path('save_data/', save_data, name='save_data'), 
-    path('login_page_real/',login_page_real_view, name='login_page_real'),
     path('saved/complete.html', complete_view, name='complete'),
 
 

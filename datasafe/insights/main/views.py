@@ -1,15 +1,22 @@
 import os
 import sys
 import pandas as pd
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.hashers import make_password
+
+
 
 
 def account_view(request):
     return render(request, 'main/account.html')
+def login_view(request):
+    return render(request, 'registration/login.html')
 def browse_view(request):
     return render(request, 'main/browse.html')
 def complete_view(request):
@@ -18,14 +25,8 @@ def complete(request, identifier):
     return render(request, 'complete.html', {'identifier': identifier})
 def home_view(request):
     return render(request, 'main/home.html')
-
 def intro(request):
     return render(request, 'main/intro.html')
-def login_view(request):
-    return render(request, 'main/login_page_real.html')
-def login_page_real_view(request):
-    return render(request, 'main/login_page_real.html')
-
 def qset1_view(request):
     return render(request, 'main/qset1.html')
 def qset2_view(request):
@@ -33,13 +34,62 @@ def qset2_view(request):
 def qset3_view(request):
     return render(request, 'main/qset3.html')
 def register_view(request):
-    return render(request, 'main/register.html')
+    return render(request, 'registration/register.html')
 def review_view(request):
     return render(request, 'main/review.html')
 def saved_view(request):
     return render(request, 'main/saved.html')
 
+def register_user(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        dob = request.POST['dob']
+        password = request.POST['password']
 
+        if not all([name, email, dob, password]):
+            return render(request, 'register.html', {'error': 'All fields must be completed to create an account.'})
+
+        # Check if the email is already registered
+        if User.objects.filter(email=email).exists():
+            return render(request, 'register.html', {'error': 'Email is already taken'})
+                
+        hashed_password = make_password(password)
+
+        # Create a new user
+        user = User.objects.create_user(username=email, email=email, password=hashed_password)
+
+        user.first_name = name
+        # Additional fields can be set here
+
+        # Save the user instance
+        user.save()
+
+        # Authenticate the user
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')  # Redirect to the home page or any other desired page
+        else:
+            return render(request, 'registration/register.html', {'error': 'Registration failed'})
+    else:
+        return render(request, 'registration/register.html')
+    
+
+def login_user(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            login(request, user)
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid credentials'})
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 def process_file(filename, max_rows, max_cols, title_row):
     print("processing file")

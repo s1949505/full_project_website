@@ -192,45 +192,64 @@ document.addEventListener('DOMContentLoaded', function () {
             // Save credentials to localStorage
             localStorage.setItem('savedEmail', email);
             localStorage.setItem('savedPassword', password);
-            var credentialsSaved = true;
-
         } else {
             // Clear saved credentials
             localStorage.removeItem('savedEmail');
             localStorage.removeItem('savedPassword');
-            var credentialsSaved = false;
-
         }
 
-
-        // For demonstration purposes, alert the user with the entered credentials
-   
-        alert(`Login successful!\nEmail: ${email}\nPassword: ${password}\nCredentials Saved: ${credentialsSaved ? 'Yes' : 'No'}`);
-
-        window.location.href = "{% url 'home' %}";
-
+        fetch('{% url "login" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // You may need to include additional headers based on your backend requirements
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check the response from the server
+            if (data.status === 'success') {
+                alert('Login successful!');
+                window.location.href = "{% url 'home' %}";
+            } else {
+                alert('Login failed. Please check your credentials.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred during login. Please try again.');
+        });
     }
 
-    window.login = login
-
-
+    window.login = login;
 });
 
 function navButton(page){
+    console.log("Navigating to:", page);
+
     window.location.href = page;
 }
 
 function continueAsGuest() {
-    // Set the window location to home.html
-    window.location.href = "{% url 'home' %}";
+    console.log("Redirecting to home");
+    redirect(homeUrl);
     var name = 'Guest'
-    localStorage.setItem("user", name)
-
+    localStorage.setItem("user", name);
 }
 
 function register() {
-    // Set the window location to home.html
-    window.location.href = "{% url 'register' %}";
+    console.log("Redirecting to register");
+    redirect(registerUrl);
+}
+
+function redirect(element) {
+    var url = element.getAttribute('data-url');
+    console.log("Redirecting to:", url);
+    window.location.href = url;
 }
 
 function showExtenstion(display, popupID, placeholder) {
@@ -251,38 +270,32 @@ function showExtenstion(display, popupID, placeholder) {
 
 }
 
-function validatePassword(){
+function validatePassword() {
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const email = document.getElementById('email').value;
     const dob = document.getElementById('dob').value;
     const name = document.getElementById('name').value;
 
-
     var hasNumber = /\d/.test(password);
     var validLength = password.length > 7;
-    var noBlanks = !(email.trim() === '' && name.trim() === '' && dob.trim() === '')
-
- 
+    var noBlanks = !(email.trim() === '' && name.trim() === '' && dob.trim() === '');
 
     if (password === confirmPassword && hasNumber && validLength && noBlanks) {
-        alert('Account successfuly created');
-        loggedIn = true
-        window.location.href ="{% url 'home' %}"
-        localStorage.setItem("user", JSON.stringify(name))
-    } else if(!noBlanks){
-            alert('All fields must be completed to create an account.')
-    }else{
+        alert('Account successfully created');
+        loggedIn = true;
+        window.location.href = "{% url 'home' %}"; // Redirect to home page
+        localStorage.setItem("user", JSON.stringify(name));
+    } else if (!noBlanks) {
+        alert('All fields must be completed to create an account.');
+    } else {
         var alertMessage = 'Passwords ';
         alertMessage += (password !== confirmPassword) ? 'do not match. ' : '';
         alertMessage += (!hasNumber) ? 'must contain at least one number. ' : '';
         alertMessage += (!validLength) ? 'must be over 8 characters long. ' : '';
-        alert(alertMessage) 
+        alert(alertMessage);
     }
 }
-
-
-
 
 function toggleEditMode() {
     var bio = document.getElementById('bio');
