@@ -17,6 +17,7 @@
 
 <div class="loginBox">
     <form method="POST" action="{% url 'register' %}">
+        {% csrf_token %}
 
         <h2>User Registration</h2>
         <div class="entries">
