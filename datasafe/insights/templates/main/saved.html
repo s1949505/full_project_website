@@ -11,9 +11,42 @@
         <script src="{% static 'script.js' %}"></script>
     </head>
 <body>
+    
+<div class="sidenav"> 
+    <li style="text-align:center; padding-top: 20px; padding-bottom: 10px; font-size:30px;">
+        DataSafe
+    </li>
+    <li>
+        <a href="{% url 'home' %}">Home</a>
+    </li>
+    <li>
+        <a href="{% url 'intro' %}">Creating a data card</a>
+    </li>
+    <li>
+        <a href="{% url 'account' %}">Account</a>
+    </li>
+    <li>
+        <a href="{% url 'browse' %}">Browse</a>
+    </li>
+    <li>
+        <a class="active" href="{% url 'saved' %}">Saved Cards</a>
+    </li>
+    <li>
+        <a href="{% url 'home' %}">Logout</a>
+    </li>
+</div>
 
+<div style="position: relative; margin-left: 22%;">
     <h1>All Saved Data</h1>
     <ul id="allSavedDataList"></ul>
+</div>
+
+<div class="footer" style="font-family: 'Inria Sans'; position: absolute">
+    <a><u>Contact us:</u> <br> datasafecontact@gmail.com <br> DataSafe.twitter </a>
+    <a><u>Having Probelems?</u> <br> Find our FAQs here: <br> DataSafeFAQs.com</a>
+    <a><u>Other useful links:</u> <br> linktoethicspaper.com <br> otherlink.com</a>
+</div>
+
 
     <script src="{% static 'script.js' %}"></script>
     <script>

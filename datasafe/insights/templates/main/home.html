@@ -56,11 +56,18 @@
             </h2>
         </div>
     </div>
+    {% if is_authenticated %}
+        <div id="loginContainer">
+            <a style="color: black; padding: 8px; background-color: white; border-color: black; border-radius: 8px; border-style: solid;" href="{% url 'account' %}">Go to account</a>
+        </div>
 
+    {% else %}
     <div id="loginContainer">
         <a style="padding: 10px; color: black;"  href="{% url 'login' %}">Login</a>
         <a style="color: black; padding: 8px; background-color: white; border-color: black; border-radius: 8px; border-style: solid;" href="{% url 'register' %}">Create an account</a>
     </div>
+    {% endif %}
+
 
     <div class="infoSections" style="border: #ffffff outset 2px; background-color: #ffffff; border: none;">
         <h2>The Purpose of DataSafe</h2>
@@ -76,7 +83,7 @@
     </div>
 
     <div class="footer" style="font-family: 'Inria Sans';">
-        <a><u>Contact us:</u> <br> DataSafe@gmail.com <br> DataSafe.twitter </a>
+        <a><u>Contact us:</u> <br> datasafecontact@gmail.com <br> DataSafe.twitter </a>
         <a><u>Having Probelems?</u> <br> Find our FAQs here: <br> DataSafeFAQs.com</a>
         <a><u>Other useful links:</u> <br> linktoethicspaper.com <br> otherlink.com</a>
     </div>

@@ -24,7 +24,11 @@ def complete_view(request):
 def complete(request, identifier):
     return render(request, 'complete.html', {'identifier': identifier})
 def home_view(request):
-    return render(request, 'main/home.html')
+    if request.user.is_authenticated:
+        return render(request, 'main/home.html', {'is_authenticated': True})
+    else:
+        return render(request, 'main/home.html', {'is_authenticated': False})
+
 def intro(request):
     return render(request, 'main/intro.html')
 def qset1_view(request):
@@ -87,6 +91,8 @@ def login_user(request):
             login(request, user)
             return JsonResponse({'status': 'success'})
         else:
+            print('Login failed: Invalid credentials')
+
             return JsonResponse({'status': 'error', 'message': 'Invalid credentials'})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})

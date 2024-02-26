@@ -9,8 +9,10 @@
         <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
         <script>
-            var registerUrl = "{% url 'register' %}";
-            var homeUrl = "{% url 'home' %}";
+            const registerUrl = "{% url 'register' %}";
+            const homeUrl = "{% url 'home' %}";
+            const loginUrl = "{% url 'login_user' %}";
+
         </script>
         <script src="{% static 'script.js' %}"></script>
        
@@ -20,7 +22,9 @@
     DataSafe
 </h1>
 
-<form>
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+
     <div class="loginBox">
         <h2>User Login</h2>
         <div class="entries">

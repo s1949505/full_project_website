@@ -269,12 +269,18 @@ input:checked + .slider:before {
     max-width: 200px;
     background-color: #7fb2ff;
     position: fixed;
-    height: 80%;
+    height: 550px;
     top: 0px;
     left: 0px;
     overflow: auto;
     display: inline-block;
     border-radius: 0px 0px 100000px 0px;
+}
+
+@media screen and (max-height: 500px) {
+    .sidenav{
+        position: absolute;
+    }
 
 }
 

@@ -179,6 +179,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const rememberMeCheckbox = document.getElementById('remeberMeCheckbox');
+        const csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+
 
         // Check if email and password are not blank
         if (email.trim() === '' || password.trim() === '') {
@@ -198,30 +200,42 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.removeItem('savedPassword');
         }
 
-        fetch('{% url "login" %}', {
+        fetch(loginUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // You may need to include additional headers based on your backend requirements
+                'X-CSRFToken': csrfToken,  // Include the CSRF token in the headers
             },
             body: JSON.stringify({
                 email: email,
                 password: password,
             }),
+        })            
+
+        .then(response =>{
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
         })
-        .then(response => response.json())
         .then(data => {
             // Check the response from the server
             if (data.status === 'success') {
                 alert('Login successful!');
                 window.location.href = "{% url 'home' %}";
             } else {
-                alert('Login failed. Please check your credentials.');
+                alert('Login failed. Please check your credentials');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred during login. Please try again.');
+            console.error('Full Error Object:', error);
+
+            if (error.message && error.message.includes('unregistered email')) {
+                alert('This email is not recognized. To register a new account, click the "Register New Account" button.');
+            } else {
+                alert('An error occurred during login. Please try again.');
+            }
         });
     }
 
