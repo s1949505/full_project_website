@@ -43,7 +43,7 @@
             <a class="active" href="{% url 'account' %}">Account</a>
         </li>
         <li>
-            <a href="{% url 'browse' %}">Browse</a>
+            <a href="{% url 'browse' %}">Information</a>
         </li>
         <li>
             <a href="{% url 'saved' %}">Saved Cards</a>
@@ -52,6 +52,9 @@
             <a href="{% url 'home' %}">Logout</a>
         </li>
     </div>
+
+    {% if is_authenticated %}
+
     <div class="userInfo">
         <h3 style="position: relative; top: 0px; left: 0px;">Welcome, <span id="name" style="position: relative; top: 5px;"  class="editable">User</span></h3>
 
@@ -82,7 +85,6 @@
 
     <div class="savedCards">
         <h3><u>Saved Cards</u></h3>
-
     </div>
 
     <div class="footer" style="font-family: 'Inria Sans'; position: relative;">
@@ -90,6 +92,43 @@
         <a><u>Having Probelems?</u> <br> Find our FAQs here: <br> DataSafeFAQs.com</a>
         <a><u>Other useful links:</u> <br> linktoethicspaper.com <br> otherlink.com</a>
     </div>
+
+
+    {% else %}
+
+    <div id="loginContainer">
+        <a style="color: black; padding: 8px; background-color: white; border-color: black; border-radius: 8px; border-style: solid;margin-right: 30%;"  href="{% url 'login' %}">Login</a>
+    </div>
+
+    <div class="userInfo" style="top: 10px;">
+        <h3 style="position: relative; top: 0px; left: 0px;">Welcome, User</h3>
+        <p style="position: relative; width: 200px;">We see that you are not logged in. If you wish to do so click the button at the top of the page. Otherwise, if you'd like to create an account, click the button below</p>
+
+        <h3 style="position: relative; left: 40%; top: -190px;">Where to find me: </h3>
+        <p style="position: relative; left: 40%; top: -190px; width: 200px;">Once logged in, you can add information to your account</p>
+
+        <h3 style="position: relative; left: 40%; top: -180px;">Bio</h3>
+        <p style="position: relative; top: -180px; left: 40%; width: 200px;">You can add points about who you are, what area you work in, interests and so forth</p>
+
+    </div>
+
+    <div class="userCards" id="userCardsArea" style="top: -90px; width: 450px;">
+        <h3><u>Your Saved Data</u></h3>
+        <p>You can even save cards to your account to continue working on them later. They'd be saved here.</p>
+    </div>
+
+    <div class="greenButtons"  style="height: 40px; width: 200px; text-align: center; padding: 30px;position: relative; top: -100px; padding-bottom: 50px;">
+        <a href="{% url 'register' %}" style="color: black;font-family: Inria Sans; font-size: 25px;">Register a new account here</a>    
+    </div>
+
+    <div class="footer" style="font-family: 'Inria Sans'; position: fixed;">
+        <a><u>Contact us:</u> <br> datasafecontact@gmail.com <br> DataSafe.twitter </a>
+        <a><u>Having Probelems?</u> <br> Find our FAQs here: <br> DataSafeFAQs.com</a>
+        <a><u>Other useful links:</u> <br> linktoethicspaper.com <br> otherlink.com</a>
+    </div>
+
+    {% endif %}
+
 
     <script src="{% static 'script.js' %}"></script>
 </body>
