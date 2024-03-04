@@ -312,7 +312,7 @@ input:checked + .slider:before {
     border: 1px black solid;
     top: 10px;
     padding-right: 30px;
-    margin-left: clamp(150px, 25%, 300px);
+    margin-left: clamp(22%, 200px, 38%);
     border-radius: 15px;
     display: inline-block;
 }
@@ -469,14 +469,56 @@ textarea[type=text]{
     color: black;
     margin-left: 10px; 
 }
-@media screen and (max-width: 640px) {
+
+
+#menuIcon {
+    position: relative;
+    display: none;
+    cursor: pointer;
+    font-size: 20px;
+    top: 10px;
+    right: -30px;
+    font-size: 30px;
+
+}
+
+#menu {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 10px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 8px;
+    transition: display 0.3s ease-in-out;
+
+}
+
+
+.menu-visible {
+    display: inline-block !important; 
+}
+
+#menu a {
+    display: block;
+    padding: 5px;
+    color: black;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+@media only screen and (max-width: 700px) {
     #loginContainer {
-        flex-direction: column;
-        align-items: flex-end;
+        display: none;
     }
 
-    #loginContainer a {
-        margin: 5px 0; 
+    #menuIcon {
+        display: inline-block;
+    }
+
+    #menu {
+        display: none;
     }
 }
 

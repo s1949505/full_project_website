@@ -240,7 +240,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     window.login = login;
+
+
 });
+
+
 
 function navButton(page){
     console.log("Navigating to:", page);
@@ -298,8 +302,15 @@ function validatePassword() {
     if (password === confirmPassword && hasNumber && validLength && noBlanks) {
         alert('Account successfully created');
         loggedIn = true;
-        window.location.href = "{% url 'home' %}"; // Redirect to home page
+        is_authenticated = true;
         localStorage.setItem("user", JSON.stringify(name));
+        setTimeout(function() {
+            window.location.href = "/home/";
+        }, 500);
+        console.log("reached")
+
+        return false
+
     } else if (!noBlanks) {
         alert('All fields must be completed to create an account.');
     } else {

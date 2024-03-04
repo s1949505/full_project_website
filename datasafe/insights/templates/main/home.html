@@ -36,6 +36,16 @@
             <a href="{% url 'home' %}">Logout</a>
         </li>
     </div>
+    <button class="createcard" style="cursor: pointer;" onclick="navButton(this.getAttribute('data-next-page'))" data-next-page="{% url 'intro' %}">
+        <h2 style="font-size: 20px; font-family: 'Inria Sans'">
+            Create new data card 
+            <div style="width: 32px; height: 30px; left: 200px; top: 11px; position: absolute">
+                <div style="width: 25px; height: 0px; left: 12.5px; top: 32px; position: absolute; transform: rotate(-90deg); transform-origin: 0 0; border: 2px black solid"></div>
+                <div style="width: 25px; height: 0px; left: 0px; top: 16px; position: absolute; border: 2px black solid"></div>
+            </div>
+        </h2>
+    </button>
+    <!--
     <div class="align">
         <button class="createcard" style="cursor: pointer;" onclick="navButton(this.getAttribute('data-next-page'))" data-next-page="{% url 'intro' %}">
             <h2 style="font-size: 20px; font-family: 'Inria Sans'">
@@ -46,7 +56,7 @@
                 </div>
             </h2>
         </button>
-
+        
         <div class="search">
             <h2 style="font-size: 20px; font-family: 'Inria Sans'; color: grey;">
                 Search DataSafe 
@@ -55,7 +65,9 @@
                 </div>
             </h2>
         </div>
+        
     </div>
+    -->
     {% if is_authenticated %}
         <div id="loginContainer">
             <a style="color: black; padding: 8px; background-color: white; border-color: black; border-radius: 8px; border-style: solid;" href="{% url 'account' %}">Go to account</a>
@@ -65,6 +77,12 @@
     <div id="loginContainer">
         <a style="padding: 10px; color: black;"  href="{% url 'login' %}">Login</a>
         <a style="color: black; padding: 8px; background-color: white; border-color: black; border-radius: 8px; border-style: solid;" href="{% url 'register' %}">Create an account</a>
+    </div>
+
+    <div id="menuIcon">&#9776;</div>
+    <div id="menu">
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Create an account</a>
     </div>
     {% endif %}
 
@@ -87,5 +105,17 @@
         <a><u>Having Probelems?</u> <br> Find our FAQs here: <br> DataSafeFAQs.com</a>
         <a><u>Other useful links:</u> <br> linktoethicspaper.com <br> otherlink.com</a>
     </div>
+
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+        // Toggle the menu visibility when clicking the menu icon
+        var menuIcon = document.getElementById('menuIcon');
+        var menu = document.getElementById('menu');
+
+        menuIcon.addEventListener('click', function () {
+            menu.classList.toggle('menu-visible');
+        });
+    });
+</script>
 </body>
 </html>
