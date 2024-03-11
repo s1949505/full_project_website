@@ -114,6 +114,7 @@
     </div>
 
     <div class="greenButtons" style="width: 120px; height: 30px; position: absolute; top: 70px; right: 0px; margin-right: 5%;">
+        <!--<button style="padding: 10px;" id="exportBtn">Export to PDF <span><img src="{% static 'images/export.png' %}" style="width: 10%;">-->
         <button style="padding: 10px;" id="exportBtn">Export to PDF</button>
     </div>
 
@@ -121,7 +122,11 @@
         <button style="padding: 10px;" id="saveBtn" onclick="saveToAccount()">Save To account</button>
     </div>
 
+    <div style="width: 120px; height: 30px; position: absolute; top: 190px; right: 0px; margin-right: 10%;">
+        Date Created: N/A
+    </div>
 
+    
     <script src="{% static 'script.js' %}"></script>
     <script>
         window.onload = function () {
