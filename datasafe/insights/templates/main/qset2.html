@@ -142,7 +142,7 @@
         </form>
     </div>
     
-    <div class="overviews" style="height: 900px">
+    <div class="overviews" style="height: clamp(900px, 1000px, 1300px)">
         <top><b style="color: rgb(61, 61, 61);">Section 2 overview</b></top>
         <maintext>This section covers the information required to give a brief and meaningful overview of some of the technical aspects of the dataset  
             <br>
@@ -152,7 +152,7 @@
             <br>
             Remember, if you are unsure of any questions, you can save progress and continue at a later date or move on to the next section and return to anything left blank.
         </maintext>
-        <button onclick="saveText2(this.getAttribute('data-next-page'))" data-next-page="{% url 'account' %}" type="button" style=" margin-top: 150px;" class="saveandexit">Save and Exit</button>
+        <button onclick="saveText2(this.getAttribute('data-next-page'))" data-next-page="{% url 'account' %}" type="button" style=" bottom: 20px;" class="saveandexit">Save and Exit</button>
     </div>
 
     <div class="navContainer">
