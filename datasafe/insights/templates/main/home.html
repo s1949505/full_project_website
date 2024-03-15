@@ -68,7 +68,7 @@
         
     </div>
     -->
-    {% if is_authenticated %}
+    {% if request.user.is_authenticated %}
         <div id="loginContainer">
             <a style="color: black; padding: 8px; background-color: white; border-color: black; border-radius: 8px; border-style: solid;" href="{% url 'account' %}">Go to account</a>
         </div>

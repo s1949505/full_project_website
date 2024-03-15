@@ -289,6 +289,8 @@ function showExtenstion(display, popupID, placeholder) {
 }
 
 function validatePassword() {
+    console.log("validatePassword done")
+
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const email = document.getElementById('email').value;
@@ -304,12 +306,10 @@ function validatePassword() {
         loggedIn = true;
         is_authenticated = true;
         localStorage.setItem("user", JSON.stringify(name));
-        setTimeout(function() {
-            window.location.href = "/home/";
-        }, 500);
+        //setTimeout(function() {
+        //    window.location.href = "/home/";
+        //}, 500);
         console.log("reached")
-
-        return false
 
     } else if (!noBlanks) {
         alert('All fields must be completed to create an account.');
@@ -372,14 +372,14 @@ function saveInfo() {
     var editedName = document.getElementById('name').textContent;
 
     // Save the information to localStorage
-    localStorage.setItem('bio', editedBio);
-    localStorage.setItem('links', editedLinks);
-    localStorage.setItem('user', editedName);
+    document.getElementById('id_bio').value = editedBio;
+    document.getElementById('id_links').value = editedLinks;
+    document.getElementById('id_name').value = editedName;
 
     // Display success message
     alert('Information has been updated successfully');
 
-    toggleEditMode();
+    document.getElementById('editForm').submit();
 }
 
 function saveToAccount() {

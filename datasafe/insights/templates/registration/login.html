@@ -22,17 +22,17 @@
     DataSafe
 </h1>
 
-<form method="post" action="{% url 'login' %}">
+<form method="post" action="{% url 'login_user_process' %}">
     {% csrf_token %}
 
     <div class="loginBox">
         <h2>User Login</h2>
         <div class="entries">
-            <input type="text" style="text-align: center;" id="email" placeholder="Email Address" autofocus>
+            <input type="text" style="text-align: center;" name="email" id="email" placeholder="Email Address" autofocus>
         </div>
         <br>
         <div class="entries">
-            <input type="password" style="text-align: center;" id="password" placeholder="Password">
+            <input type="password" style="text-align: center;" name="password" id="password" placeholder="Password">
         </div>
         <br>
         <div class="pageText">

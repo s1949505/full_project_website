@@ -16,24 +16,24 @@
 </h1>
 
 <div class="loginBox">
-    <form method="POST" action="{% url 'register' %}">
+    <form method="POST" action="{% url 'register_user' %}">
         {% csrf_token %}
 
         <h2>User Registration</h2>
         <div class="entries">
-            <input type="text" style="text-align: center;" id="name" placeholder="Name">
+            <input type="text" name="name" style="text-align: center;" id="name" placeholder="Name">
         </div>
         <br>
         <div class="entries">
-            <input type="text" style="text-align: center;" id="email" placeholder="Email Address">
+            <input type="text" name="email" style="text-align: center;" id="email" placeholder="Email Address">
         </div>
         <br>
         <div class="entries">
-            <input type="date" style="text-align: center;" id="dob">
+            <input type="date" name="dob" style="text-align: center;" id="dob">
         </div>
         <br>
         <div class="entries">
-            <input type="password" style="text-align: center;" id="password" placeholder="Password">
+            <input type="password" name="password" style="text-align: center;" id="password" placeholder="Password">
         </div>
         <br>
         <div class="entries">

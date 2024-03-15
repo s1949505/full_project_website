@@ -21,7 +21,10 @@ from .main.views import (
     save_data, 
     login_view,
     register_user, 
-    login_user
+    login_user,
+    logout_view, 
+    login_user_process,
+
 )
 urlpatterns = [
     path('intro/', intro, name='intro'),
@@ -44,6 +47,9 @@ urlpatterns = [
     path('saved/', saved_view, name='saved'),
     path('save_data/', save_data, name='save_data'), 
     path('saved/complete.html', complete_view, name='complete'),
+    path('logout/', logout_view, name='logout'),
+    path('login_user_process/', login_user_process, name="login_user_process"),
+
 
 
     # Add more paths as needed

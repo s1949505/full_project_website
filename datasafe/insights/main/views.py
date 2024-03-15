@@ -7,14 +7,21 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.hashers import make_password
 
 
 
 
 def account_view(request):
-    return render(request, 'main/account.html')
+    if request.user.is_authenticated:
+        user_name = request.user.first_name or "User"
+    else:
+        user_name = "User"
+    context = {
+        'user_name': user_name
+    }
+    return render(request, 'main/account.html', context)
 def login_view(request):
     return render(request, 'registration/login.html')
 def browse_view(request):
@@ -24,6 +31,7 @@ def complete_view(request):
 def complete(request, identifier):
     return render(request, 'complete.html', {'identifier': identifier})
 def home_view(request):
+    print("check at redirect: ", request.user.is_authenticated)
     if request.user.is_authenticated:
         return render(request, 'main/home.html', {'is_authenticated': True})
     else:
@@ -44,37 +52,61 @@ def review_view(request):
 def saved_view(request):
     return render(request, 'main/saved.html')
 
+
+def logout_view(request):
+    logout(request)
+    return JsonResponse({'success': True})
+
 def register_user(request):
+    print("registering user")
     if request.method == 'POST':
         name = request.POST['name']
         email = request.POST['email']
         dob = request.POST['dob']
-        password = request.POST['password']
+        password = request.POST['password']       
+        
+        print("Received registration request for:", email)  # Print the email received
 
         if not all([name, email, dob, password]):
-            return render(request, 'register.html', {'error': 'All fields must be completed to create an account.'})
+            print("missing fields")
+            return render(request, 'registration/register.html', {'error': 'All fields must be completed to create an account.'})
 
         # Check if the email is already registered
         if User.objects.filter(email=email).exists():
-            return render(request, 'register.html', {'error': 'Email is already taken'})
+            print("email already used")
+            return render(request, 'registration/register.html', {'error': 'Email is already being used'})
                 
         hashed_password = make_password(password)
-
         # Create a new user
         user = User.objects.create_user(username=email, email=email, password=hashed_password)
 
         user.first_name = name
+        #user.username = name
         # Additional fields can be set here
 
         # Save the user instance
         user.save()
 
+        print("user: ", user)
+        print("email: ", email)
+        print("password: ", hashed_password)
+
+
         # Authenticate the user
-        user = authenticate(request, username=email, password=password)
+        user = authenticate(request, username=email, password=hashed_password)
+        print("authenticated_user: ", user)
+        print("user authenticated")
         if user is not None:
+            print("User authenticated successfully:", user.username)  # Print authentication status
+
             login(request, user)
+            print("user authentication status: ", request.user.is_authenticated)
+            request.session['is_authenticated'] = True
             return redirect('home')  # Redirect to the home page or any other desired page
         else:
+            print("user is none")
+            print("Authentication failed for user:", email)  # Print authentication failure message
+
             return render(request, 'registration/register.html', {'error': 'Registration failed'})
     else:
         return render(request, 'registration/register.html')
@@ -94,6 +126,36 @@ def login_user(request):
             print('Login failed: Invalid credentials')
 
             return JsonResponse({'status': 'error', 'message': 'Invalid credentials'})
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
+
+def login_user_process(request):
+    if request.method == 'POST':
+        print("logging in")
+        email = request.POST.get('email').strip()  # Remove leading/trailing whitespace
+        password = request.POST.get('password')
+
+        # Check if the email exists in the database
+        if User.objects.filter(email=email).exists():
+            print("email recognised")
+            user = User.objects.get(email=email)  # Case-sensitive query
+            print("password: ", make_password(password))
+            print("user password: ", user.password)
+            # Authenticate the user with provided email and password
+            print("password check: ", user.check_password(password))
+            if user.check_password(password):
+                user = authenticate(request, username=email, password=password)
+
+                # Login the user if authentication is successful
+                login(request, user)
+                return JsonResponse({'status': 'success'})
+            else:
+                # Return error message for incorrect password
+                return JsonResponse({'status': 'error', 'message': 'Incorrect password'})
+        else:
+            # Return error message for unrecognized email
+            return JsonResponse({'status': 'error', 'message': 'Unrecognized email'})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 

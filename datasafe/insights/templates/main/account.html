@@ -49,14 +49,14 @@
             <a href="{% url 'saved' %}">Saved Cards</a>
         </li>
         <li>
-            <a href="{% url 'home' %}">Logout</a>
+            <a href="#" id="logout-link">Logout</a>
         </li>
     </div>
 
-    {% if is_authenticated %}
+    {% if request.user.is_authenticated %}
 
     <div class="userInfo">
-        <h3 style="position: relative; top: 0px; left: 0px;">Welcome, <span id="name" style="position: relative; top: 5px;"  class="editable">User</span></h3>
+        <h3 style="position: relative; top: 0px; left: 0px;">Welcome, <span id="name" style="position: relative; top: 5px;"  class="editable">{{ user_name }}</span></h3>
 
         <h3 style="position: relative; left: 40%; top: -40px;">Where to find me: </h3>
         <span style="position: relative; left: 40%; top: -40px;" id="links" class="editable" placeholder="Add some contact points">Add some contact points</span>
@@ -131,5 +131,35 @@
 
 
     <script src="{% static 'script.js' %}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    // Get the logout link
+    const logoutLink = document.getElementById('logout-link');
+
+    // Add click event listener to the logout link
+    logoutLink.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default link behavior
+
+        // Show confirmation popup
+        const confirmed = confirm('Are you sure you want to log out?');
+        
+        // If user confirms logout
+        if (confirmed) {
+            // Make AJAX request to logout URL
+            fetch('/logout/', {
+                method: 'POST', // or 'GET'
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token
+                },
+                // Redirect to home page after successful logout
+            }).then(() => {
+                window.location.href = '/';
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    });
+});
+    </script>
 </body>
 </html>

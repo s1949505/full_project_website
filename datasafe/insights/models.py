@@ -1,7 +1,12 @@
 from django.db import models
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-#implement this
+#implement this for custom user models
+
+
+#class CustomUser(AbstractUser):
+#    bio = models.TextField(blank=True)
+#    links = models.URLField(blank=True)
 """
 class CustomUser(AbstractUser):
     # Add any additional fields you need
