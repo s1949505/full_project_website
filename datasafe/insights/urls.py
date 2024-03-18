@@ -1,5 +1,5 @@
 # insights/urls.py
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 #from .main.views import CustomRegistrationView
 
@@ -22,7 +22,7 @@ from .main.views import (
     login_view,
     register_user, 
     login_user,
-    logout_view, 
+    custom_logout, 
     login_user_process,
 
 )
@@ -37,7 +37,7 @@ urlpatterns = [
     path('home/', home_view, name='home'),
     path('login/', login_view , name='login'),
     path('login_user/', login_user , name='login_user'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', custom_logout, name='logout'),
     path('qset1/', qset1_view, name='qset1'),
     path('qset2/', qset2_view, name='qset2'),
     path('qset3/', qset3_view, name='qset3'),
@@ -47,7 +47,6 @@ urlpatterns = [
     path('saved/', saved_view, name='saved'),
     path('save_data/', save_data, name='save_data'), 
     path('saved/complete.html', complete_view, name='complete'),
-    path('logout/', logout_view, name='logout'),
     path('login_user_process/', login_user_process, name="login_user_process"),
 
 

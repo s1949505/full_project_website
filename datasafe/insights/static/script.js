@@ -284,8 +284,6 @@ function showExtenstion(display, popupID, placeholder) {
         additionalElement.style.display = 'none';
     }
 
-
-
 }
 
 function validatePassword() {
@@ -302,7 +300,7 @@ function validatePassword() {
     var noBlanks = !(email.trim() === '' && name.trim() === '' && dob.trim() === '');
 
     if (password === confirmPassword && hasNumber && validLength && noBlanks) {
-        alert('Account successfully created');
+        //alert('Account successfully created');
         loggedIn = true;
         is_authenticated = true;
         localStorage.setItem("user", JSON.stringify(name));
@@ -310,7 +308,8 @@ function validatePassword() {
         //    window.location.href = "/home/";
         //}, 500);
         console.log("reached")
-
+        
+    
     } else if (!noBlanks) {
         alert('All fields must be completed to create an account.');
     } else {

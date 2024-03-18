@@ -33,9 +33,13 @@
             <a href="{% url 'saved' %}">Saved Cards</a>
         </li>
         <li>
-            <a href="{% url 'home' %}">Logout</a>
+            <a id="logoutButton" href="#">Logout</a>
         </li>
     </div>
+    <form id="logoutForm" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" style="display: none;"></button>
+    </form>
     <button class="createcard" style="cursor: pointer;" onclick="navButton(this.getAttribute('data-next-page'))" data-next-page="{% url 'intro' %}">
         <h2 style="font-size: 20px; font-family: 'Inria Sans'">
             Create new data card 
@@ -68,10 +72,10 @@
         
     </div>
     -->
-    {% if request.user.is_authenticated %}
-        <div id="loginContainer">
-            <a style="color: black; padding: 8px; background-color: white; border-color: black; border-radius: 8px; border-style: solid;" href="{% url 'account' %}">Go to account</a>
-        </div>
+    {% if is_authenticated %}
+    <div id="loginContainer">
+        <a style="color: black; padding: 8px; background-color: white; border-color: black; border-radius: 8px; border-style: solid;" href="{% url 'account' %}">Go to account</a>
+    </div>
 
     {% else %}
     <div id="loginContainer">
@@ -107,15 +111,35 @@
     </div>
 
 <script>
-   document.addEventListener('DOMContentLoaded', function () {
-        // Toggle the menu visibility when clicking the menu icon
-        var menuIcon = document.getElementById('menuIcon');
-        var menu = document.getElementById('menu');
+document.addEventListener('DOMContentLoaded', function() {
+    // Toggle the menu visibility when clicking the menu icon
+    var menuIcon = document.getElementById('menuIcon');
+    var menu = document.getElementById('menu');
 
+    if (menuIcon) {
         menuIcon.addEventListener('click', function () {
             menu.classList.toggle('menu-visible');
         });
+    }
+
+    // Handle logout when clicking the logout button
+    var logoutButton = document.getElementById('logoutButton');
+
+    logoutButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        console.log("logging out")
+        var confirmLogout = confirm("Are you sure you want to log out?");
+        if (confirmLogout) {
+            // If user confirms logout, redirect to logout URL
+            var logoutForm = document.getElementById('logoutForm');
+            logoutForm.submit();
+
+        } else {
+            // If user cancels logout, do nothing
+        }
     });
+});
+
 </script>
 </body>
 </html>

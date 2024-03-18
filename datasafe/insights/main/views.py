@@ -53,49 +53,51 @@ def saved_view(request):
     return render(request, 'main/saved.html')
 
 
-def logout_view(request):
+def custom_logout(request):
     logout(request)
-    return JsonResponse({'success': True})
-
+    print("logging out")
+    return redirect('home')
+    
 def register_user(request):
     print("registering user")
     if request.method == 'POST':
         name = request.POST['name']
         email = request.POST['email']
         dob = request.POST['dob']
-        password = request.POST['password']       
+        password = request.POST['password']  
+        confirm_password = request.POST['confirmPassword']  
+        
+
+        print("confirm: ", confirm_password)   
         
         print("Received registration request for:", email)  # Print the email received
 
         if not all([name, email, dob, password]):
             print("missing fields")
-            return render(request, 'registration/register.html', {'error': 'All fields must be completed to create an account.'})
+            return JsonResponse({'error': 'All fields must be completed to create an account.'})
 
         # Check if the email is already registered
         if User.objects.filter(email=email).exists():
             print("email already used")
-            return render(request, 'registration/register.html', {'error': 'Email is already being used'})
-                
+            return JsonResponse({'error': 'Email is already being used'})
+        if confirm_password!= password:
+            return JsonResponse({'error': 'Passwords do not match'})
+
         hashed_password = make_password(password)
         # Create a new user
         user = User.objects.create_user(username=email, email=email, password=hashed_password)
 
         user.first_name = name
-        #user.username = name
-        # Additional fields can be set here
 
         # Save the user instance
         user.save()
-
         print("user: ", user)
         print("email: ", email)
         print("password: ", hashed_password)
 
-
         # Authenticate the user
         user = authenticate(request, username=email, password=hashed_password)
         print("authenticated_user: ", user)
-        print("user authenticated")
         if user is not None:
             print("User authenticated successfully:", user.username)  # Print authentication status
 
@@ -107,9 +109,9 @@ def register_user(request):
             print("user is none")
             print("Authentication failed for user:", email)  # Print authentication failure message
 
-            return render(request, 'registration/register.html', {'error': 'Registration failed'})
+            return JsonResponse({'error': 'Registration failed'})
     else:
-        return render(request, 'registration/register.html')
+        return JsonResponse({'error': 'Invalid request method'})
     
 
 def login_user(request):

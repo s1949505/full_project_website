@@ -16,7 +16,7 @@
 </h1>
 
 <div class="loginBox">
-    <form method="POST" action="{% url 'register_user' %}">
+    <form id="registrationForm" method="POST" action="{% url 'register_user' %}">
         {% csrf_token %}
 
         <h2>User Registration</h2>
@@ -37,7 +37,7 @@
         </div>
         <br>
         <div class="entries">
-            <input type="password" style="text-align: center;" id="confirmPassword" placeholder="Confirm Password">
+            <input type="password" name="confirmPassword" style="text-align: center;" id="confirmPassword" placeholder="Confirm Password">
         </div>
         <br>
     
@@ -58,6 +58,39 @@
         </div>
     </form>
 </div>
+<script>
+    // JavaScript code to handle AJAX request and display alert message
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.querySelector('form');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(form);
+
+                fetch('/register_user/', {  // Replace this with your actual URL
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.redirected) {
+                        // If redirected, navigate to the new location
+                        window.location.href = response.url;
+                    } else {
+                        // Otherwise, display any error message from the server
+                        return response.text();
+                    }
+                })
+                .then(data => {
+                    // Display the error message in an alert if present
+                    if (data) {
+                        alert(data);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+</script>
 
 </body>
 </html>
