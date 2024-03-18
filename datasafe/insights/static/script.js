@@ -174,7 +174,7 @@ window.onload = function () {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-    function login() {
+    function login1() {
         // Get user input
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
@@ -190,6 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // Check if "Remember Me" is checked
+
         if (rememberMeCheckbox.checked) {
             // Save credentials to localStorage
             localStorage.setItem('savedEmail', email);
@@ -199,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.removeItem('savedEmail');
             localStorage.removeItem('savedPassword');
         }
-
+        
         fetch(loginUrl, {
             method: 'POST',
             headers: {
@@ -238,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
+    
     window.login = login;
 
 

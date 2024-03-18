@@ -83,9 +83,9 @@ def register_user(request):
         if confirm_password!= password:
             return JsonResponse({'error': 'Passwords do not match'})
 
-        hashed_password = make_password(password)
+        #hashed_password = make_password(password)
         # Create a new user
-        user = User.objects.create_user(username=email, email=email, password=hashed_password)
+        user = User.objects.create_user(username=email, email=email, password=password)
 
         user.first_name = name
 
@@ -93,10 +93,10 @@ def register_user(request):
         user.save()
         print("user: ", user)
         print("email: ", email)
-        print("password: ", hashed_password)
+        #print("password: ", hashed_password)
 
         # Authenticate the user
-        user = authenticate(request, username=email, password=hashed_password)
+        user = authenticate(request, username=email, password=password)
         print("authenticated_user: ", user)
         if user is not None:
             print("User authenticated successfully:", user.username)  # Print authentication status
@@ -115,6 +115,7 @@ def register_user(request):
     
 
 def login_user(request):
+    print("herehreh")
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -129,16 +130,33 @@ def login_user(request):
 
             return JsonResponse({'status': 'error', 'message': 'Invalid credentials'})
 
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request aaaaaaa method'})
 
 
 def login_user_process(request):
+    print("request method: ", request.method)
     if request.method == 'POST':
         print("logging in")
         email = request.POST.get('email').strip()  # Remove leading/trailing whitespace
         password = request.POST.get('password')
 
+        try:
+            user = User.objects.get(email=email)  # Case-sensitive query
+        except User.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Unrecognized email'})
+
+        user = authenticate(request, username=email, password=password)
+        print("user: ", user)
+        if user is not None:
+            print("user not none")
+            login(request, user)
+            request.session['is_authenticated'] = True
+            return redirect('home')
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Incorrect Password'})
+
         # Check if the email exists in the database
+        """
         if User.objects.filter(email=email).exists():
             print("email recognised")
             user = User.objects.get(email=email)  # Case-sensitive query
@@ -158,7 +176,8 @@ def login_user_process(request):
         else:
             # Return error message for unrecognized email
             return JsonResponse({'status': 'error', 'message': 'Unrecognized email'})
-
+        """
+    print("aaaaaaaaa")
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 def process_file(filename, max_rows, max_cols, title_row):
