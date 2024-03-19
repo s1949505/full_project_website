@@ -142,6 +142,77 @@ function saveText3(nextPage) {
 
 }
 
+function saveTextToModel(nextPageUrl) {
+    // Retrieve data from the form
+    var formData = {
+        'DatasetName': document.getElementById('DatasetName').value,
+        'description': document.getElementById('description').value,
+        'motivation': document.getElementById('motivation').value,
+        'research': document.getElementById('research').value,
+        'authors': document.getElementById('authors').value,
+        'contributors': document.getElementById('contributors').value,
+        'date': document.getElementById('date').value,
+        'version': document.getElementById('version').value,
+        'accessibility': getSelectedRadioValue('accessibility'),
+        'accessibilityInfo': document.getElementById('accessibilityInfoArea').value,
+        'funding': getSelectedRadioValue('funding'),
+        'fundingInfo': document.getElementById('fundingInfoArea').value,
+        'combination': getSelectedRadioValue('combination'),
+        'combinationInfo': document.getElementById('combinationInfoArea').value
+    
+    };
+
+    // Save data to local storage
+    localStorage.setItem('formData', JSON.stringify(formData));
+
+    // Check if the user is logged in
+    var isLoggedIn = user.is_authenticated;
+
+    if (isLoggedIn) {
+        // If logged in, send AJAX request to save data to database
+        var csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+        formData.csrfmiddlewaretoken = csrfToken; // Add CSRF token to data
+
+        fetch('/save_datacard/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => {
+            if (response.ok) {
+                // Data saved successfully, redirect to next page
+                window.location.href = nextPageUrl;
+            } else {
+                // Handle error
+                console.error('Error saving data to database');
+            }
+        })
+        .catch(error => {
+            console.error('Error saving data to database:', error);
+        });
+    } else {
+        // If not logged in, simply redirect to next page
+        window.location.href = nextPageUrl;
+    }
+}
+
+
+
+// Function to gather data from the form and send it to the serve
+
+// Function to handle form submission
+function handleSubmit(event) {
+    event.preventDefault(); // Prevent default form submission
+    saveDataToServer(); // Call function to save data to the server
+}
+
+// Attach event listener to form submission
+document.getElementById('formSet1').addEventListener('submit', handleSubmit);
+
+
 
 
 function displayLocalStorageData(key, targetElementId) {

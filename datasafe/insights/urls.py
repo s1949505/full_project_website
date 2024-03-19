@@ -24,6 +24,7 @@ from .main.views import (
     login_user,
     custom_logout, 
     login_user_process,
+    save_datacard,
 
 )
 urlpatterns = [
@@ -48,6 +49,8 @@ urlpatterns = [
     path('save_data/', save_data, name='save_data'), 
     path('saved/complete.html', complete_view, name='complete'),
     path('login_user_process/', login_user_process, name="login_user_process"),
+    path('save_datacard/', save_datacard, name='save_datacard'),
+
 
 
 

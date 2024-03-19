@@ -148,7 +148,9 @@
             <br>
             If you are unsure of any questions, you can save progress and continue at a later date.
         </maintext>
-        <button onclick="saveText1(this.getAttribute('data-next-page'))" data-next-page="{% url 'account' %}" type="button" class="saveandexit">Save and Exit</button>
+        {% if is_authenticated %}
+        <button onclick="saveTextToModel(this.getAttribute('data-next-page'))" data-next-page="{% url 'account' %}" type="button" class="saveandexit">Save and Exit</button>
+        {% endif %}
     </div>
 
     <div class="navContainer">
