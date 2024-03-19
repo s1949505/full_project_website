@@ -31,10 +31,13 @@
             <a href="{% url 'saved' %}">Saved Cards</a>
         </li>
         <li>
-            <a href="{% url 'home' %}">Logout</a>
+            <a id="logoutButton" href="#">Logout</a>
         </li>
     </div>
-
+    <form id="logoutForm" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" style="display: none;"></button>
+    </form>
     <div style="margin-left:20%; padding:10px 10px">
         <h2 style="font-size: 30px; font-family:'Inria Sans'">
             Creating a data card

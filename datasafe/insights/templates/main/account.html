@@ -49,9 +49,13 @@
             <a href="{% url 'saved' %}">Saved Cards</a>
         </li>
         <li>
-            <a href="#" id="logout-link">Logout</a>
+            <a id="logoutButton" href="#">Logout</a>
         </li>
     </div>
+    <form id="logoutForm" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" style="display: none;"></button>
+    </form>
 
     {% if request.user.is_authenticated %}
 

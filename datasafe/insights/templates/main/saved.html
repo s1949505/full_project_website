@@ -32,9 +32,13 @@
         <a class="active" href="{% url 'saved' %}">Saved Cards</a>
     </li>
     <li>
-        <a href="{% url 'home' %}">Logout</a>
+        <a id="logoutButton" href="#">Logout</a>
     </li>
 </div>
+<form id="logoutForm" method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit" style="display: none;"></button>
+</form>
 
 <div style="position: relative; margin-left: 22%; font-family: 'Inria Sans'">
     <h1>All Saved Datacards</h1>

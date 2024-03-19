@@ -139,6 +139,8 @@ def login_user_process(request):
         print("logging in")
         email = request.POST.get('email').strip()  # Remove leading/trailing whitespace
         password = request.POST.get('password')
+        remember_me = request.POST.get('remember_me') == 'on'
+
 
         try:
             user = User.objects.get(email=email)  # Case-sensitive query
@@ -148,36 +150,18 @@ def login_user_process(request):
         user = authenticate(request, username=email, password=password)
         print("user: ", user)
         if user is not None:
-            print("user not none")
             login(request, user)
             request.session['is_authenticated'] = True
+            if remember_me:
+                request.session.set_expiry(None)
+            else:
+                # If remember_me is not checked, use default session expiration
+                request.session.set_expiry(0)
+
             return redirect('home')
         else:
             return JsonResponse({'status': 'error', 'message': 'Incorrect Password'})
 
-        # Check if the email exists in the database
-        """
-        if User.objects.filter(email=email).exists():
-            print("email recognised")
-            user = User.objects.get(email=email)  # Case-sensitive query
-            print("password: ", make_password(password))
-            print("user password: ", user.password)
-            # Authenticate the user with provided email and password
-            print("password check: ", user.check_password(password))
-            if user.check_password(password):
-                user = authenticate(request, username=email, password=password)
-
-                # Login the user if authentication is successful
-                login(request, user)
-                return JsonResponse({'status': 'success'})
-            else:
-                # Return error message for incorrect password
-                return JsonResponse({'status': 'error', 'message': 'Incorrect password'})
-        else:
-            # Return error message for unrecognized email
-            return JsonResponse({'status': 'error', 'message': 'Unrecognized email'})
-        """
-    print("aaaaaaaaa")
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 def process_file(filename, max_rows, max_cols, title_row):

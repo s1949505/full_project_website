@@ -38,7 +38,7 @@
         <div class="pageText">
             <span>Remeber details for automatic login</span>
             <label class="switch">
-                <input id="remeberMeCheckbox" type="checkbox">
+                <input name="remember_me" id="remeberMeCheckbox" type="checkbox">
                 <span class="slider round"></span>
             </label>
         </div>
@@ -98,7 +98,7 @@
         var data = JSON.stringify({ email: email, password: password });
         xhr.send(data);
 
-        return false; // Prevent default form submission
+        //return false; // Prevent default form submission
     }
 </script>
 </body>

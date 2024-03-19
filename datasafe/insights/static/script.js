@@ -173,6 +173,28 @@ window.onload = function () {
     }
 };
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Toggle the menu visibility when clicking the menu icon
+ 
+    // Handle logout when clicking the logout button
+    var logoutButton = document.getElementById('logoutButton');
+
+    logoutButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        console.log("logging out")
+        var confirmLogout = confirm("Are you sure you want to log out?");
+        if (confirmLogout) {
+            // If user confirms logout, redirect to logout URL
+            var logoutForm = document.getElementById('logoutForm');
+            logoutForm.submit();
+
+        } else {
+            // If user cancels logout, do nothing
+        }
+    });
+});
+
+/**
 document.addEventListener('DOMContentLoaded', function () {
     function login1() {
         // Get user input
@@ -244,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 });
-
+ */
 
 
 function navButton(page){
