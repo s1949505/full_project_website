@@ -59,6 +59,7 @@
     
     <div style="display: block; text-align: left; padding: 10px 10px; margin-left: 22%; margin-right: 8%;">
         <form id="formSet1">
+            {% csrf_token %}
             <label for="DatasetName">Name of Dataset</label>
             <br>
             <textarea type="text" id="DatasetName" name="DatasetName" placeholder="&lt dataset name &gt"></textarea>

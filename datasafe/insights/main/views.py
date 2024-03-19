@@ -266,6 +266,17 @@ def dataset_review(request):
     # Retrieve and pass data for dataset review
     return render(request, 'review.html')
 
+@csrf_exempt  # Use this decorator for simplicity in this example; consider using a proper csrf protection method in production
+def save_data(request):
+    if request.method == 'POST':
+        identifier = request.POST.get('identifier')
+        dataset_name = request.POST.get('datasetName')
+        user = request.POST.get('user')
+        # Extract other data fields as needed
+        # Save the data to your database or any storage mechanism
+        return JsonResponse({'status': 'success'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 def save_datacard(request):
     if request.method == 'POST':

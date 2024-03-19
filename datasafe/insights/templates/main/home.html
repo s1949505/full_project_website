@@ -103,6 +103,8 @@
         <p>The process of creating a data card should be easy and interactive. The creation guide was designed to be incorporated into the process of creating a dataset. Because of this, the questions aim to follow the timeline of creating a dataset so both can be worked on in parallel. This also provides a method of reflection for any dataset creators during this process.</p>
 
     </div>
+    <button onclick="clearLocalStorage()">Clear Local Storage [development only]</button>
+
 
     <div class="footer" style="font-family: 'Inria Sans';">
         <a><u>Contact us:</u> <br> datasafecontact@gmail.com <br> DataSafe.twitter </a>
@@ -124,6 +126,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 });
+
+
+// Function to clear local storage
+function clearLocalStorage() {
+    localStorage.clear();
+}
 
 </script>
 </body>

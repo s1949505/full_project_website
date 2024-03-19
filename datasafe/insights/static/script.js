@@ -209,22 +209,25 @@ function handleSubmit(event) {
     saveDataToServer(); // Call function to save data to the server
 }
 
-// Attach event listener to form submission
-document.getElementById('formSet1').addEventListener('submit', handleSubmit);
-
-
-
-
-function displayLocalStorageData(key, targetElementId) {
-    var storedData = localStorage.getItem(key);
-    var targetElement = document.getElementById(targetElementId);
-
-    if (storedData !== null && targetElement !== null) {
-        targetElement.innerHTML = "<p>" + storedData + "</p>";
-    } else {
-        console.error("Key not found or target element not found:", key, targetElementId);
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listener after the DOM has fully loaded
+    var formSet1 = document.getElementById('formSet1');
+    if (formSet1) {
+        formSet1.addEventListener('submit', handleSubmit);
     }
-}
+
+    // Function to display local storage data
+    function displayLocalStorageData(key, targetElementId) {
+        var storedData = localStorage.getItem(key);
+        var targetElement = document.getElementById(targetElementId);
+
+        if (storedData !== null && targetElement !== null) {
+            targetElement.innerHTML = "<p>" + storedData + "</p>";
+        } else {
+            console.error("Key not found or target element not found:", key, targetElementId);
+        }
+    }
+});
 
 function displayMultipleKeys(keysArray) {
     keysArray.forEach(function (keyInfo) {
