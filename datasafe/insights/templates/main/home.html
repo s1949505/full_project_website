@@ -32,14 +32,21 @@
         <li>
             <a href="{% url 'saved' %}">Saved Cards</a>
         </li>
-        <li>
-            <a id="logoutButton" href="#">Logout</a>
-        </li>
-    </div>
+        {% if request.user.is_authenticated %}
+    <li>
+        <a id="logoutButton" href="#">Logout</a>
+    </li>
+</div>
     <form id="logoutForm" method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit" style="display: none;"></button>
     </form>
+    {% else %}
+        <li>
+            <a id="loginButton" href="{% url 'login' %}">Login</a>
+        </li>
+    </div>
+    {% endif %}
     <button class="createcard" style="cursor: pointer;" onclick="navButton(this.getAttribute('data-next-page'))" data-next-page="{% url 'intro' %}">
         <h2 style="font-size: 20px; font-family: 'Inria Sans'">
             Create new data card 

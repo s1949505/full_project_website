@@ -35,10 +35,21 @@
     <li>
         <a href="{% url 'saved' %}">Saved Cards</a>
     </li>
+    {% if request.user.is_authenticated %}
     <li>
-        <a href="{% url 'home' %}">Logout</a>
+        <a id="logoutButton" href="#">Logout</a>
     </li>
     </div>
+    <form id="logoutForm" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" style="display: none;"></button>
+    </form>
+    {% else %}
+        <li>
+            <a id="loginButton" href="{% url 'login' %}">Login</a>
+        </li>
+    </div>
+    {% endif %}
     <div id="pdf" style="margin-left: 25%; margin-top: 10%;">
         <div>
             <h2>Data Card for <span id="nameText"></span></h2>

@@ -48,6 +48,8 @@
         <li>
             <a href="{% url 'saved' %}">Saved Cards</a>
         </li>
+        {% if request.user.is_authenticated %}
+
         <li>
             <a id="logoutButton" href="#">Logout</a>
         </li>
@@ -56,6 +58,12 @@
         {% csrf_token %}
         <button type="submit" style="display: none;"></button>
     </form>
+    {% else %}
+        <li>
+            <a id="loginButton" href="{% url 'login' %}">Login</a>
+        </li>
+    </div>
+    {% endif %}
 
     {% if request.user.is_authenticated %}
 

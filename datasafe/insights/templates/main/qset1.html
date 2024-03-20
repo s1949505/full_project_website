@@ -19,7 +19,7 @@
             <a href="{% url 'home' %}">Home</a>
         </li>
         <li>
-            <a class="active"  href="{% url 'intro' %}">Creating a data card</a>
+            <a class="active" >Creating a data card</a>
         </li>
         <li>
             <a href="{% url 'account' %}">Account</a>
@@ -30,14 +30,21 @@
         <li>
             <a href="{% url 'saved' %}">Saved Cards</a>
         </li>
-        <li>
-            <a id="logoutButton" href="#">Logout</a>
-        </li>
-    </div>
+        {% if request.user.is_authenticated %}
+    <li>
+        <a id="logoutButton" href="#">Logout</a>
+    </li>
+</div>
     <form id="logoutForm" method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit" style="display: none;"></button>
     </form>
+    {% else %}
+        <li>
+            <a id="loginButton" href="{% url 'login' %}">Login</a>
+        </li>
+    </div>
+    {% endif %}
     <div style="margin-left:20%; padding:10px 10px">
         <h2 style="font-size: 30px; font-family:'Inria Sans'">
             Creating a data card
@@ -149,7 +156,7 @@
             <br>
             If you are unsure of any questions, you can save progress and continue at a later date.
         </maintext>
-        {% if is_authenticated %}
+        {% if request.user.is_authenticated %}
         <button onclick="saveTextToModel(this.getAttribute('data-next-page'))" data-next-page="{% url 'account' %}" type="button" class="saveandexit">Save and Exit</button>
         {% endif %}
     </div>
@@ -161,8 +168,28 @@
         </div>
 
         <div class="lastpage">
-            <button onclick="saveText1(this.getAttribute('data-next-page'))" data-next-page="{% url 'intro' %}" style="cursor: pointer; padding: 10px 30px;"> Exit </button>
+            <button onclick="exitQuestions(this.getAttribute('data-next-page'))" data-next-page="{% url 'intro' %}" style="cursor: pointer; padding: 10px 30px;"> Exit </button>
         </div>
     </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var links = document.querySelectorAll('.sidenav a:not(.active)');
+    links.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            exitQuestions(this.getAttribute('href'));
+        });
+    });
+});
+
+
+// Call populateAnswers() when the page loads
+window.onload = function() {
+            populateAnswers();
+        };
+</script>
 </body>
+
 </html>

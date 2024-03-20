@@ -53,6 +53,70 @@ function saveText1(nextPage) {
 
 }
 
+function populateAnswers() {
+    const DatasetName = localStorage.getItem("DatasetName") || '';
+    document.getElementById("DatasetName").value = DatasetName;
+
+    const description = localStorage.getItem("description") || '';
+    document.getElementById("description").value = description;
+
+    const motivation = localStorage.getItem("motivation") || '';
+    document.getElementById("motivation").value = motivation;
+
+    const accessibility = localStorage.getItem("accessibility");
+    if (accessibility !== null) {
+        const  accessibilityOption = document.querySelector('input[name="accessibility"][value="' + accessibility + '"]').checked = true;
+        if (accessibilityOption) {
+            accessibilityOption.checked = true;
+            const accessibilityInfo = localStorage.getItem("accessibilityInfo") || '';
+            document.getElementById("accessibilityInfoArea").value = accessibilityInfo;
+        } 
+    }
+
+    
+    const research = localStorage.getItem("research") || '';
+    document.getElementById("research").value = research;
+
+    const authors = localStorage.getItem("authors") || '';
+    document.getElementById("authors").value = authors;
+
+    const contributors = localStorage.getItem("contributors") || '';
+    document.getElementById("contributors").value = contributors;
+
+    const funding = localStorage.getItem("funding");
+    if (funding !== null) {
+        const fundingOption = document.querySelector('input[name="funding"][value="' + funding + '"]').checked = true;
+        if (fundingOption) {
+            fundingOption.checked = true;
+            const fundingInfo = localStorage.getItem("fundingInfo") || '';
+            document.getElementById('fundingInfoArea').value = fundingInfo;
+
+        }
+    }
+
+    const combination = localStorage.getItem("combination");
+    if (combination !== null) {
+        document.querySelector('input[name="combination"][value="' + combination + '"]').checked = true;
+    }
+
+    if (combination !== null) {
+        combinationOption = document.querySelector('input[name="combination"][value="' + combination + '"]').checked = true;
+        if (combinationOption) {
+            combinationOption.checked = true;
+            const combinationInfo = localStorage.getItem("combinationInfo") || '';
+            document.getElementById('combinationInfoArea').value = combinationInfo;
+
+        }
+    }
+
+    const date = localStorage.getItem("date") || '';
+    document.getElementById("date").value = date;
+
+    const version = localStorage.getItem("version") || '';
+    document.getElementById("version").value = version;
+}
+
+
 function saveText2(nextPage) {
 
     const applications = document.getElementById("applications").value;
@@ -108,7 +172,79 @@ function saveText2(nextPage) {
 
     window.location.href = nextPage;
 
+    //populateAnswers();
+    //populateAnswers3();
+
 }
+
+
+function populateAnswers2() {
+    const applications = localStorage.getItem("applications");
+    document.getElementById("applications").value = applications;
+
+
+    const datatypes = localStorage.getItem("datatypes");
+    document.getElementById("datatypes").value = datatypes;
+
+    const qorq = localStorage.getItem("qorq");
+    if (qorq !== null) {
+        const qorqOption = document.querySelector('input[name="qorq"][value="' + qorq + '"]');
+        if (qorqOption) {
+            qorqOption.checked = true;
+        }    
+    }
+
+    const size = localStorage.getItem("size");
+    document.getElementById("size").value = size;
+
+    const personal = localStorage.getItem("personal");
+    if (personal !== null) {
+        const personalOption = document.querySelector('input[name="personal"][value="' + personal + '"]');
+        if (personalOption) {
+            personalOption.checked = true;
+            const personalInfo = localStorage.getItem("personalInfo");
+            document.getElementById("personalInfoArea").value = personalInfo;
+
+        }
+        
+    }
+    
+    const flaws = localStorage.getItem("flaws");
+    document.getElementById("flaws").value = flaws;
+
+    const splits = localStorage.getItem("splits");
+    document.getElementById("splits").value = splits;
+
+    const annotation = localStorage.getItem("annotation");
+    if (annotation !== null) {
+        const annotationOption = document.querySelector('input[name="annotation"][value="' + annotation + '"]');
+        if (annotationOption) {
+            annotationOption.checked = true;
+            const annotationInfo = localStorage.getItem("annotationInfo");
+            document.getElementById("annotationInfoArea").value = annotationInfo;
+
+        }        
+        
+    }
+
+
+    const collection = localStorage.getItem("collection");
+    document.getElementById("collection").value = collection;
+
+    const format = localStorage.getItem("format");
+    document.getElementById("format").value = format;
+
+    const languages = localStorage.getItem("languages");
+    const doi = localStorage.getItem("doi");
+    const licence = localStorage.getItem("licence");
+    const update = localStorage.getItem("update");
+
+    document.getElementById("languages").value = languages;
+    document.getElementById("doi").value = doi;
+    document.getElementById("licence").value = licence;
+    document.getElementById("update").value = update;
+}
+
 
 function saveText3(nextPage) {
 
@@ -141,6 +277,39 @@ function saveText3(nextPage) {
 
 
 }
+
+function populateAnswers3() {
+    const maintained = localStorage.getItem("maintained");
+    if (maintained !== null) {
+        const maintainedOption =  document.querySelector('input[name="maintained"][value="' + maintained + '"]');
+        if (maintainedOption) {
+            maintainedOption.checked = true;
+            if (maintained == "Yes"){
+                const maintainedInfo = localStorage.getItem("maintainedInfo") || '';
+                document.getElementById("maintainedInfoArea").value = maintainedInfo;
+            }
+        }
+    }
+
+    const Uses = localStorage.getItem("Uses") || '';
+    document.getElementById("Uses").value = Uses;
+
+    const unsafe = localStorage.getItem("unsafe") || '';
+    document.getElementById("unsafe").value = unsafe;
+
+    const bias = localStorage.getItem("bias") || '';
+    document.getElementById("bias").value = bias;
+
+    const social = localStorage.getItem("social") || '';
+    document.getElementById("social").value = social;
+
+    const cite = localStorage.getItem("cite") || '';
+    document.getElementById("cite").value = cite;
+
+    const further = localStorage.getItem("further") || '';
+    document.getElementById("further").value = further;
+}
+
 
 function saveTextToModel(nextPageUrl) {
     // Retrieve data from the form
@@ -209,6 +378,7 @@ function handleSubmit(event) {
     saveDataToServer(); // Call function to save data to the server
 }
 
+/** 
 document.addEventListener('DOMContentLoaded', function() {
     // Add event listener after the DOM has fully loaded
     var formSet1 = document.getElementById('formSet1');
@@ -228,6 +398,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+*/
+
+function exitQuestions(nextPageUrl) {
+    var confirmation = confirm("Are you sure you want to exit? All progress will be lost.");
+
+    if (confirmation) {
+        localStorage.clear();
+
+        window.location.href = nextPageUrl;
+    }
+}
 
 function displayMultipleKeys(keysArray) {
     keysArray.forEach(function (keyInfo) {
@@ -384,7 +565,6 @@ function showExtenstion(display, popupID, placeholder) {
 }
 
 function validatePassword() {
-    console.log("validatePassword done")
 
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
@@ -404,7 +584,6 @@ function validatePassword() {
         //setTimeout(function() {
         //    window.location.href = "/home/";
         //}, 500);
-        console.log("reached")
         
     
     } else if (!noBlanks) {

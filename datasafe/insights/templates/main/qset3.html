@@ -19,7 +19,7 @@
             <a href="{% url 'home' %}">Home</a>
         </li>
         <li>
-            <a class="active"  href="{% url 'intro' %}">Creating a data card</a>
+            <a class="active">Creating a data card</a>
         </li>
         <li>
             <a href="{% url 'account' %}">Account</a>
@@ -30,14 +30,21 @@
         <li>
             <a href="{% url 'saved' %}">Saved Cards</a>
         </li>
-        <li>
-            <a id="logoutButton" href="#">Logout</a>
-        </li>
-    </div>
+        {% if request.user.is_authenticated %}
+    <li>
+        <a id="logoutButton" href="#">Logout</a>
+    </li>
+</div>
     <form id="logoutForm" method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit" style="display: none;"></button>
     </form>
+    {% else %}
+        <li>
+            <a id="loginButton" href="{% url 'login' %}">Login</a>
+        </li>
+    </div>
+    {% endif %}
 
     <div style="margin-left:20%; padding:10px 10px">
         <h2 style="font-size: 30px; font-family:'Inria Sans'">
@@ -124,6 +131,25 @@
             <button onclick="saveText3(this.getAttribute('data-next-page'))" data-next-page="{% url 'complete' %}" type="button"  style="margin-top: 30px;"  class="saveandexit">Save and Exit</button>
         </div>
     </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var links = document.querySelectorAll('.sidenav a:not(.active)');
+    links.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            exitQuestions(this.getAttribute('href'));
+        });
+    });
+});
+
+
+// Call populateAnswers3() when the page loads
+window.onload = function() {
+    console.log("dweoncqewvnwen")
+    populateAnswers3();
+        };
+</script>
 
 </body>
 </html>

@@ -31,14 +31,21 @@
     <li>
         <a class="active" href="{% url 'saved' %}">Saved Cards</a>
     </li>
+    {% if request.user.is_authenticated %}
     <li>
         <a id="logoutButton" href="#">Logout</a>
     </li>
 </div>
-<form id="logoutForm" method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit" style="display: none;"></button>
-</form>
+    <form id="logoutForm" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" style="display: none;"></button>
+    </form>
+    {% else %}
+        <li>
+            <a id="loginButton" href="{% url 'login' %}">Login</a>
+        </li>
+    </div>
+    {% endif %}
 
 <div style="position: relative; margin-left: 22%; font-family: 'Inria Sans'">
     <h1>All Saved Datacards</h1>
