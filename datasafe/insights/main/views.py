@@ -8,6 +8,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 import json
 from ..models import Datacard
@@ -278,32 +279,67 @@ def save_data(request):
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
+
+@csrf_exempt
 def save_datacard(request):
+    print("doing save datacrd")
     if request.method == 'POST':
         # Retrieve form data from POST request
-        form_data = json.loads(request.body)
+        data = {
+            'dataset_name': request.POST.get('dataset_name'),
+            'description': request.POST.get('description'),
+            'motivation': request.POST.get('motivation'),
+            'dataset_accessibility': request.POST.get('dataset_accessibility'),
+            'accessibility_info': request.POST.get('accessibility_info'),
+            'research_motivation': request.POST.get('research_motivation'),
+            'authors': request.POST.get('authors'),
+            'contributors': request.POST.get('contributors'),
+            'funding_type': request.POST.get('funding_type'),
+            'funding_info': request.POST.get('funding_info'),
+            'is_combination': request.POST.get('is_combination') == 'true',
+            'combination_info': request.POST.get('combination_info'),
+            'date_created': request.POST.get('date_created'),  
+            'version': request.POST.get('version'),
+            'applications': request.POST.get('applications'),
+            'datatypes': request.POST.get('datatypes'),
+            'primary_data': request.POST.get('primary_data'),
+            'annotation_method': request.POST.get('annotation_method'),
+            'annotation_info': request.POST.get('annotation_info'),
+            'collection': request.POST.get('collection'),
+            'size': request.POST.get('size'),
+            'personal_data': request.POST.get('personal_data'),
+            'flaws': request.POST.get('flaws'),
+            'data_splits': request.POST.get('data_splits'),
+            'dataset_format': request.POST.get('dataset_format'),
+            'languages': request.POST.get('languages'),
+            'doi': request.POST.get('doi'),
+            'licence': request.POST.get('licence'),
+            'last_update': request.POST.get('last_update'),  
+            'is_maintained': request.POST.get('is_maintained') == 'true',
+            'maintenance_info': request.POST.get('maintenance_info'),
+            'possible_uses': request.POST.get('possible_uses'),
+            'unsafe_applications': request.POST.get('unsafe_applications'),
+            'bias_problems': request.POST.get('bias_problems'),
+            'social_impact': request.POST.get('social_impact'),
+            'dataset_citation': request.POST.get('dataset_citation'),
+            'additional_information': request.POST.get('additional_information')
+        }
 
-        # Extract form fields
-        dataset_name = form_data.get('DatasetName')
-        description = form_data.get('description')
-        motivation = form_data.get('motivation')
-        # Extract other fields as needed
+        datacard = Datacard(user=request.user, **data)
+        print("user for card: ", request.user)
+        print("datacard: ", datacard)
+        datacard.save()
 
-        # Assuming the user is logged in, you can access the user instance
-        user = request.user
+        return JsonResponse({'message': 'Datacard saved successfully'})
 
-        # Create a new Datacard instance and save it to the database
-        datacard = Datacard.objects.create(
-            user=user,
-            name=dataset_name,
-            description=description,
-            motivation=motivation,
-            # Add other fields as needed
-        )
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
 
-        # Return success response
-        return JsonResponse({'message': 'Datacard saved successfully'}, status=200)
+def saved_view(request):
+    # Retrieve the data cards for the current user
+    user_datacards = Datacard.objects.filter(user=request.user)
 
-    else:
-        # Return error response if request method is not POST
-        return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+    print("user_datacards: ", user_datacards)
+
+    # Pass the data cards to the template
+    return render(request, 'main/saved.html', {'user_datacards': user_datacards})
+

@@ -128,14 +128,26 @@
         <!--<button style="padding: 10px;" id="exportBtn">Export to PDF <span><img src="{% static 'images/export.png' %}" style="width: 10%;">-->
         <button style="padding: 10px;" id="exportBtn">Export to PDF</button>
     </div>
+    {% if request.user.is_authenticated %}
 
-    <div class="greenButtons" style="width: 120px; height: 30px; position: absolute; top: 130px; right: 0px; margin-right: 5%;">
-        <button style="padding: 10px;" id="saveBtn" onclick="saveToAccount()">Save To account</button>
-    </div>
+    <!--<form id="saveButton" method="POST" action="{% url 'save_datacard' %}">-->
+    <form id="saveButton">
+
+        {% csrf_token %}
+        <div class="greenButtons" style="width: 120px; height: 30px; position: absolute; top: 130px; right: 0px; margin-right: 5%;">
+            <button style="padding: 10px;" id="saveBtn">Save To account</button>
+        </div>
+    </form>
 
     <div style="width: 120px; height: 30px; position: absolute; top: 190px; right: 0px; margin-right: 10%;">
         Date Created: N/A
     </div>
+    {% else %}
+
+    <div style="width: 120px; height: 30px; position: absolute; top: 140px; right: -5%; margin-right: 10%;">
+        Date Created: N/A
+    </div>
+    {% endif %}
 
     
     <script src="{% static 'script.js' %}"></script>

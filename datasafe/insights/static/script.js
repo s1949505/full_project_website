@@ -310,7 +310,7 @@ function populateAnswers3() {
     document.getElementById("further").value = further;
 }
 
-
+/**
 function saveTextToModel(nextPageUrl) {
     // Retrieve data from the form
     var formData = {
@@ -369,7 +369,7 @@ function saveTextToModel(nextPageUrl) {
 }
 
 
-
+ */
 // Function to gather data from the form and send it to the serve
 
 // Function to handle form submission
@@ -378,7 +378,18 @@ function handleSubmit(event) {
     saveDataToServer(); // Call function to save data to the server
 }
 
-/** 
+function displayLocalStorageData(key, targetElementId) {
+    var storedData = localStorage.getItem(key);
+    var targetElement = document.getElementById(targetElementId);
+
+    if (storedData !== null && targetElement !== null) {
+        targetElement.innerHTML = "<p>" + storedData + "</p>";
+    } else {
+        console.error("Key not found or target element not found:", key, targetElementId);
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Add event listener after the DOM has fully loaded
     var formSet1 = document.getElementById('formSet1');
@@ -398,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-*/
+
 
 function exitQuestions(nextPageUrl) {
     var confirmation = confirm("Are you sure you want to exit? All progress will be lost.");
@@ -657,56 +668,80 @@ function saveInfo() {
     document.getElementById('editForm').submit();
 }
 
-function saveToAccount() {
+function saveToAccount(nextPageUrl) {
 
+    console.log("savetoaccount clicked")
     // Retrieve values from local storage
     var datasetName = localStorage.getItem('DatasetName') || '';
-    var user = localStorage.getItem('user') || '';
+    
 
-    if(!user){
-        alert('You must be signed in to saved items to your account. You can sign in on the homepage or download the data card instead')
-        
+    if (!datasetName.trim()) {
+        alert('You must assign a name to your data card.');
+        return;
     }
-    if(!datasetName || datasetName == 'N/A'){
-        alert('You must assign a name to your data card. Please return to question set one and do so')
-        
 
-    }
-    else{
-        
-        
-       // Generate a unique identifier
-        const identifier = user + '_' + datasetName.replace(/\s/g, '_');
+    // Construct the data object
+    var data = {
+        dataset_name: datasetName,
+        description: localStorage.getItem('description') || '',
+        motivation: localStorage.getItem('motivation') || '',
+        dataset_accessibility: localStorage.getItem('accessibility') || '',
+        accessibility_info: localStorage.getItem('accessibilityInfoArea') || '',
+        research_motivation: localStorage.getItem('research') || '',
+        authors: localStorage.getItem('authors') || '',
+        contributors: localStorage.getItem('contributors') || '',
+        funding_type: localStorage.getItem('funding') || '',
+        funding_info: localStorage.getItem('fundingInfoArea') || '',
+        is_combination: localStorage.getItem('combination') === 'yes',
+        combination_info: localStorage.getItem('combinationInfoArea') || '',
+        date_created: new Date(), // Set the current date
+        version: localStorage.getItem('version') || '',
+        applications: localStorage.getItem('applications') || '',
+        datatypes: localStorage.getItem('datatypes') || '',
+        primary_data: localStorage.getItem('qorq') || '',
+        annotation_method: localStorage.getItem('annotation') || '',
+        annotation_info: localStorage.getItem('annotationInfoArea') || '',
+        collection: localStorage.getItem('collection') || '',
+        size: localStorage.getItem('size') || '',
+        personal_data: localStorage.getItem('personal') || '',
+        flaws: localStorage.getItem('flaws') || '',
+        data_splits: localStorage.getItem('splits') || '',
+        dataset_format: localStorage.getItem('format') || '',
+        languages: localStorage.getItem('languages') || '',
+        doi: localStorage.getItem('doi') || '',
+        licence: localStorage.getItem('licence') || '',
+        last_update: localStorage.getItem('update') ? new Date(localStorage.getItem('update')) : null,
+        is_maintained: localStorage.getItem('maintained') === 'Yes',
+        maintenance_info: localStorage.getItem('maintainedInfoArea') || '',
+        possible_uses: localStorage.getItem('Uses') || '',
+        unsafe_applications: localStorage.getItem('unsafe') || '',
+        bias_problems: localStorage.getItem('bias') || '',
+        social_impact: localStorage.getItem('social') || '',
+        dataset_citation: localStorage.getItem('cite') || '',
+        additional_information: localStorage.getItem('further') || ''
+    };
 
-        // Save the identifier in local storage
-        localStorage.setItem('currentIdentifier', identifier);
+    var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
-        // Create a new key in local storage using the generated identifier
-        var storageKey = 'data_' + identifier;
-
-        // Store information from keysArray under the new key
-        var storedData = {};
-        for (var i = 0; i < keysArray.length; i++) {
-            var item = keysArray[i];
-            var element = document.getElementById(item.targetElementId);
-            var text = element ? element.innerText : 'null';
-
-            // Store information in local storage
-            localStorage.setItem(storageKey + '_' + item.key, text);
-
-            // Store information in the storedData object
-            storedData[item.key] = text;
+    // Send the data to the backend using AJAX
+    $.ajax({
+        url: '/save_datacard/', // URL to your Django view for saving datacards
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken
+        },
+        data: data,
+        success: function(response) {
+            // Redirect to the account page
+            window.location.href = "/account/";
+            
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+            alert('An error occurred while saving the data card.');
         }
-         // Save the card in the user's saved cards list
-         var savedCards = JSON.parse(localStorage.getItem('userSavedCards')) || [];
-         savedCards.unshift(identifier); // Add the identifier to the beginning of the list
-         localStorage.setItem('userSavedCards', JSON.stringify(savedCards));
- 
-         // Send the saved data to the Django backend using AJAX or a form submission
-         // (your existing AJAX code)
- 
-         // Redirect to the account page
-         var url = "/account/";
-         window.location.href = url;
-    }
+    });
+    
 }
+
+document.getElementById('saveBtn').addEventListener('click', saveToAccount);

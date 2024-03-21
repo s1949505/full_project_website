@@ -44,13 +44,25 @@
         <li>
             <a id="loginButton" href="{% url 'login' %}">Login</a>
         </li>
-    </div>
-    {% endif %}
+</div>
+{% endif %}
 
 <div style="position: relative; margin-left: 22%; font-family: 'Inria Sans'">
     <h1>All Saved Datacards</h1>
-    <ul id="allSavedDataList"></ul>
+    <ul id="allSavedDataList">
+        {% for datacard in user_datacards %}
+            {% if datacard.identifier %}
+                <li><a href="{% url 'complete' datacard.identifier %}">{{ datacard.user.username }} - {{ datacard.dataset_name }}</a></li>
+            {% else %}
+                <!-- Handle empty identifier case -->
+                <li>Datacard identifier is empty</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
 </div>
+
+<button id="clearDatacardsBtn">Clear All Datacards</button>
+
 
 <div class="footer" style="font-family: 'Inria Sans'; position: absolute">
     <a><u>Contact us:</u> <br> datasafecontact@gmail.com <br> DataSafe.twitter </a>
@@ -61,6 +73,7 @@
 
     <script src="{% static 'script.js' %}"></script>
     <script>
+
     // Load and display all saved data from the library
     window.onload = function () {
     // Parse library from local storage
@@ -90,6 +103,8 @@
         allSavedDataList.appendChild(listItem);
     }
 };
+
+
     </script>
 </body>
 </html>
