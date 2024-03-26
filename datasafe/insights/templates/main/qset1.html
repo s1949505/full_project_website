@@ -52,9 +52,9 @@
     </div>
 
     <div class="topnav">
-        <a style="color: black;" href="{% url 'qset3' %}">Further</a>
-        <a style="color: black;" href="{% url 'qset2' %}">Technical</a>
-        <a style="color: black;" href="{% url 'qset1' %}">Primary/General</a>
+        <a style="color: black; cursor: pointer;" onclick="saveText1(this.getAttribute('data-next-page'))" data-next-page="{% url 'qset3' %}">Further</a>
+        <a style="color: black; cursor: pointer;" onclick="saveText1(this.getAttribute('data-next-page'))" data-next-page="{% url 'qset2' %}">Technical</a>
+        <a style="color: black; cursor: pointer;" onclick="saveText1(this.getAttribute('data-next-page'))" data-next-page="{% url 'qset1' %}">Primary/General</a>
     </div>
 
     <div class="setTitle">
