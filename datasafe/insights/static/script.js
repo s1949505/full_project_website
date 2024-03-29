@@ -733,6 +733,7 @@ function saveToAccount(nextPageUrl) {
         data: data,
         success: function(response) {
             // Redirect to the account page
+            console.log("redirecting aaaaaaaaaaaaaaa")
             window.location.href = "/account/";
             
         },
@@ -741,7 +742,122 @@ function saveToAccount(nextPageUrl) {
             alert('An error occurred while saving the data card.');
         }
     });
-    
+
+    console.log("data saved and request sent")
+
+    localStorage.clear();
+
 }
 
 document.getElementById('saveBtn').addEventListener('click', saveToAccount);
+
+function saveDatacardToLocalStorage(identifier, nextPage) {
+    const datacard = {
+        identifier: identifier,
+        // Populate other fields of the datacard object using the relevant data from your Django model
+        dataset_name: "{{ datacard.dataset_name }}",
+        description: "{{ datacard.description }}",
+        motivation: "{{ datacard.motivation }}",
+        dataset_accessibility: "{{ datacard.dataset_accessibility }}",
+        accessibility_info: "{{ datacard.accessibility_info }}",
+        research_motivation: "{{ datacard.research_motivation }}",
+        authors: "{{ datacard.authors }}",
+        contributors: "{{ datacard.contributors }}",
+        funding_type: "{{ datacard.funding_type }}",
+        funding_info: "{{ datacard.funding_info }}",
+        is_combination: "{{ datacard.is_combination }}",
+        combination_info: "{{ datacard.combination_info }}",
+        date_created: "{{ datacard.date_created }}",
+        version: "{{ datacard.version }}",
+        applications: "{{ datacard.applications }}",
+        datatypes: "{{ datacard.datatypes }}",
+        primary_data: "{{ datacard.primary_data }}",
+        annotation_method: "{{ datacard.annotation_method }}",
+        annotation_info: "{{ datacard.annotation_info }}",
+        collection: "{{ datacard.collection }}",
+        size: "{{ datacard.size }}",
+        personal_data: "{{ datacard.personal_data }}",
+        flaws: "{{ datacard.flaws }}",
+        data_splits: "{{ datacard.data_splits }}",
+        dataset_format: "{{ datacard.dataset_format }}",
+        languages: "{{ datacard.languages }}",
+        doi: "{{ datacard.doi }}",
+        licence: "{{ datacard.licence }}",
+        last_update: "{{ datacard.last_update }}",
+        is_maintained: "{{ datacard.is_maintained }}",
+        maintenance_info: "{{ datacard.maintenance_info }}",
+        possible_uses: "{{ datacard.possible_uses }}",
+        unsafe_applications: "{{ datacard.unsafe_applications }}",
+        bias_problems: "{{ datacard.bias_problems }}",
+        social_impact: "{{ datacard.social_impact }}",
+        dataset_citation: "{{ datacard.dataset_citation }}",
+        additional_information: "{{ datacard.additional_information }}",
+    };
+
+    // Save the data from the datacard object to local storage
+    for (const key in datacard) {
+        localStorage.setItem(key, datacard[key]);
+    }
+
+    // Redirect the user to the next page
+    window.location.href = nextPage;
+}
+
+function saveDataCard(identifier) {
+    console.log("datacard saving to localstorage")
+    // Send AJAX request to retrieve data card information based on the identifier
+    $.ajax({
+        url: '/get_datacard/',  // URL to retrieve data card information
+        type: 'GET',
+        data: {
+            'identifier': identifier  // Pass the identifier as a parameter
+        },
+        success: function(data) {
+            // Save the retrieved data to local storage
+            localStorage.setItem("DatasetName", data['DatasetName']);
+            localStorage.setItem("description", data['description']);
+            localStorage.setItem("motivation", data['motivation']);
+            localStorage.setItem("dataset_accessibility", data['dataset_accessibility']);
+            localStorage.setItem("accessibility_info", data['accessibility_info']);
+            localStorage.setItem("research_motivation", data['research_motivation']);
+            localStorage.setItem("authors", data['authors']);
+            localStorage.setItem("contributors", data['contributors']);
+            localStorage.setItem("funding_type", data['funding_type']);
+            localStorage.setItem("funding_info", data['funding_info']);
+            localStorage.setItem("is_combination", data['is_combination']);
+            localStorage.setItem("combination_info", data['combination_info']);
+            localStorage.setItem("date_created", data['date_created']);
+            localStorage.setItem("version", data['version']);
+            localStorage.setItem("applications", data['applications']);
+            localStorage.setItem("datatypes", data['datatypes']);
+            localStorage.setItem("primary_data", data['primary_data']);
+            localStorage.setItem("annotation_method", data['annotation_method']);
+            localStorage.setItem("annotation_info", data['annotation_info']);
+            localStorage.setItem("collection", data['collection']);
+            localStorage.setItem("size", data['size']);
+            localStorage.setItem("personal_data", data['personal_data']);
+            localStorage.setItem("flaws", data['flaws']);
+            localStorage.setItem("data_splits", data['data_splits']);
+            localStorage.setItem("dataset_format", data['dataset_format']);
+            localStorage.setItem("languages", data['languages']);
+            localStorage.setItem("doi", data['doi']);
+            localStorage.setItem("licence", data['licence']);
+            localStorage.setItem("last_update", data['last_update']);
+            localStorage.setItem("is_maintained", data['is_maintained']);
+            localStorage.setItem("maintenance_info", data['maintenance_info']);
+            localStorage.setItem("possible_uses", data['possible_uses']);
+            localStorage.setItem("unsafe_applications", data['unsafe_applications']);
+            localStorage.setItem("bias_problems", data['bias_problems']);
+            localStorage.setItem("social_impact", data['social_impact']);
+            localStorage.setItem("dataset_citation", data['dataset_citation']);
+            localStorage.setItem("additional_information", data['additional_information']);        
+
+            // Redirect to complete.html
+            window.location.href = '/complete/';
+        },
+        error: function(xhr, status, error) {
+            // Handle errors
+            console.error(error);
+        }
+    });
+}

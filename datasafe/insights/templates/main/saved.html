@@ -8,6 +8,8 @@
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
         <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
         <script src="{% static 'script.js' %}"></script>
     </head>
 <body>
@@ -52,7 +54,7 @@
     <ul id="allSavedDataList">
         {% for datacard in user_datacards %}
             {% if datacard.identifier %}
-                <li><a href="{% url 'complete' datacard.identifier %}">{{ datacard.user.username }} - {{ datacard.dataset_name }}</a></li>
+                <li><a href="#" onclick="saveDataCard('{{ datacard.identifier }}')"> {{ datacard.identifier }}</a></li>
             {% else %}
                 <!-- Handle empty identifier case -->
                 <li>Datacard identifier is empty</li>
@@ -95,7 +97,7 @@
         // Create list item and link
         var listItem = document.createElement('li');
         var link = document.createElement('a');
-        link.href = 'complete.html?identifier=' + encodeURIComponent(identifier);
+        link.href = 'complete.html';
         link.textContent = userSavedCards;
 
         // Append link to list item and list item to the allSavedDataList

@@ -284,8 +284,15 @@ def save_data(request):
 def save_datacard(request):
     print("doing save datacrd")
     if request.method == 'POST':
+        dataset_name = request.POST.get('dataset_name')
+        user_first_name = request.user.first_name 
+        identifier = f"{user_first_name} {dataset_name}"
+
+        print("dataset name: ", dataset_name)
+
         # Retrieve form data from POST request
         data = {
+            'identifier': identifier,
             'dataset_name': request.POST.get('dataset_name'),
             'description': request.POST.get('description'),
             'motivation': request.POST.get('motivation'),
@@ -327,8 +334,9 @@ def save_datacard(request):
 
         datacard = Datacard(user=request.user, **data)
         print("user for card: ", request.user)
-        print("datacard: ", datacard)
         datacard.save()
+        print("datacard: ", datacard)
+
 
         return JsonResponse({'message': 'Datacard saved successfully'})
 
@@ -343,3 +351,54 @@ def saved_view(request):
     # Pass the data cards to the template
     return render(request, 'main/saved.html', {'user_datacards': user_datacards})
 
+def get_datacard(request):
+    print("getting datacard from identifier")
+    if request.method == 'GET':
+        identifier = request.GET.get('identifier')
+        try:
+            datacard = Datacard.objects.get(identifier=identifier)
+            # Assuming DataCard model has fields like 'DatasetName', 'description', etc.
+            data = {
+                'DatasetName': datacard.dataset_name,
+                'description': datacard.description,
+                'motivation': datacard.motivation,
+                'dataset_accessibility': datacard.dataset_accessibility,
+                'accessibility_info': datacard.accessibility_info,
+                'research_motivation': datacard.research_motivation,
+                'authors': datacard.authors,
+                'contributors': datacard.contributors,
+                'funding_type': datacard.funding_type,
+                'funding_info': datacard.funding_info,
+                'is_combination': datacard.is_combination,
+                'combination_info': datacard.combination_info,
+                'date_created': datacard.date_created,
+                'version': datacard.version,
+                'applications': datacard.applications,
+                'datatypes': datacard.datatypes,
+                'primary_data': datacard.primary_data,
+                'annotation_method': datacard.annotation_method,
+                'annotation_info': datacard.annotation_info,
+                'collection': datacard.collection,
+                'size': datacard.size,
+                'personal_data': datacard.personal_data,
+                'flaws': datacard.flaws,
+                'data_splits': datacard.data_splits,
+                'dataset_format': datacard.dataset_format,
+                'languages': datacard.languages,
+                'doi': datacard.doi,
+                'licence': datacard.licence,
+                'last_update': datacard.last_update,
+                'is_maintained': datacard.is_maintained,
+                'maintenance_info': datacard.maintenance_info,
+                'possible_uses': datacard.possible_uses,
+                'unsafe_applications': datacard.unsafe_applications,
+                'bias_problems': datacard.bias_problems,
+                'social_impact': datacard.social_impact,
+                'dataset_citation': datacard.dataset_citation,
+                'additional_information': datacard.additional_information,
+            }
+            return JsonResponse(data)
+        except Datacard.DoesNotExist:
+            return JsonResponse({'error': 'Data card not found'}, status=404)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)

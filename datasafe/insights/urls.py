@@ -26,6 +26,8 @@ from .main.views import (
     login_user_process,
     save_datacard,
     saved_view,
+    complete,
+    get_datacard
 
 )
 urlpatterns = [
@@ -35,7 +37,7 @@ urlpatterns = [
     path('', home_view, name='home'),  # Redirect to 'intro' view for the root path
     path('account/', account_view, name='account'),
     path('browse/', browse_view, name='browse'),
-    path('complete/', complete_view, name='complete'),
+    path('complete/', complete_view, name='complete_view'),
     path('home/', home_view, name='home'),
     path('login/', login_view , name='login'),
     path('login_user/', login_user , name='login_user'),
@@ -48,13 +50,11 @@ urlpatterns = [
     path('review/', review_view, name='review'),
     path('saved/', saved_view, name='saved'),
     path('save_data/', save_data, name='save_data'), 
-    path('saved/complete.html', complete_view, name='complete'),
+    path('saved/complete.html', complete, name='complete'),
     path('login_user_process/', login_user_process, name="login_user_process"),
     path('save_datacard/', save_datacard, name='save_datacard'),
     path('saved/', saved_view, name='saved_view'),
-    
-
-
+    path('get_datacard/', get_datacard, name='get_datacard'),
 
 
 

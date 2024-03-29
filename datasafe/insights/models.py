@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class Datacard(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     dataset_name = models.CharField(max_length=100, default= "N/A")
+    identifier = models.CharField(max_length=400, blank=True)
     description = models.TextField(default= "N/A")
     motivation = models.TextField(default= "N/A")
     dataset_accessibility = models.CharField(max_length=100, default= "N/A")
@@ -42,6 +43,7 @@ class Datacard(models.Model):
     social_impact = models.TextField(default= "N/A")
     dataset_citation = models.TextField(default= "N/A")
     additional_information = models.TextField(blank=True, default= "N/A")
+
 #class CustomUser(AbstractUser):
 #    bio = models.TextField(blank=True)
 #    links = models.URLField(blank=True)
