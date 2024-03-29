@@ -686,12 +686,12 @@ function saveToAccount(nextPageUrl) {
         description: localStorage.getItem('description') || '',
         motivation: localStorage.getItem('motivation') || '',
         dataset_accessibility: localStorage.getItem('accessibility') || '',
-        accessibility_info: localStorage.getItem('accessibilityInfoArea') || '',
+        accessibility_info: localStorage.getItem('accessibilityInfo') || '',
         research_motivation: localStorage.getItem('research') || '',
         authors: localStorage.getItem('authors') || '',
         contributors: localStorage.getItem('contributors') || '',
         funding_type: localStorage.getItem('funding') || '',
-        funding_info: localStorage.getItem('fundingInfoArea') || '',
+        funding_info: localStorage.getItem('fundingInfo') || '',
         is_combination: localStorage.getItem('combination') === 'yes',
         combination_info: localStorage.getItem('combinationInfoArea') || '',
         date_created: new Date(), // Set the current date
@@ -712,7 +712,7 @@ function saveToAccount(nextPageUrl) {
         licence: localStorage.getItem('licence') || '',
         last_update: localStorage.getItem('update') ? new Date(localStorage.getItem('update')) : null,
         is_maintained: localStorage.getItem('maintained') === 'Yes',
-        maintenance_info: localStorage.getItem('maintainedInfoArea') || '',
+        maintenance_info: localStorage.getItem('maintainedInfo') || '',
         possible_uses: localStorage.getItem('Uses') || '',
         unsafe_applications: localStorage.getItem('unsafe') || '',
         bias_problems: localStorage.getItem('bias') || '',
@@ -803,6 +803,7 @@ function saveDatacardToLocalStorage(identifier, nextPage) {
     window.location.href = nextPage;
 }
 
+
 function saveDataCard(identifier) {
     console.log("datacard saving to localstorage")
     // Send AJAX request to retrieve data card information based on the identifier
@@ -817,40 +818,42 @@ function saveDataCard(identifier) {
             localStorage.setItem("DatasetName", data['DatasetName']);
             localStorage.setItem("description", data['description']);
             localStorage.setItem("motivation", data['motivation']);
-            localStorage.setItem("dataset_accessibility", data['dataset_accessibility']);
-            localStorage.setItem("accessibility_info", data['accessibility_info']);
-            localStorage.setItem("research_motivation", data['research_motivation']);
+            localStorage.setItem("accessibility", data['dataset_accessibility']);
+            localStorage.setItem("accessibilityInfo", data['accessibility_info']);
+            localStorage.setItem("research", data['research_motivation']);
             localStorage.setItem("authors", data['authors']);
             localStorage.setItem("contributors", data['contributors']);
-            localStorage.setItem("funding_type", data['funding_type']);
-            localStorage.setItem("funding_info", data['funding_info']);
-            localStorage.setItem("is_combination", data['is_combination']);
-            localStorage.setItem("combination_info", data['combination_info']);
-            localStorage.setItem("date_created", data['date_created']);
+            localStorage.setItem("funding", data['funding_type']);
+            localStorage.setItem("fundingInfo", data['funding_info']);
+            localStorage.setItem("combination", data['is_combination']);
+            localStorage.setItem("combinationInfo", data['combination_info']);
+            localStorage.setItem("date", data['date_created']);
             localStorage.setItem("version", data['version']);
             localStorage.setItem("applications", data['applications']);
             localStorage.setItem("datatypes", data['datatypes']);
-            localStorage.setItem("primary_data", data['primary_data']);
-            localStorage.setItem("annotation_method", data['annotation_method']);
-            localStorage.setItem("annotation_info", data['annotation_info']);
-            localStorage.setItem("collection", data['collection']);
+            localStorage.setItem("qorq", data['primary_data']);
             localStorage.setItem("size", data['size']);
-            localStorage.setItem("personal_data", data['personal_data']);
+            localStorage.setItem("personal", data['personal_data']);
+            localStorage.setItem("personalInfo", data['personal_data']);
             localStorage.setItem("flaws", data['flaws']);
-            localStorage.setItem("data_splits", data['data_splits']);
-            localStorage.setItem("dataset_format", data['dataset_format']);
+            localStorage.setItem("splits", data['data_splits']);
+            localStorage.setItem("annotation", data['annotation_method']);
+            localStorage.setItem("annotationInfo", data['annotation_info']);
+            localStorage.setItem("collection", data['collection']);
+            localStorage.setItem("format", data['dataset_format']);
             localStorage.setItem("languages", data['languages']);
             localStorage.setItem("doi", data['doi']);
             localStorage.setItem("licence", data['licence']);
-            localStorage.setItem("last_update", data['last_update']);
-            localStorage.setItem("is_maintained", data['is_maintained']);
-            localStorage.setItem("maintenance_info", data['maintenance_info']);
-            localStorage.setItem("possible_uses", data['possible_uses']);
-            localStorage.setItem("unsafe_applications", data['unsafe_applications']);
-            localStorage.setItem("bias_problems", data['bias_problems']);
-            localStorage.setItem("social_impact", data['social_impact']);
-            localStorage.setItem("dataset_citation", data['dataset_citation']);
-            localStorage.setItem("additional_information", data['additional_information']);        
+            localStorage.setItem("update", data['last_update']);
+            localStorage.setItem("maintained", data['is_maintained']);
+            localStorage.setItem("maintainedInfo", data['maintenance_info']);
+            localStorage.setItem("Uses", data['possible_uses']);
+            localStorage.setItem("unsafe", data['unsafe_applications']);
+            localStorage.setItem("bias", data['bias_problems']);
+            localStorage.setItem("social", data['social_impact']);
+            localStorage.setItem("cite", data['dataset_citation']);
+            localStorage.setItem("further", data['additional_information']);
+        
 
             // Redirect to complete.html
             window.location.href = '/complete/';

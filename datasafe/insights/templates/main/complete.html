@@ -60,13 +60,15 @@
         <div>                 
             <h2>Basic Information <span><div style="width: 90%;  position: relative; border: 2px black solid"></div></span></h2>
             <div class="text-block">  
+                <button  onclick="navButton(this.getAttribute('data-next-page'))" data-next-page="{% url 'qset1' %}">Edit Section</button>
+
                 <p style="color: blue;">Dataset Authors: <span style="color: black;" id="authorsText"></span></p>
                 <p style="color: blue;">Collaborators/contributors: <span style="color: black;"id="contributorsText"></span></p>
                 <p style="color: blue;">Combination: <span style="color: black;" id="combinationText"></span></p>
                 <p style="color: blue;">Combination Information: <span style="color: black;" id="combinationInfoText"></span></p>
                 <p style="color: blue;">Funding: <span style="color: black;" id="fundingText"></span></p>
                 <p style="color: blue;">Funding Information: <span style="color: black;" id="fundingInfoText"></span></p>
-                <p style="color: blue;">Date of dataset ceration: <span style="color: black;" id="dateText"></span></p>
+                <p style="color: blue;">Date of dataset creation: <span style="color: black;" id="dateText"></span></p>
                 <p style="color: blue;">Dataset version: <span style="color: black;" id="versionText"></span></p>
             </div>
             <div class="text-block">
@@ -80,6 +82,8 @@
         <h2>Technical Details <span><div style="width: 90%;  position: relative; border: 2px black solid"></div>            </span></h2>
         <div>
             <div class="text-block">
+                <button  onclick="navButton(this.getAttribute('data-next-page'))" data-next-page="{% url 'qset2' %}">Edit Section</button>
+
 
                 <p style="color: blue;">Main application(s): <span style="color: black;" id="applicationsText"></span></p>
                 <p style="color: blue;">Primary datatypes: <span style="color: black;" id="datatypesText"></span></p>
@@ -108,6 +112,8 @@
 
         <div>
             <div class="text-block">
+                <button  onclick="navButton(this.getAttribute('data-next-page'))" data-next-page="{% url 'qset3' %}">Edit Section</button>
+
                 <p style="color: blue;">Is the dataset still being maintained: <span style="color: black;" id="maintainedText"></span>
                 <br>
                 <span style="color: black;" id="maintainedInfoText"></span></p>

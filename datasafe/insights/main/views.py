@@ -332,6 +332,11 @@ def save_datacard(request):
             'additional_information': request.POST.get('additional_information')
         }
 
+        existing_datacard = Datacard.objects.filter(identifier=identifier).first()
+        if existing_datacard:
+            existing_datacard.delete()  # Delete the existing datacard
+
+
         datacard = Datacard(user=request.user, **data)
         print("user for card: ", request.user)
         datacard.save()

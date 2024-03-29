@@ -36,7 +36,7 @@ class Datacard(models.Model):
     licence = models.CharField(max_length=100, default= "N/A")
     last_update = models.TextField(default= "N/A")
     is_maintained = models.BooleanField(default=False)
-    maintenance_info = models.TextField(blank=True, null=True)
+    maintenance_info = models.TextField(max_length=1000, blank=True)
     possible_uses = models.TextField(default= "N/A")
     unsafe_applications = models.TextField(default= "N/A")
     bias_problems = models.TextField(default= "N/A")
