@@ -164,7 +164,7 @@
             Remember, if you are unsure of any questions, you can save progress and continue at a later date or move on to the next section and return to anything left blank.
         </maintext>
         {% if request.user.is_authenticated %}
-        <button onclick="saveTextToModel(this.getAttribute('data-next-page'))" data-next-page="{% url 'account' %}" type="button" class="saveandexit">Save and Exit</button>
+        <button onclick="saveText2(this.getAttribute('data-next-page'))" data-next-page="{% url 'complete_view' %}" type="button"  style="margin-top: 30px;"  class="saveandexit">Save and Exit</button>
         {% endif %}
     </div>
 

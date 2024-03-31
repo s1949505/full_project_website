@@ -48,6 +48,17 @@ function saveText1(nextPage) {
     const version = document.getElementById("version").value;
     localStorage.setItem("version", version);
 
+    var today = new Date();
+
+    // Extract day, month, and year
+    var day = today.getDate(); // Returns the day of the month (1-31)
+    var month = today.getMonth() + 1; // Returns the month (0-11), so add 1 to get the correct month
+    var year = today.getFullYear(); // Returns the year (4 digits)
+    
+    // Format the date as dd/mm/yyyy
+    var formattedDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
+    localStorage.setItem("date_created", formattedDate)
+
     window.location.href = nextPage;
 
 
@@ -170,6 +181,17 @@ function saveText2(nextPage) {
     const update = document.getElementById("update").value;
     localStorage.setItem("update", update);
 
+    var today = new Date();
+
+    // Extract day, month, and year
+    var day = today.getDate(); // Returns the day of the month (1-31)
+    var month = today.getMonth() + 1; // Returns the month (0-11), so add 1 to get the correct month
+    var year = today.getFullYear(); // Returns the year (4 digits)
+    
+    // Format the date as dd/mm/yyyy
+    var formattedDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
+    localStorage.setItem("date_created", formattedDate)
+
     window.location.href = nextPage;
 
     //populateAnswers();
@@ -273,6 +295,17 @@ function saveText3(nextPage) {
     const further = document.getElementById("further").value;
     localStorage.setItem("further", further);
 
+    var today = new Date();
+
+    // Extract day, month, and year
+    var day = today.getDate(); // Returns the day of the month (1-31)
+    var month = today.getMonth() + 1; // Returns the month (0-11), so add 1 to get the correct month
+    var year = today.getFullYear(); // Returns the year (4 digits)
+    
+    // Format the date as dd/mm/yyyy
+    var formattedDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
+    localStorage.setItem("date_created", formattedDate)
+    
     window.location.href = nextPage;
 
 
@@ -687,6 +720,7 @@ function saveToAccount(nextPageUrl) {
         motivation: localStorage.getItem('motivation') || '',
         dataset_accessibility: localStorage.getItem('accessibility') || '',
         accessibility_info: localStorage.getItem('accessibilityInfo') || '',
+        date_created: localStorage.getItem('date_created') || '',
         research_motivation: localStorage.getItem('research') || '',
         authors: localStorage.getItem('authors') || '',
         contributors: localStorage.getItem('contributors') || '',
@@ -818,6 +852,7 @@ function saveDataCard(identifier) {
             localStorage.setItem("DatasetName", data['DatasetName']);
             localStorage.setItem("description", data['description']);
             localStorage.setItem("motivation", data['motivation']);
+            localStorage.setItem("date_created", data['date_created']);
             localStorage.setItem("accessibility", data['dataset_accessibility']);
             localStorage.setItem("accessibilityInfo", data['accessibility_info']);
             localStorage.setItem("research", data['research_motivation']);

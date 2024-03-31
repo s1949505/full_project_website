@@ -50,15 +50,32 @@
         </li>
     </div>
     {% endif %}
-    <div id="pdf" style="margin-left: 25%; margin-top: 10%;">
+    <div id="pdf" style="margin-left: 25%; margin-top: 10%; margin-bottom: 100px;">
         <div>
             <h2>Data Card for <span id="nameText"></span></h2>
             <div style="background-color: lightgray; height: auto; width: 70%;">
-            <p>Dataset overview</p>: <span id="descriptionText"></span></p>
+                <p>Dataset overview</p>: <span id="descriptionText"></span></p>
             </div>  
+            <div class="greenButtons" style="width: 120px; position: absolute;left: 80%;top: 150px;margin-right: 5%;">
+                <button style="padding: 10px;" id="exportBtn">Export to PDF</button>
+            </div>
+            {% if request.user.is_authenticated %}
+            <div>
+            <form id="saveButton">
+                {% csrf_token %}
+                <div class="greenButtons" style="width: 120px; height: 30px; position: absolute;left: 80%; top: 210px; margin-right: 5%;">
+                    <button style="padding: 10px;" id="saveBtn">Save To account</button>
+                </div>
+            </form>
+            </div>
+            {% endif %}
+            <div class="greenButtons" style="width: 120px; position: absolute;left: 80%;top: 270px;margin-right: 5%;">
+                <button style="padding: 10px;" onclick="navButton(this.getAttribute('data-next-page'))" data-next-page="{% url 'qset1' %}">Edit Information</button>
+            </div>
+                
         </div>
-        <div>                 
-            <h2>Basic Information <span><div style="width: 90%;  position: relative; border: 2px black solid"></div></span></h2>
+        <div style="position: relative; margin-top: 50px;">                 
+            <h2>Basic Information <span><div style="width: 90%;  position: relative; border: 2px black solid;"></div></span></h2>
             <div class="text-block">  
                 <button  onclick="navButton(this.getAttribute('data-next-page'))" data-next-page="{% url 'qset1' %}">Edit Section</button>
 
@@ -77,6 +94,8 @@
                 <p style="color: blue;">Accessibility of the dataset: <span style="color: black;" id="accessibilityText"></span>
                 <br>
                 <span style="color: black;" id="accessibilityInfoText"></span></p>
+                <p style="color: blue;">Data Card Created: <span style="color: black;" id="date_created"></span></p>
+
             </div>
         </div>
         <h2>Technical Details <span><div style="width: 90%;  position: relative; border: 2px black solid"></div>            </span></h2>
@@ -108,52 +127,30 @@
                 <p style="color: blue;">DOI citation number: <span style="color: black;" id="doiText"></span></p>
             </div>
         </div>
-            <h2>Additional Information</h2><span><div style="width: 90%;  position: relative; border: 2px black solid"></div>            </span></h2>
+        <div style=" position: relative;top: 30px;">
+                <h2 >Additional Information</h2><span><div style="width: 90%;  position: relative; border: 2px black solid"></div></span></h2>
+            <div>
+                <div class="text-block">
+                    <button style="margin-top: 10px;"  onclick="navButton(this.getAttribute('data-next-page'))" data-next-page="{% url 'qset3' %}">Edit Section</button>
 
-        <div>
-            <div class="text-block">
-                <button  onclick="navButton(this.getAttribute('data-next-page'))" data-next-page="{% url 'qset3' %}">Edit Section</button>
-
-                <p style="color: blue;">Is the dataset still being maintained: <span style="color: black;" id="maintainedText"></span>
-                <br>
-                <span style="color: black;" id="maintainedInfoText"></span></p>
-                <p style="color: blue;">Possible related social impact: <span style="color: black;" id="socialText"></span></p>
-                <p style="color: blue;">Kown possible underlying bias/problems: <span style="color: black;" id="biasText"></span></p>
-                <p style="color: blue;">How to cite the dataset: <span style="color: black;"id="citeText"></span></p>
+                    <p style="color: blue;">Is the dataset still being maintained: <span style="color: black;" id="maintainedText"></span>
+                    <br>
+                    <span style="color: black;" id="maintainedInfoText"></span></p>
+                    <p style="color: blue;">Possible related social impact: <span style="color: black;" id="socialText"></span></p>
+                    <p style="color: blue;">Kown possible underlying bias/problems: <span style="color: black;" id="biasText"></span></p>
+                    <p style="color: blue;">How to cite the dataset: <span style="color: black;"id="citeText"></span></p>
+                </div>
+                <div class="text-block">
+                    <p style="color: blue;">Other possible applications of the dataset: <span style="color: black;" id="UsesText"></span></p>
+                    <p style="color: blue;">Known unsafe applications: <span style="color: black;" id="unsafeText"></span></p>
+                    <p style="color: blue;">Additional information: <span style="color: black;" id="furtherText"></span></p>
+                </div>
+            
             </div>
-            <div class="text-block">
-                <p style="color: blue;">Other possible applications of the dataset: <span style="color: black;" id="UsesText"></span></p>
-                <p style="color: blue;">Known unsafe applications: <span style="color: black;" id="unsafeText"></span></p>
-                <p style="color: blue;">Additional information: <span style="color: black;" id="furtherText"></span></p>
-            </div>
-        
         </div>
+
     </div>
 
-    <div class="greenButtons" style="width: 120px; height: 30px; position: absolute; top: 70px; right: 0px; margin-right: 5%;">
-        <!--<button style="padding: 10px;" id="exportBtn">Export to PDF <span><img src="{% static 'images/export.png' %}" style="width: 10%;">-->
-        <button style="padding: 10px;" id="exportBtn">Export to PDF</button>
-    </div>
-    {% if request.user.is_authenticated %}
-
-    <!--<form id="saveButton" method="POST" action="{% url 'save_datacard' %}">-->
-    <form id="saveButton">
-
-        {% csrf_token %}
-        <div class="greenButtons" style="width: 120px; height: 30px; position: absolute; top: 130px; right: 0px; margin-right: 5%;">
-            <button style="padding: 10px;" id="saveBtn">Save To account</button>
-        </div>
-    </form>
-
-    <div style="width: 120px; height: 30px; position: absolute; top: 190px; right: 0px; margin-right: 10%;">
-        Date Created: N/A
-    </div>
-    {% else %}
-
-    <div style="width: 120px; height: 30px; position: absolute; top: 140px; right: -5%; margin-right: 10%;">
-        Date Created: N/A
-    </div>
-    {% endif %}
 
     
     <script src="{% static 'script.js' %}"></script>
@@ -202,6 +199,8 @@
         document.getElementById('fundingInfoText').innerText = storedData['fundingInfo'];
         document.getElementById('dateText').innerText = storedData['date'];
         document.getElementById('versionText').innerText = storedData['version'];
+        document.getElementById('date_created').innerText = storedData['date_created'];
+
 
         document.getElementById('applicationsText').innerText = storedData['applications'];
         document.getElementById('datatypesText').innerText = storedData['datatypes'];
@@ -252,6 +251,8 @@
             { key: 'fundingInfo', targetElementId: 'fundingInfoText' },
             { key: 'date', targetElementId: 'dateText' },
             { key: 'version', targetElementId: 'versionText' },
+            { key: 'date_created', targetElementId: 'date_created' },
+
            
             
             //Question set 2
@@ -293,6 +294,7 @@
             'Motivation for research: ',
             'Accessibility of the dataset: ',
             'Accessibility Information: ',
+            'Data Card Created: ', 
             'Combination: ',
             'Combination Information: ',
             'Funding: ',
