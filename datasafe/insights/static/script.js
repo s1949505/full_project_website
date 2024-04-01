@@ -942,3 +942,73 @@ function saveDataCard(identifier) {
         }
     });
 }
+function toggleEdit() {
+    var checkboxes = document.getElementsByName('datacard_checkbox');
+    var editButton = document.getElementById('datacard_edit');
+    
+    // Toggle visibility of checkboxes
+    checkboxes.forEach(function(checkbox) {
+        checkbox.style.display = checkbox.style.display === 'none' ? 'inline-block' : 'none';
+    });
+
+    // Change button text and onclick function based on checkbox visibility
+    if (editButton.textContent === 'Edit data cards') {
+        editButton.textContent = 'Delete checked data cards';
+        editButton.setAttribute('onclick', 'datacard_delete()');
+    } else {
+        editButton.textContent = 'Edit data cards';
+        editButton.setAttribute('onclick', 'toggleEdit()');
+    }
+}
+
+function datacard_delete() {
+    var checkboxes = document.getElementsByName('datacard_checkbox');
+    var anyChecked = false;
+    
+    // Check if any checkboxes are checked
+    checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            anyChecked = true;
+        }
+    });
+    
+    if (anyChecked) {
+        // Ask for confirmation before deleting data cards
+        var confirmDelete = confirm("Are you sure you want to delete these data cards? This action cannot be undone.");
+        
+        if (confirmDelete) {
+            var selectedIdentifiers = [];
+            
+            // Gather identifiers of checked data cards
+            checkboxes.forEach(function(checkbox) {
+                if (checkbox.checked) {
+                    selectedIdentifiers.push(checkbox.value);
+                }
+            });
+
+            // Send AJAX request to delete selected data cards
+            var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+            fetch('/delete_datacards/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ identifiers: selectedIdentifiers })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Reload page or update UI as needed
+                    location.reload();
+                } else {
+                    console.error('Failed to delete data cards');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    } else {
+        toggleEdit();
+    }
+}

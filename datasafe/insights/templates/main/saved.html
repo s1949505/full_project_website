@@ -49,18 +49,22 @@
 </div>
 {% endif %}
 
-<div style="position: relative; margin-left: 22%; font-family: 'Inria Sans'">
+<div style="position: relative; margin-left: 28%; font-family: 'Inria Sans'">
     <h1>All Saved Datacards</h1>
     <ul id="allSavedDataList">
         {% for datacard in user_datacards %}
             {% if datacard.identifier %}
-                <li><a href="#" onclick="saveDataCard('{{ datacard.identifier }}')"> {{ datacard.identifier }}</a></li>
+                <li style="display: block;">
+                    <input type="checkbox" name="datacard_checkbox" value="{{ datacard.identifier }}" style="display: none;">
+                    <a href="#" onclick="saveDataCard('{{ datacard.identifier }}')"> {{ datacard.identifier }}</a>
+                </li>
             {% else %}
                 <!-- Handle empty identifier case -->
                 <li>Datacard identifier is empty</li>
             {% endif %}
         {% endfor %}
     </ul>
+    <button style="margin-top: 50px;" id="datacard_edit" onclick="toggleEdit()">Edit data cards</button>
 </div>
 
 <button id="clearDatacardsBtn">Clear All Datacards</button>

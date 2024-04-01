@@ -478,3 +478,15 @@ def save_edited_info(request):
 
 
 
+def delete_datacards(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        identifiers = data.get('identifiers', [])
+
+        # Delete data cards with the specified identifiers
+        for identifier in identifiers:
+            Datacard.objects.filter(identifier=identifier).delete()
+
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
