@@ -56,6 +56,7 @@
             <div style="background-color: lightgray; height: auto; width: 70%;">
                 <p>Dataset overview</p>: <span id="descriptionText"></span></p>
             </div>  
+            <div style="position: relative; top: -300px; margin-left: -100px;">
             <div class="greenButtons" style="width: 120px; position: absolute;left: 80%;top: 150px;margin-right: 5%;">
                 <button style="padding: 10px;" id="exportBtn">Export to PDF</button>
             </div>
@@ -72,7 +73,7 @@
             <div class="greenButtons" style="width: 120px; position: absolute;left: 80%;top: 270px;margin-right: 5%;">
                 <button style="padding: 10px;" onclick="navButton(this.getAttribute('data-next-page'))" data-next-page="{% url 'qset1' %}">Edit Information</button>
             </div>
-                
+            </div>
         </div>
         <div style="position: relative; margin-top: 50px;">                 
             <h2>Basic Information <span><div style="width: 90%;  position: relative; border: 2px black solid;"></div></span></h2>
@@ -85,7 +86,6 @@
                 <p style="color: blue;">Combination Information: <span style="color: black;" id="combinationInfoText"></span></p>
                 <p style="color: blue;">Funding: <span style="color: black;" id="fundingText"></span></p>
                 <p style="color: blue;">Funding Information: <span style="color: black;" id="fundingInfoText"></span></p>
-                <p style="color: blue;">Date of dataset creation: <span style="color: black;" id="dateText"></span></p>
                 <p style="color: blue;">Dataset version: <span style="color: black;" id="versionText"></span></p>
             </div>
             <div class="text-block">

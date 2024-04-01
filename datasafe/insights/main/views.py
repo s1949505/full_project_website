@@ -22,12 +22,28 @@ User = get_user_model()
 
 def account_view(request):
     if request.user.is_authenticated:
+        user_bio = request.user.bio  # Get the user's bio
+        user_links = request.user.contact
         user_name = request.user.first_name or "User"
     else:
         user_name = "User"
+        user_links = "Where to find me"
+        user_bio = "About me"
+    
+    
+    if user_bio == "" or len(user_bio) == 0 or not user_bio:
+        user_bio = "User Bio"
+    if user_links == "" or len(user_links) == 0 or not user_links:
+        user_links = "Contact points"
+
     context = {
-        'user_name': user_name
-    }
+            'user_name': user_name,             
+            'bio': user_bio, 
+            'links': user_links
+        }
+    
+    print("ceqnlvwlvk: ", len(user_links))
+
     return render(request, 'main/account.html', context)
 def login_view(request):
     return render(request, 'registration/login.html')
@@ -338,7 +354,7 @@ def save_datacard(request):
             'funding_info': request.POST.get('funding_info'),
             'is_combination': request.POST.get('is_combination') == 'true',
             'combination_info': request.POST.get('combination_info'),
-            'date_created': request.POST.get('date_created'),  
+            #'date_created': request.POST.get('date_created'),  
             'version': request.POST.get('version'),
             'applications': request.POST.get('applications'),
             'datatypes': request.POST.get('datatypes'),
@@ -410,7 +426,7 @@ def get_datacard(request):
                 'funding_info': datacard.funding_info,
                 'is_combination': datacard.is_combination,
                 'combination_info': datacard.combination_info,
-                'date_created': datacard.date_created,
+                #'date_created': datacard.date_created,
                 'version': datacard.version,
                 'applications': datacard.applications,
                 'datatypes': datacard.datatypes,
@@ -443,3 +459,22 @@ def get_datacard(request):
         return JsonResponse({'error': 'Invalid request method'}, status=405)
     
     
+def save_edited_info(request):
+    if request.method == 'POST':
+        user = request.user
+        edited_bio = request.POST.get('editedBio')
+        edited_links = request.POST.get('editedLinks')
+
+        user.bio = edited_bio
+        user.contact = edited_links
+        user.save()
+        updated_info = {
+        'bio': user.bio,
+        'links': user.contact,
+        }
+        return JsonResponse(updated_info)
+    
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+
+

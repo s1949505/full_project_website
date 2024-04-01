@@ -13,17 +13,6 @@
         <script src="{% static 'script.js' %}"></script>
         <script>
 
-            window.onload = function () {
-                // Load stored values from local storage
-                var storedBio = localStorage.getItem('bio');
-                var storedLinks = localStorage.getItem('links');
-                var storedUser = localStorage.getItem('user');
-
-                // Populate the elements with the stored values
-                document.getElementById('bio').textContent = storedBio || 'User Bio';
-                document.getElementById('links').textContent = storedLinks || 'Add some contact points';
-                document.getElementById('name').textContent = storedUser || 'User';
-            };
             
         </script>
     </head>
@@ -68,17 +57,17 @@
     {% if request.user.is_authenticated %}
 
     <div class="userInfo">
-        <h3 style="position: relative; top: 0px; left: 0px;">Welcome, <span id="name" style="position: relative; top: 5px;"  class="editable">{{ user_name }}</span></h3>
+            <h3 style="position: relative; top: 0px; left: 0px;">Welcome, <span id="name" >{{ user_name }}</span></h3>
 
         <h3 style="position: relative; left: 40%; top: -40px;">Where to find me: </h3>
-        <span style="position: relative; left: 40%; top: -40px;" id="links" class="editable" placeholder="Add some contact points">Add some contact points</span>
+        <span style="position: relative; left: 40%; top: -40px;" id="links" class="editable" placeholder="Add some contact points">{{ links }}</span>
 
         <h3 style="position: relative;">Bio</h3>
-        <span style="position: relative; top: -10px" id="bio" contenteditable="true" class="editable" aria-placeholder="User bio">User Bio</span>
+        <span style="position: relative; top: -10px" id="bio" contenteditable="true" class="editable" aria-placeholder="User bio">{{ bio }}</span>
 
         <div id="buttonsContainer" style="position: relative; top: -50px; margin-left: 45%;">
             <button id="editButton" onclick="toggleEditMode()">Edit Information</button>
-            <button id="saveButton" style="display: none;" onclick="saveInfo()">Save Information</button>
+            <button id="saveButton"  onclick="saveEditedInfo()" style="display: none;">Save Information</button>
         </div>
     </div>
     <div class="userCards" id="userCardsArea">
@@ -141,8 +130,9 @@
     {% endif %}
 
 
-    <script src="{% static 'script.js' %}"></script>
-    <script>
+<script src="{% static 'script.js' %}"></script>
+<script>
+
         document.addEventListener("DOMContentLoaded", function() {
         // Get the logout link
         const logoutLink = document.getElementById('logout-link');
@@ -171,6 +161,6 @@
         }
     });
 });
-    </script>
+</script>
 </body>
 </html>

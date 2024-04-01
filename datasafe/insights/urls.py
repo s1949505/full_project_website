@@ -30,6 +30,7 @@ from .main.views import (
     get_datacard,
     reset_password,
     reset_view,
+    save_edited_info,
 
 )
 urlpatterns = [
@@ -58,7 +59,9 @@ urlpatterns = [
     path('saved/', saved_view, name='saved_view'),
     path('get_datacard/', get_datacard, name='get_datacard'),
     path('reset_password/', reset_password, name='reset_password'),
-    path('reset/', reset_view , name='reset'),
+    path('reset/', reset_view , name='reset'),   
+    path('save_edited_info/', save_edited_info, name='save_edited_info'),
+
 
 
 

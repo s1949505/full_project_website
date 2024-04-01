@@ -712,20 +712,36 @@ function toggleEditMode() {
     }
 }
 
-function saveInfo() {
+function saveEditedInfo() {
     var editedBio = document.getElementById('bio').textContent;
     var editedLinks = document.getElementById('links').textContent;
-    var editedName = document.getElementById('name').textContent;
 
-    // Save the information to localStorage
-    document.getElementById('bio').value = editedBio;
-    document.getElementById('links').value = editedLinks;
-    document.getElementById('name').value = editedName;
-
-    // Display success message
-    alert('Information has been updated successfully');
-
-    document.getElementById('editForm').submit();
+    data ={
+        editedBio, 
+        editedLinks, 
+    }
+    var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    
+    $.ajax({
+        url: '/save_edited_info/', // URL to your Django view for saving datacards
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken
+        },
+        data: data,
+        success: function(response) {
+            // Redirect to the account page
+            document.getElementById('bio').textContent = response.bio;
+            document.getElementById('links').textContent = response.links;
+                        
+            // Redirect to the account page
+            window.location.href = "/account/";            
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+            alert('An error occurred while saving the information.');
+        }
+    });
 }
 
 function saveToAccount(nextPageUrl) {
@@ -755,7 +771,6 @@ function saveToAccount(nextPageUrl) {
         funding_info: localStorage.getItem('fundingInfo') || '',
         is_combination: localStorage.getItem('combination') === 'yes',
         combination_info: localStorage.getItem('combinationInfoArea') || '',
-        date_created: new Date(), // Set the current date
         version: localStorage.getItem('version') || '',
         applications: localStorage.getItem('applications') || '',
         datatypes: localStorage.getItem('datatypes') || '',
@@ -809,6 +824,7 @@ function saveToAccount(nextPageUrl) {
     localStorage.clear();
 
 }
+
 
 document.getElementById('saveBtn').addEventListener('click', saveToAccount);
 
