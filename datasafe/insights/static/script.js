@@ -641,6 +641,33 @@ function validatePassword() {
     }
 }
 
+function reset_password() {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var password2 = document.getElementById("password2").value;
+/**
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "{% url 'reset_password' %}", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.status === 'error') {
+                    alert(response.message);
+                } else {
+                    window.location.href = "{% url 'login' %}";
+                }
+            } else {
+                console.log('Error:', xhr.statusText);
+            }
+        }
+    };
+    var data = JSON.stringify({ email: email, password: password, password2: password2 });
+    xhr.send(data);
+     */
+}
+
 function toggleEditMode() {
     var bio = document.getElementById('bio');
     var links = document.getElementById('links');
@@ -691,9 +718,9 @@ function saveInfo() {
     var editedName = document.getElementById('name').textContent;
 
     // Save the information to localStorage
-    document.getElementById('id_bio').value = editedBio;
-    document.getElementById('id_links').value = editedLinks;
-    document.getElementById('id_name').value = editedName;
+    document.getElementById('bio').value = editedBio;
+    document.getElementById('links').value = editedLinks;
+    document.getElementById('name').value = editedName;
 
     // Display success message
     alert('Information has been updated successfully');

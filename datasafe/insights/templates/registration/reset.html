@@ -8,59 +8,56 @@
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
         <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
+        <script>
+            //const registerUrl = "{% url 'register' %}";
+            //const homeUrl = "{% url 'home' %}";
+            //const loginUrl = "{% url 'login_user' %}";
+
+        </script>
         <script src="{% static 'script.js' %}"></script>
+       
     </head>
 <body>
 <h1 style="text-align: center;  color: black; font-size: 34px; font-family: Inter; font-weight: 400; word-wrap: break-word">
     DataSafe
 </h1>
 
-<div class="loginBox">
-    <form id="registrationForm" method="POST" action="{% url 'register_user' %}">
-        {% csrf_token %}
+<form method="post" action="{% url 'reset_password' %}">
+    {% csrf_token %}
+    {% if error %}
+            <script>showAlert("{{ error }}");</script>
+    {% endif %}
 
-        <h2>User Registration</h2>
+    <div class="loginBox">
+        <h2>Password Reset</h2>
         <div class="entries">
-            <input type="text" name="name" style="text-align: center;" id="name" placeholder="Name">
+            <input type="text" style="text-align: center;" name="email" id="email" placeholder="Email Address" autofocus>
         </div>
         <br>
         <div class="entries">
-            <input type="text" name="email" style="text-align: center;" id="email" placeholder="Email Address">
+            <input type="password" style="text-align: center;" name="password" id="password" placeholder="Password">
         </div>
         <br>
         <div class="entries">
-            <input type="date" name="dob" style="text-align: center;" id="dob">
+            <input type="password" style="text-align: center;" name="password2" id="password2" placeholder="Re-Enter new Password">
         </div>
         <br>
-        <div class="entries">
-            <input type="password" name="password" style="text-align: center;" id="password" placeholder="Password">
-        </div>
-        <br>
-        <div class="entries">
-            <input type="password" name="confirmPassword" style="text-align: center;" id="confirmPassword" placeholder="Confirm Password">
-        </div>
-        <br>
-    
-        <div class="pageText">
-            <span>Remeber details for automatic login</span>
-            <label class="switch">
-                <input id="remeberMeCheckbox" type="checkbox">
-                <span class="slider round"></span>
-            </label>
-        </div>
         <div class="greenButtons">
-            <button onclick="return validatePassword()">Register</button>
+            <button onclick="return reset_password()">Reset Password</button>
         </div>
-        
+        <br>
         <p style="font-size: 10px;">Or simply:</p>
         <div class="greenButtons" style="background-color: lightgray">
             <a style="color: black; font-size: small;" href="{% url 'home' %}">Continue as guest</a>
         </div>
-    </form>
-</div>
+    </div>
+</form>
 <script>
-    // JavaScript code to handle AJAX request and display alert message
-    document.addEventListener('DOMContentLoaded', function() {
+        function showAlert(message) {
+            alert(message);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
         var form = document.querySelector('form');
 
             form.addEventListener('submit', function(event) {
@@ -68,7 +65,7 @@
 
                 var formData = new FormData(form);
 
-                fetch('/register_user/', {  
+                fetch('/reset_password/', {  
                     method: 'POST',
                     body: formData
                 })
@@ -87,7 +84,8 @@
                 .catch(error => console.error('Error:', error));
             });
         });
+        
 </script>
-
 </body>
 </html>
+

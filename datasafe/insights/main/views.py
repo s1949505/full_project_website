@@ -6,15 +6,18 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 import json
 from ..models import Datacard
+from django.contrib import messages
+import re
 
+from django.contrib.auth import get_user_model
 
-
+User = get_user_model()
 
 
 def account_view(request):
@@ -28,6 +31,8 @@ def account_view(request):
     return render(request, 'main/account.html', context)
 def login_view(request):
     return render(request, 'registration/login.html')
+def reset_view(request):
+    return render(request, 'registration/reset.html')
 def browse_view(request):
     return render(request, 'main/browse.html')
 def complete_view(request):
@@ -138,7 +143,6 @@ def login_user(request):
 
 
 def login_user_process(request):
-    print("request method: ", request.method)
     if request.method == 'POST':
         print("logging in")
         email = request.POST.get('email').strip()  # Remove leading/trailing whitespace
@@ -149,7 +153,7 @@ def login_user_process(request):
         try:
             user = User.objects.get(email=email)  # Case-sensitive query
         except User.DoesNotExist:
-            return JsonResponse({'status': 'error', 'message': 'Unrecognized email'})
+            return JsonResponse({'Error': 'Unrecognized email'})
 
         user = authenticate(request, username=email, password=password)
         print("user: ", user)
@@ -164,9 +168,37 @@ def login_user_process(request):
 
             return redirect('home')
         else:
-            return JsonResponse({'status': 'error', 'message': 'Incorrect Password'})
+            return JsonResponse({'error': 'Incorrect Password'})
 
+    return JsonResponse({'error': 'Invalid request method'})
+
+def reset_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email').strip()  # Remove leading/trailing whitespace
+        password1 = request.POST.get('password')
+        password2 = request.POST.get('password2')
+
+        try:
+            user = User.objects.get(email=email)  # Case-sensitive query
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'Unrecognized email'})
+        
+        if password1 != password2:
+            return JsonResponse({'error': 'Passwords do not match'})
+        elif password1 == '':
+            return JsonResponse({'error': 'Password must be given a value'})
+        elif not re.match(r'^(?=.*\d).{8,}$', password1):
+            return JsonResponse({'error': 'Password must contain at least one number and be at least 8 characters long'})
+
+        
+        user.password = make_password(password1)
+        user.save()
+
+        return redirect('login')  # Redirect to login page after successful password reset
+
+    
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
 
 def process_file(filename, max_rows, max_cols, title_row):
     print("processing file")
@@ -409,3 +441,5 @@ def get_datacard(request):
             return JsonResponse({'error': 'Data card not found'}, status=404)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
+    
+    
