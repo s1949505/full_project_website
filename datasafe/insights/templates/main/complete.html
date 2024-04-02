@@ -94,7 +94,7 @@
                 <p style="color: blue;">Accessibility of the dataset: <span style="color: black;" id="accessibilityText"></span>
                 <br>
                 <span style="color: black;" id="accessibilityInfoText"></span></p>
-                <p style="color: blue;">Data Card Created: <span style="color: black;" id="date_created"></span></p>
+                <p style="color: blue;">Data Set Created: <span style="color: black;" id="dateText"></span></p>
 
             </div>
         </div>
@@ -198,8 +198,8 @@
         document.getElementById('fundingText').innerText = storedData['funding'];
         document.getElementById('fundingInfoText').innerText = storedData['fundingInfo'];
         document.getElementById('dateText').innerText = storedData['date'];
+        //document.getElementById('date_created').innerText = storedData['date_created'];
         document.getElementById('versionText').innerText = storedData['version'];
-        document.getElementById('date_created').innerText = storedData['date_created'];
 
 
         document.getElementById('applicationsText').innerText = storedData['applications'];
@@ -250,8 +250,8 @@
             { key: 'funding', targetElementId: 'fundingText' },
             { key: 'fundingInfo', targetElementId: 'fundingInfoText' },
             { key: 'date', targetElementId: 'dateText' },
+            //{ key: 'date_created', targetElementId: 'date_created' },
             { key: 'version', targetElementId: 'versionText' },
-            { key: 'date_created', targetElementId: 'date_created' },
 
            
             
@@ -294,12 +294,11 @@
             'Motivation for research: ',
             'Accessibility of the dataset: ',
             'Accessibility Information: ',
-            'Data Card Created: ', 
             'Combination: ',
             'Combination Information: ',
             'Funding: ',
             'Funding Information: ',
-            'Date of dataset ceration: ',
+            'Date of dataset creation: ',
             'Dataset version: ',
             'Main application(s): ',
             'Primary datatypes: ',

@@ -392,7 +392,7 @@ def save_datacard(request):
         print("datacard: ", datacard)
 
 
-        return JsonResponse({'message': 'Datacard saved successfully'})
+        return JsonResponse({'status': 'success'})
 
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
