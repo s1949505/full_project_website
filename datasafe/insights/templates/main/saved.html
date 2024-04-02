@@ -49,8 +49,10 @@
 </div>
 {% endif %}
 
+{% if request.user.is_authenticated %}
+
 <div style="position: relative; margin-left: 28%; font-family: 'Inria Sans'">
-    <h1>All Saved Datacards</h1>
+    <h1>All Saved Data Cards</h1>
     <ul id="allSavedDataList">
         {% for datacard in user_datacards %}
             {% if datacard.identifier %}
@@ -68,7 +70,13 @@
 </div>
 
 <button id="clearDatacardsBtn">Clear All Datacards</button>
+{% else %}
+<div style="position: relative; margin-left: 28%; font-family: 'Inria Sans'">
+    <h1>To view your saved data cardsm you must either log in or create an account!</h1>
 
+</div>
+
+{% endif %}
 
 <div class="footer" style="font-family: 'Inria Sans'; position: absolute">
     <a><u>Contact us:</u> <br> datasafecontact@gmail.com <br> DataSafe.twitter </a>
@@ -77,40 +85,42 @@
 </div>
 
 
-    <script src="{% static 'script.js' %}"></script>
+<script src="{% static 'script.js' %}"></script>
+{% if request.user.is_authenticated %}
     <script>
+        // Load and display all saved data from the library
+        window.onload = function () {
+            // Parse library from local storage
+            var userSavedCards = JSON.parse(localStorage.getItem('userSavedCards')) || [];
+            console.log('userSavedCards:', userSavedCards);
 
-    // Load and display all saved data from the library
-    window.onload = function () {
-    // Parse library from local storage
-    var userSavedCards = JSON.parse(localStorage.getItem('userSavedCards')) || [];
-    console.log('userSavedCards:', userSavedCards);
+            
+            // Get the allSavedDataList element
+            var allSavedDataList = document.getElementById('allSavedDataList');
 
-    
-    // Get the allSavedDataList element
-    var allSavedDataList = document.getElementById('allSavedDataList');
+            // Loop through library items and create links
+            for (var i = 0; i < userSavedCards.length; i++) {
+                var identifier = userSavedCards[i];
+                var storageKey = 'data_' + identifier;
+                var datasetName = localStorage.getItem(storageKey + '_DatasetName');
+                var user = localStorage.getItem(storageKey + '_user');
+                console.log(user)
 
-    // Loop through library items and create links
-    for (var i = 0; i < userSavedCards.length; i++) {
-        var identifier = userSavedCards[i];
-        var storageKey = 'data_' + identifier;
-        var datasetName = localStorage.getItem(storageKey + '_DatasetName');
-        var user = localStorage.getItem(storageKey + '_user');
-        console.log(user)
+                // Create list item and link
+                var listItem = document.createElement('li');
+                var link = document.createElement('a');
+                link.href = 'complete.html';
+                link.textContent = userSavedCards;
 
-        // Create list item and link
-        var listItem = document.createElement('li');
-        var link = document.createElement('a');
-        link.href = 'complete.html';
-        link.textContent = userSavedCards;
-
-        // Append link to list item and list item to the allSavedDataList
-        listItem.appendChild(link);
-        allSavedDataList.appendChild(listItem);
-    }
-};
+                // Append link to list item and list item to the allSavedDataList
+                listItem.appendChild(link);
+                allSavedDataList.appendChild(listItem);
+            }
+        };
 
 
     </script>
+{% endif %}
+
 </body>
 </html>

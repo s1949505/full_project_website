@@ -396,6 +396,7 @@ def save_datacard(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
+@login_required
 def saved_view(request):
     # Retrieve the data cards for the current user
     user_datacards = Datacard.objects.filter(user=request.user)
