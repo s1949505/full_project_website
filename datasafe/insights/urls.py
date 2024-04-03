@@ -38,7 +38,7 @@ urlpatterns = [
     path('intro/', intro, name='intro'),
     path('upload/', upload, name='upload'),
     path('dataset_review/', dataset_review, name='dataset_review'),
-    path('', home_view, name='home'),  # Redirect to 'intro' view for the root path
+    path('', home_view, name='home'),  
     path('account/', account_view, name='account'),
     path('browse/', browse_view, name='browse'),
     path('complete/', complete_view, name='complete_view'),
@@ -64,11 +64,4 @@ urlpatterns = [
     path('save_edited_info/', save_edited_info, name='save_edited_info'),
     path('delete_datacards/', delete_datacards, name='delete_datacards'),
 
-
-
-
-
-
-
-    # Add more paths as needed
 ]

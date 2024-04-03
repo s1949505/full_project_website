@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <div class="sidenav">
+<div class="sidenav" style="z-index: 1;"> 
     <li style="text-align:center; padding-top: 20px; padding-bottom: 10px; font-size:30px;">
         DataSafe
     </li>
@@ -228,13 +228,9 @@
         document.getElementById('citeText').innerText = storedData['cite'];
         document.getElementById('furtherText').innerText = storedData['further'];
 
-        // Optionally, you can add additional logic or formatting here
-
-        // For demonstration purposes, you can log the retrieved data to the console
-        console.log('Retrieved Data:', storedData);
+        //console.log('Retrieved Data:', storedData);
     }
         
-
         var keysArray = [
             //Question set 1
             { key: 'DatasetName', targetElementId: 'nameText' },
@@ -370,7 +366,6 @@
                 }
             }
             
-
             // Save the PDF file
             pdf.save('exported_content.pdf');
             alert("export successful")

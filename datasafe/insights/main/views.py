@@ -22,14 +22,13 @@ User = get_user_model()
 
 def account_view(request):
     if request.user.is_authenticated:
-        user_bio = request.user.bio  # Get the user's bio
+        user_bio = request.user.bio 
         user_links = request.user.contact
         user_name = request.user.first_name or "User"
     else:
         user_name = "User"
         user_links = "Where to find me"
         user_bio = "About me"
-    
     
     if user_bio == "" or len(user_bio) == 0 or not user_bio:
         user_bio = "User Bio"
@@ -41,10 +40,8 @@ def account_view(request):
             'bio': user_bio, 
             'links': user_links
         }
-    
-    print("ceqnlvwlvk: ", len(user_links))
-
     return render(request, 'main/account.html', context)
+
 def login_view(request):
     return render(request, 'registration/login.html')
 def reset_view(request):
@@ -56,7 +53,6 @@ def complete_view(request):
 def complete(request, identifier):
     return render(request, 'complete.html', {'identifier': identifier})
 def home_view(request):
-    print("check at redirect: ", request.user.is_authenticated)
     if request.user.is_authenticated:
         return render(request, 'main/home.html', {'is_authenticated': True})
     else:
@@ -80,11 +76,9 @@ def saved_view(request):
 
 def custom_logout(request):
     logout(request)
-    print("logging out")
     return redirect('home')
     
 def register_user(request):
-    print("registering user")
     if request.method == 'POST':
         name = request.POST['name']
         email = request.POST['email']
@@ -92,18 +86,11 @@ def register_user(request):
         password = request.POST['password']  
         confirm_password = request.POST['confirmPassword']  
         
-
-        print("confirm: ", confirm_password)   
-        
-        print("Received registration request for:", email)  # Print the email received
-
         if not all([name, email, dob, password]):
-            print("missing fields")
             return JsonResponse({'error': 'All fields must be completed to create an account.'})
 
         # Check if the email is already registered
         if User.objects.filter(email=email).exists():
-            print("email already used")
             return JsonResponse({'error': 'Email is already being used'})
         if confirm_password!= password:
             return JsonResponse({'error': 'Passwords do not match'})
@@ -116,31 +103,19 @@ def register_user(request):
 
         # Save the user instance
         user.save()
-        print("user: ", user)
-        print("email: ", email)
-        #print("password: ", hashed_password)
-
         # Authenticate the user
         user = authenticate(request, username=email, password=password)
-        print("authenticated_user: ", user)
         if user is not None:
-            print("User authenticated successfully:", user.username)  # Print authentication status
-
             login(request, user)
-            print("user authentication status: ", request.user.is_authenticated)
             request.session['is_authenticated'] = True
-            return redirect('home')  # Redirect to the home page or any other desired page
+            return redirect('home')  
         else:
-            print("user is none")
-            print("Authentication failed for user:", email)  # Print authentication failure message
-
             return JsonResponse({'error': 'Registration failed'})
     else:
         return JsonResponse({'error': 'Invalid request method'})
     
 
 def login_user(request):
-    print("herehreh")
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -151,8 +126,6 @@ def login_user(request):
             login(request, user)
             return JsonResponse({'status': 'success'})
         else:
-            print('Login failed: Invalid credentials')
-
             return JsonResponse({'status': 'error', 'message': 'Invalid credentials'})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request aaaaaaa method'})
@@ -160,19 +133,17 @@ def login_user(request):
 
 def login_user_process(request):
     if request.method == 'POST':
-        print("logging in")
-        email = request.POST.get('email').strip()  # Remove leading/trailing whitespace
+        email = request.POST.get('email').strip()  
         password = request.POST.get('password')
         remember_me = request.POST.get('remember_me') == 'on'
 
 
         try:
-            user = User.objects.get(email=email)  # Case-sensitive query
+            user = User.objects.get(email=email)  
         except User.DoesNotExist:
             return JsonResponse({'Error': 'Unrecognized email'})
 
         user = authenticate(request, username=email, password=password)
-        print("user: ", user)
         if user is not None:
             login(request, user)
             request.session['is_authenticated'] = True
@@ -190,12 +161,12 @@ def login_user_process(request):
 
 def reset_password(request):
     if request.method == 'POST':
-        email = request.POST.get('email').strip()  # Remove leading/trailing whitespace
+        email = request.POST.get('email').strip() 
         password1 = request.POST.get('password')
         password2 = request.POST.get('password2')
 
         try:
-            user = User.objects.get(email=email)  # Case-sensitive query
+            user = User.objects.get(email=email)  
         except User.DoesNotExist:
             return JsonResponse({'error': 'Unrecognized email'})
         
@@ -210,37 +181,29 @@ def reset_password(request):
         user.password = make_password(password1)
         user.save()
 
-        return redirect('login')  # Redirect to login page after successful password reset
+        return redirect('login')  
 
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 
 def process_file(filename, max_rows, max_cols, title_row):
-    print("processing file")
-    
     columns_to_read = f'A:{max_cols}'
-
     filetype = filename[-3:].lower()
     print(filetype)
     if filetype == "xls":
         if title_row == "Y":
-            print("title row ")
             data = pd.read_excel(filename, nrows=max_rows, usecols=columns_to_read, skiprows=1)
 
         elif title_row == "n":
-            print("no title row")
             data = pd.read_excel(filename, nrows=max_rows, usecols=columns_to_read)
 
     elif filetype == "csv":
         data = pd.read_csv(filename)
-        print("csv detected")
-
     else:
         print("Unrecognised input")
         
     clean_data = data.dropna(axis=0, how='all').dropna(axis=1, how='all')
-    print("file type passed")
 
     fields_to_search = ["age", "height", "ethnicity", "religion", "race", "ethical background", "sex", "Gender"]
 
@@ -249,8 +212,6 @@ def process_file(filename, max_rows, max_cols, title_row):
     for col in clean_data.columns:
         for field in fields_to_search:
             if field.lower() in col.lower():
-                print(field)
-                print(col)
                 matching_fields.append(col)
                 break
 
@@ -263,8 +224,7 @@ def process_file(filename, max_rows, max_cols, title_row):
         for field in matching_fields:
             unique_values = data[field].dropna().unique()
             result.append(f"\nField: {field}")
-            #result.append(f"Unique Values: {unique_values}")
-            #result.append(f"Value Counts:\n{data[field].value_counts()}")
+            
     # Check if the max value is 10% greater than the next highest
             value_counts = data[field].value_counts()
             max_value_field = value_counts.idxmax()
@@ -280,11 +240,8 @@ def process_file(filename, max_rows, max_cols, title_row):
 
 @csrf_exempt
 def upload(request):
-    print(request.FILES)
     if request.method == 'POST' and 'file' in request.FILES:
-        print("check 2")
         if file := request.FILES['file']:
-            print(file)
             fs = FileSystemStorage()
             filename = fs.save(file.name, file)
             file_path = fs.url(filename)
@@ -292,7 +249,6 @@ def upload(request):
             max_rows = "zz"
             max_cols = int
 
-            print(filename[-3:])
             if (filename[-3:] != "csv"):
                 max_rows = int(request.POST['max_rows'])
                 max_cols = request.POST['max_cols'].upper()
@@ -302,27 +258,23 @@ def upload(request):
             try:
                 result = process_file(filename, max_rows, max_cols, title_row)
             except Exception as e:
-                print("erororroror")
-                fs.delete(filename)  # Remove the uploaded file after processing
+                fs.delete(filename) 
                 return JsonResponse({'error': f'File processing error: {str(e)}'}, status=400)
 
-            fs.delete(filename)  # Remove the uploaded file after processing
+            fs.delete(filename)  
 
-    print("processing complete")
     return JsonResponse({'result': result})
 
 def dataset_review(request):
     # Retrieve and pass data for dataset review
     return render(request, 'review.html')
 
-@csrf_exempt  # Use this decorator for simplicity in this example; consider using a proper csrf protection method in production
+@csrf_exempt  
 def save_data(request):
     if request.method == 'POST':
         identifier = request.POST.get('identifier')
         dataset_name = request.POST.get('datasetName')
         user = request.POST.get('user')
-        # Extract other data fields as needed
-        # Save the data to your database or any storage mechanism
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
@@ -330,13 +282,10 @@ def save_data(request):
 
 @csrf_exempt
 def save_datacard(request):
-    print("doing save datacrd")
     if request.method == 'POST':
         dataset_name = request.POST.get('dataset_name')
         user_first_name = request.user.first_name 
         identifier = f"{user_first_name} {dataset_name}"
-
-        print("dataset name: ", dataset_name)
 
         # Retrieve form data from POST request
         data = {
@@ -387,10 +336,7 @@ def save_datacard(request):
 
 
         datacard = Datacard(user=request.user, **data)
-        print("user for card: ", request.user)
         datacard.save()
-        print("datacard: ", datacard)
-
 
         return JsonResponse({'status': 'success'})
 
@@ -401,18 +347,14 @@ def saved_view(request):
     # Retrieve the data cards for the current user
     user_datacards = Datacard.objects.filter(user=request.user)
 
-    print("user_datacards: ", user_datacards)
-
     # Pass the data cards to the template
     return render(request, 'main/saved.html', {'user_datacards': user_datacards})
 
 def get_datacard(request):
-    print("getting datacard from identifier")
     if request.method == 'GET':
         identifier = request.GET.get('identifier')
         try:
             datacard = Datacard.objects.get(identifier=identifier)
-            # Assuming DataCard model has fields like 'DatasetName', 'description', etc.
             data = {
                 'DatasetName': datacard.dataset_name,
                 'description': datacard.description,
@@ -427,7 +369,6 @@ def get_datacard(request):
                 'funding_info': datacard.funding_info,
                 'is_combination': datacard.is_combination,
                 'combination_info': datacard.combination_info,
-                #'date_created': datacard.date_created,
                 'version': datacard.version,
                 'applications': datacard.applications,
                 'datatypes': datacard.datatypes,

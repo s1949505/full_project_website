@@ -3,7 +3,7 @@ function saveText1(nextPage) {
 
     // Get the text from the textarea
     const DatasetName = document.getElementById("DatasetName").value;
-// Save the text to localStorage (you can use other storage mechanisms)
+    // Save the text to localStorage 
     localStorage.setItem("DatasetName", DatasetName);
     
     const description = document.getElementById("description").value;
@@ -183,19 +183,15 @@ function saveText2(nextPage) {
 
     var today = new Date();
 
-    // Extract day, month, and year
-    var day = today.getDate(); // Returns the day of the month (1-31)
-    var month = today.getMonth() + 1; // Returns the month (0-11), so add 1 to get the correct month
-    var year = today.getFullYear(); // Returns the year (4 digits)
+    var day = today.getDate();
+    var month = today.getMonth() + 1;
+    var year = today.getFullYear(); 
     
-    // Format the date as dd/mm/yyyy
     var formattedDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
     localStorage.setItem("date_created", formattedDate)
 
     window.location.href = nextPage;
 
-    //populateAnswers();
-    //populateAnswers3();
 
 }
 
@@ -297,12 +293,10 @@ function saveText3(nextPage) {
 
     var today = new Date();
 
-    // Extract day, month, and year
-    var day = today.getDate(); // Returns the day of the month (1-31)
-    var month = today.getMonth() + 1; // Returns the month (0-11), so add 1 to get the correct month
-    var year = today.getFullYear(); // Returns the year (4 digits)
+    var day = today.getDate(); 
+    var month = today.getMonth() + 1; 
+    var year = today.getFullYear(); 
     
-    // Format the date as dd/mm/yyyy
     var formattedDate = (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
     localStorage.setItem("date_created", formattedDate)
     
@@ -343,72 +337,11 @@ function populateAnswers3() {
     document.getElementById("further").value = further;
 }
 
-/**
-function saveTextToModel(nextPageUrl) {
-    // Retrieve data from the form
-    var formData = {
-        'DatasetName': document.getElementById('DatasetName').value,
-        'description': document.getElementById('description').value,
-        'motivation': document.getElementById('motivation').value,
-        'research': document.getElementById('research').value,
-        'authors': document.getElementById('authors').value,
-        'contributors': document.getElementById('contributors').value,
-        'date': document.getElementById('date').value,
-        'version': document.getElementById('version').value,
-        'accessibility': getSelectedRadioValue('accessibility'),
-        'accessibilityInfo': document.getElementById('accessibilityInfoArea').value,
-        'funding': getSelectedRadioValue('funding'),
-        'fundingInfo': document.getElementById('fundingInfoArea').value,
-        'combination': getSelectedRadioValue('combination'),
-        'combinationInfo': document.getElementById('combinationInfoArea').value
-    
-    };
-
-    // Save data to local storage
-    localStorage.setItem('formData', JSON.stringify(formData));
-
-    // Check if the user is logged in
-    var isLoggedIn = user.is_authenticated;
-
-    if (isLoggedIn) {
-        // If logged in, send AJAX request to save data to database
-        var csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
-        formData.csrfmiddlewaretoken = csrfToken; // Add CSRF token to data
-
-        fetch('/save_datacard/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,
-            },
-            body: JSON.stringify(formData),
-        })
-        .then(response => {
-            if (response.ok) {
-                // Data saved successfully, redirect to next page
-                window.location.href = nextPageUrl;
-            } else {
-                // Handle error
-                console.error('Error saving data to database');
-            }
-        })
-        .catch(error => {
-            console.error('Error saving data to database:', error);
-        });
-    } else {
-        // If not logged in, simply redirect to next page
-        window.location.href = nextPageUrl;
-    }
-}
-
-
- */
-// Function to gather data from the form and send it to the serve
 
 // Function to handle form submission
 function handleSubmit(event) {
-    event.preventDefault(); // Prevent default form submission
-    saveDataToServer(); // Call function to save data to the server
+    event.preventDefault(); 
+    saveDataToServer();
 }
 
 function displayLocalStorageData(key, targetElementId) {
@@ -493,81 +426,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-/**
-document.addEventListener('DOMContentLoaded', function () {
-    function login1() {
-        // Get user input
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const rememberMeCheckbox = document.getElementById('remeberMeCheckbox');
-        const csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
-
-
-        // Check if email and password are not blank
-        if (email.trim() === '' || password.trim() === '') {
-            alert('Please enter both email and password.');
-            return; // Stop execution if fields are blank
-        }
-
-
-        // Check if "Remember Me" is checked
-
-        if (rememberMeCheckbox.checked) {
-            // Save credentials to localStorage
-            localStorage.setItem('savedEmail', email);
-            localStorage.setItem('savedPassword', password);
-        } else {
-            // Clear saved credentials
-            localStorage.removeItem('savedEmail');
-            localStorage.removeItem('savedPassword');
-        }
-        
-        fetch(loginUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,  // Include the CSRF token in the headers
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password,
-            }),
-        })            
-
-        .then(response =>{
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Check the response from the server
-            if (data.status === 'success') {
-                alert('Login successful!');
-                window.location.href = "{% url 'home' %}";
-            } else {
-                alert('Login failed. Please check your credentials');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            console.error('Full Error Object:', error);
-
-            if (error.message && error.message.includes('unregistered email')) {
-                alert('This email is not recognized. To register a new account, click the "Register New Account" button.');
-            } else {
-                alert('An error occurred during login. Please try again.');
-            }
-        });
-    }
-    
-    window.login = login;
-
-
-});
- */
-
-
 function navButton(page){
     console.log("Navigating to:", page);
 
@@ -599,7 +457,6 @@ function showExtenstion(display, popupID, placeholder) {
     var textarea = additionalElement.querySelector('.popupTextArea');
     textarea.placeholder = placeholder;
 
-    // Display the additional element
     additionalElement.style.display = 'block';
 
     if (display=='hide'){
@@ -621,13 +478,9 @@ function validatePassword() {
     var noBlanks = !(email.trim() === '' && name.trim() === '' && dob.trim() === '');
 
     if (password === confirmPassword && hasNumber && validLength && noBlanks) {
-        //alert('Account successfully created');
         loggedIn = true;
         is_authenticated = true;
         localStorage.setItem("user", JSON.stringify(name));
-        //setTimeout(function() {
-        //    window.location.href = "/home/";
-        //}, 500);
         
     
     } else if (!noBlanks) {
@@ -645,27 +498,7 @@ function reset_password() {
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
     var password2 = document.getElementById("password2").value;
-/**
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "{% url 'reset_password' %}", true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                if (response.status === 'error') {
-                    alert(response.message);
-                } else {
-                    window.location.href = "{% url 'login' %}";
-                }
-            } else {
-                console.log('Error:', xhr.statusText);
-            }
-        }
-    };
-    var data = JSON.stringify({ email: email, password: password, password2: password2 });
-    xhr.send(data);
-     */
+
 }
 
 function toggleEditMode() {
@@ -723,7 +556,7 @@ function saveEditedInfo() {
     var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
     
     $.ajax({
-        url: '/save_edited_info/', // URL to your Django view for saving datacards
+        url: '/save_edited_info/', 
         method: 'POST',
         headers: {
             'X-CSRFToken': csrfToken
@@ -801,7 +634,7 @@ function saveToAccount(nextPageUrl) {
 
     // Send the data to the backend using AJAX
     $.ajax({
-        url: '/save_datacard/', // URL to your Django view for saving datacards
+        url: '/save_datacard/',
         method: 'POST',
         headers: {
             'X-CSRFToken': csrfToken
@@ -809,7 +642,7 @@ function saveToAccount(nextPageUrl) {
         data: data,
         success: function(response) {
             // Redirect to the account page
-            console.log("redirecting aaaaaaaaaaaaaaa")
+            console.log("redirecting to account")
             window.location.href = "/account/";
             
         },
@@ -831,7 +664,6 @@ document.getElementById('saveBtn').addEventListener('click', saveToAccount);
 function saveDatacardToLocalStorage(identifier, nextPage) {
     const datacard = {
         identifier: identifier,
-        // Populate other fields of the datacard object using the relevant data from your Django model
         dataset_name: "{{ datacard.dataset_name }}",
         description: "{{ datacard.description }}",
         motivation: "{{ datacard.motivation }}",
